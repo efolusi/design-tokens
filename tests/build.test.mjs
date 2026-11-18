@@ -69,7 +69,7 @@ test("Swift values are converted", () => {
 });
 
 const swiftc = spawnSync("swiftc", ["--version"]).status === 0;
-test("GlamorTokens.swift type-checks", { skip: !swiftc && "swiftc not installed" }, () => {
+test("GlamorTokens.swift type-checks", { skip: !swiftc && !process.env.REQUIRE_SWIFTC && "swiftc not installed" }, () => {
   execFileSync("swiftc", ["-typecheck", join(ROOT, "tokens/native/GlamorTokens.swift")], { stdio: "pipe" });
 });
 
