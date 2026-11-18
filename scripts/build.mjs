@@ -114,15 +114,26 @@ const FALLBACK = { "increased-dark": ["increased-dark", "dark"] };
 
 export function buildJs({ modeDefs, tokens }) {
   const resolve = resolver(tokens);
-  const table = (mode) =>
-    Object.fromEntries(
-      tokens.filter((t) => !mode || mode in t.modes).map((t) => [cssName(t.path), resolve(valueIn(t, FALLBACK[mode] ?? mode), FALLBACK[mode] ?? mode)]),
+  // Number-kind tokens (opacity, z, weight, leading) become JS numbers.
+  const value = (t, mode) => {
+    const v = resolve(valueIn(t, mode), mode);
+    return swiftKind(t) === "Number" ? Number(v) : v;
+  };
+  const base = Object.fromEntries(tokens.map((t) => [cssName(t.path), value(t, null)]));
+  // A mode lists every token whose resolved value differs from base, aliases included,
+  // so { ...tokens, ...modes[m] } is the full set for that mode.
+  const table = (mode) => {
+    const chain = FALLBACK[mode] ?? mode;
+    return Object.fromEntries(
+      tokens.map((t) => [cssName(t.path), value(t, chain)]).filter(([name, v]) => v !== base[name]),
     );
+  };
   const modes = Object.fromEntries(Object.keys(modeDefs).map((m) => [m, table(m)]));
   return (
     "// Generated from tokens.json by scripts/build.mjs. Do not edit.\n" +
-    "// `tokens` holds base values; `modes.<mode>` holds only the tokens that mode overrides.\n" +
-    `export const tokens = ${JSON.stringify(table(null), null, 2)};\n\n` +
+    "// `tokens` holds base values. `modes.<mode>` holds every token whose value differs in that mode,\n" +
+    "// so { ...tokens, ...modes[mode] } is the full set.\n" +
+    `export const tokens = ${JSON.stringify(base, null, 2)};\n\n` +
     `export const modes = ${JSON.stringify(modes, null, 2)};\n`
   );
 }
