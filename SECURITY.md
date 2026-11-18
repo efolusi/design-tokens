@@ -11,7 +11,7 @@ No tagged release yet. Until the first tag, only `main` is supported.
 
 ## Reporting a vulnerability
 
-This repo holds design tokens and (later) generated platform exports. It has no hosted backend, no telemetry, and collects no data. A malicious token edit can retheme every Meridian and Glamor consumer. A compromised release pipeline could publish poisoned exports.
+This repo holds design tokens and generated platform exports. It has no hosted backend, no telemetry, and collects no data. A malicious token edit can retheme every Meridian and Glamor consumer. A compromised release pipeline could publish poisoned exports.
 
 Report privately via [GitHub private vulnerability reporting](https://github.com/efolusi/design-tokens/security/advisories/new) or to **security@efolusi.com**. Do not open a public issue. Include the file, a reproduction, and impact. We aim to acknowledge within 72 hours and patch within 14 days (same contact and timing as Meridian).
 

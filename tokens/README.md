@@ -4,7 +4,7 @@ Root `../tokens.json` is the authored source.
 
 | Path | Intended consumer |
 |---|---|
-| `web/` | Meridian (CSS, Style Dictionary, DTCG, or similar) |
-| `native/` | Glamor (Swift and other native formats) |
+| `web/` | Meridian: `tokens.css`, `tokens.js` |
+| `native/` | Glamor: `GlamorTokens.swift` |
 
-Directories stay empty until generators exist. Do not hand-write “exports” that a script should produce.
+`scripts/build.mjs` writes these files. Do not edit them by hand.

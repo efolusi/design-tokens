@@ -1,5 +1,7 @@
 # Scripts
 
-Place generators and checks here when they exist (for example: emit `tokens/web/` and `tokens/native/` from `tokens.json`).
+| Script | Input | Output |
+|---|---|---|
+| `build.mjs` | `tokens.json` | `tokens/web/tokens.css`, `tokens/web/tokens.js`, `tokens/native/GlamorTokens.swift` |
 
-Nothing runs from this folder yet. Document each script’s input, output, and how CI should call it when you add one.
+`node scripts/build.mjs --check` exits 1 when an output is stale. CI should run `npm test`.

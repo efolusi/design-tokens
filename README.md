@@ -13,11 +13,26 @@ Framework-agnostic JSON. Consumers map names into CSS, Swift, or other platforms
 | `tokens.json` | Authored shared source, DTCG format |
 | `tokens/` | Export dirs: `web/`, `native/` when generators exist |
 | `docs/consumers.md` | How Meridian and Glamor use this repo |
-| `scripts/` | Generators and checks (stubs until pipelines exist) |
+| `scripts/build.mjs` | Builds `tokens/web/` and `tokens/native/` from `tokens.json` |
+| `tests/` | Checks aliases, names, and that exports are up to date |
 
 ## Status
 
-`tokens.json` is DTCG, copied from Meridian's generated `tokens.json` on 2026-11-18. Komando-only tokens (`term-*`, `ansi-*`, `tint-*`) live in `komando-apps/design/tokens.json`. Exporters for `tokens/web/` and `tokens/native/` are not written yet.
+`tokens.json` is DTCG, copied from Meridian's generated `tokens.json` on 2026-11-18. Komando-only tokens (`term-*`, `ansi-*`, `tint-*`) live in `komando-apps/design/tokens.json`. 
+## Build
+
+Needs Node 20 or newer. No dependencies.
+
+```bash
+npm run build   # write tokens/web/ and tokens/native/
+npm test        # aliases, names, stale exports, swiftc type-check
+```
+
+| Output | For | Names |
+|---|---|---|
+| `tokens/web/tokens.css` | Meridian | `--group-leaf`, same as Meridian's CSS |
+| `tokens/web/tokens.js` | Meridian, scripts | `tokens["text-primary"]`, `modes.dark[...]` |
+| `tokens/native/GlamorTokens.swift` | Glamor | `GlamorTokens.Color.textPrimary` (values only) |
 
 ## Ecosystem
 
