@@ -122,6 +122,9 @@ export const tokens = {
   "focus-ring-danger": "0 0 0 2px #FFFFFF,0 0 0 4px #C81E1E",
   "avatar-bg": "#F3F1EB",
   "avatar-fg": "#5E5545",
+  "avatar-sm": "24px",
+  "avatar-md": "32px",
+  "avatar-lg": "40px",
   "state-hover-on-card": "#F3F1EB",
   "state-hover-on-panel": "#F3F1EB",
   "state-hover-on-tab": "#FFFFFF",
@@ -166,9 +169,18 @@ export const tokens = {
   "radius-full": "999px",
   "container-max": "1200px",
   "container-text": "720px",
+  "control-h-xs": "24px",
   "control-h-sm": "28px",
   "control-h-md": "36px",
   "control-h-lg": "44px",
+  "icon-xs": "8px",
+  "icon-sm": "12px",
+  "icon-md": "16px",
+  "icon-lg": "20px",
+  "icon-xl": "24px",
+  "icon-2xl": "32px",
+  "sidebar-width": "256px",
+  "sidebar-width-icon": "48px",
   "tap-min": "44px",
   "table-pad-y": "12px",
   "table-pad-x": "16px",
@@ -267,6 +279,7 @@ export const modes = {
     "state-pressed": "#332C24"
   },
   "compact": {
+    "control-h-xs": "20px",
     "control-h-sm": "24px",
     "control-h-md": "30px",
     "control-h-lg": "38px",
@@ -274,6 +287,7 @@ export const modes = {
     "table-pad-x": "12px"
   },
   "coarse": {
+    "control-h-xs": "44px",
     "control-h-sm": "44px",
     "control-h-md": "44px"
   },
