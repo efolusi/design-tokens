@@ -68,11 +68,12 @@ const cssValue = (v) => String(v).replace(ALIAS, (_, key) => `var(--${cssName(ke
 // Meridian's file split: tokens/{colors,typography,spacing,effects}.css.
 const FILE_OF = {
   typography: ["font", "leading", "tracking", "weight"],
-  spacing: ["container", "control", "radius", "space", "table", "tap"],
+  spacing: ["container", "control", "icon", "radius", "sidebar", "space", "table", "tap"],
   effects: ["dur", "ease", "opacity", "shadow", "z"],
 };
 export function cssFile(t) {
   if (t.path[0] === "text") return t.type === "color" ? "colors" : "typography";
+  if (t.path[0] === "avatar") return t.type === "color" ? "colors" : "spacing";
   for (const [file, groups] of Object.entries(FILE_OF)) if (groups.includes(t.path[0])) return file;
   return "colors";
 }

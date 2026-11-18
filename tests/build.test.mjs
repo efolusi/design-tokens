@@ -81,6 +81,29 @@ test("the four CSS files hold every token once, same names as Meridian's split",
   assert.equal(cssFile({ path: ["text", "xs"], type: "dimension" }), "typography");
 });
 
+test("size groups: control xs, icon, avatar and sidebar", () => {
+  const css = (f) => readFileSync(join(ROOT, "tokens/web", f), "utf8");
+  const spacing = css("spacing.css");
+  const values = {
+    "control-h-xs": "24px",
+    "icon-xs": "8px", "icon-sm": "12px", "icon-md": "16px", "icon-lg": "20px", "icon-xl": "24px", "icon-2xl": "32px",
+    "avatar-sm": "24px", "avatar-md": "32px", "avatar-lg": "40px",
+    "sidebar-width": "256px", "sidebar-width-icon": "48px",
+  };
+  for (const [name, value] of Object.entries(values)) assert.match(spacing, new RegExp(`--${name}: ${value};`), name);
+  // control-h-xs follows the other control heights in compact and coarse modes
+  assert.match(spacing, /\[data-density="compact"\] \{[^}]*--control-h-xs: 20px;/);
+  assert.match(spacing, /--control-h-xs: var\(--tap-min\);/);
+  // avatar sizes sit with the sizes; avatar colours stay with the colours
+  assert.equal(cssFile({ path: ["avatar", "md"], type: "dimension" }), "spacing");
+  assert.equal(cssFile({ path: ["avatar", "bg"], type: "color" }), "colors");
+  assert.equal(cssFile({ path: ["icon", "md"], type: "dimension" }), "spacing");
+  assert.equal(cssFile({ path: ["sidebar", "width"], type: "dimension" }), "spacing");
+  assert.doesNotMatch(css("colors.css"), /--avatar-(sm|md|lg):/);
+  const swift = buildSwift(src);
+  for (const name of ["controlHXs", "iconXs", "icon2xl", "avatarMd", "sidebarWidthIcon"]) assert.match(swift, new RegExp(`static let ${name}: Double = `), name);
+});
+
 test("CSS keeps Meridian's theme behaviour", () => {
   const css = readFileSync(join(ROOT, "tokens/web/colors.css"), "utf8");
   assert.match(css, /^:root \{\n  color-scheme: light;/m);
