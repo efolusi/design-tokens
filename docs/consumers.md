@@ -2,16 +2,24 @@
 
 How Meridian and Glamor use this repo.
 
-| Consumer | Runtime | Today | Target |
+| Consumer | Runtime | Vendors | Pin and check |
 |---|---|---|---|
-| [Meridian](https://github.com/efolusi/meridian) | CSS, React, CDN / npm | Own `tokens.json` in that repo | Import / generate from `tokens/web/` |
-| [Glamor](https://github.com/efolusi/glamor) | SwiftUI seeds, HTML previews | Own root `tokens.json` (Komando seed) | Import / generate from `tokens/native/` |
+| [Meridian](https://github.com/efolusi/meridian) | CSS, React, CDN / npm | `tokens.json`, `tokens/web/*.css` | `tokens/design-tokens.lock.json`; `scripts/sync_tokens.mjs --check` (upstream in CI) |
+| [Glamor](https://github.com/efolusi/glamor) | SwiftUI | `tokens/native/GlamorTokens.swift` | `TOKENS_VERSION` and `TOKENS_COMMIT` in `scripts/vendor-tokens.sh`; `--check` |
 
 ## Shared rules
 
 - Same token **names** and **roles** on web and native.
 - Theme and density may change values; they should not invent parallel names for the same job.
 - Product-only tokens stay out of this repo until a second product needs them.
+
+## Releasing a new version
+
+Web and native tokens stay identical only if both consumers move together:
+
+1. Tag the new design-tokens version.
+2. Re-vendor it in Meridian (`node scripts/sync_tokens.mjs <tag>`) and in Glamor (set `TOKENS_VERSION` and `TOKENS_COMMIT`, run `scripts/vendor-tokens.sh`), to the same tag.
+3. Neither Meridian nor Glamor releases while it pins a different design-tokens version than the other.
 
 ## Format
 
