@@ -131,3 +131,8 @@ test("an alias without its own dark value follows its target's dark value", () =
   assert.equal(pair("surfacePanel"), pair("surfaceCard"));
   assert.equal(pair("avatarFg"), pair("textSecondary"));
 });
+
+test("JS increased-dark aliases follow the dark value of their target", async () => {
+  const { modes } = await import("../tokens/web/tokens.js");
+  assert.equal(modes["increased-dark"]["border-default"], modes.dark["border-control"] ?? "#786E59");
+});

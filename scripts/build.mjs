@@ -109,11 +109,14 @@ export function buildCss({ base, modeDefs, tokens }, { extras = true } = {}) {
   return out;
 }
 
+// A mode a token lacks falls back along this chain, as it does in the CSS cascade.
+const FALLBACK = { "increased-dark": ["increased-dark", "dark"] };
+
 export function buildJs({ modeDefs, tokens }) {
   const resolve = resolver(tokens);
   const table = (mode) =>
     Object.fromEntries(
-      tokens.filter((t) => !mode || mode in t.modes).map((t) => [cssName(t.path), resolve(valueIn(t, mode), mode)]),
+      tokens.filter((t) => !mode || mode in t.modes).map((t) => [cssName(t.path), resolve(valueIn(t, FALLBACK[mode] ?? mode), FALLBACK[mode] ?? mode)]),
     );
   const modes = Object.fromEntries(Object.keys(modeDefs).map((m) => [m, table(m)]));
   return (

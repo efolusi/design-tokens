@@ -192,7 +192,16 @@ export const tokens = {
   "opacity-tint": "0.12",
   "opacity-pill": "0.1",
   "opacity-increased": "0.16",
-  "opacity-banner": "0.1"
+  "opacity-banner": "0.1",
+  "opacity-selected": "0.1",
+  "opacity-banner-edge": "0.25",
+  "opacity-attention": "0.05",
+  "opacity-attention-edge": "0.25",
+  "opacity-ring": "0.7",
+  "opacity-kbd": "0.18",
+  "opacity-soft-hairline": "0.7",
+  "opacity-chip": "0.6",
+  "opacity-disabled": "0.3"
 };
 
 export const modes = {
@@ -256,6 +265,24 @@ export const modes = {
     "control-h-md": "44px",
     "control-h-lg": "44px"
   },
-  "increased": {},
-  "increased-dark": {}
+  "increased": {
+    "danger-600": "#B91C1C",
+    "text-muted": "#5E5545",
+    "border-default": "#948A74",
+    "state-hover-on-card": "#E7E3D9",
+    "state-hover-on-panel": "#E7E3D9",
+    "state-hover-on-tab": "#E7E3D9",
+    "state-hover-on-window": "#E7E3D9",
+    "state-pressed": "#D5CFC0"
+  },
+  "increased-dark": {
+    "danger-600": "#F49B93",
+    "text-muted": "#C9C0B2",
+    "border-default": "#786E59",
+    "state-hover-on-card": "#2E2922",
+    "state-hover-on-panel": "#2E2922",
+    "state-hover-on-tab": "#2E2922",
+    "state-hover-on-window": "#2E2922",
+    "state-pressed": "#443D32"
+  }
 };

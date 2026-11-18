@@ -69,7 +69,7 @@ public enum GlamorTokens {
         public static let warningContrast = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
         public static let danger100 = ColorPair(light: RGBA(0.9922, 0.9333, 0.9255, 1.0), dark: RGBA(0.1961, 0.1059, 0.0941, 1.0))
         public static let danger300 = ColorPair(light: RGBA(0.9608, 0.7765, 0.7529, 1.0), dark: RGBA(0.3294, 0.1608, 0.1216, 1.0))
-        public static let danger600 = ColorPair(light: RGBA(0.7843, 0.1176, 0.1176, 1.0), dark: RGBA(0.9098, 0.3647, 0.2902, 1.0))
+        public static let danger600 = ColorPair(light: RGBA(0.7843, 0.1176, 0.1176, 1.0), dark: RGBA(0.9098, 0.3647, 0.2902, 1.0), increasedLight: RGBA(0.7255, 0.1098, 0.1098, 1.0), increasedDark: RGBA(0.9569, 0.6078, 0.5765, 1.0))
         public static let danger700 = ColorPair(light: RGBA(0.7255, 0.1098, 0.1098, 1.0), dark: RGBA(0.9569, 0.4667, 0.3961, 1.0))
         public static let dangerOnDark = ColorPair(light: RGBA(0.9569, 0.6078, 0.5765, 1.0), dark: RGBA(0.9569, 0.6078, 0.5765, 1.0))
         public static let dangerContrast = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
@@ -96,13 +96,13 @@ public enum GlamorTokens {
         public static let textOnMediaMuted = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 0.75), dark: RGBA(0.9804, 0.9765, 0.9647, 0.75))
         public static let textPrimary = ColorPair(light: RGBA(0.1176, 0.102, 0.0784, 1.0), dark: RGBA(0.9529, 0.9373, 0.9059, 1.0))
         public static let textSecondary = ColorPair(light: RGBA(0.3686, 0.3333, 0.2706, 1.0), dark: RGBA(0.7882, 0.7529, 0.698, 1.0))
-        public static let textMuted = ColorPair(light: RGBA(0.4549, 0.4157, 0.3333, 1.0), dark: RGBA(0.6118, 0.5725, 0.502, 1.0))
+        public static let textMuted = ColorPair(light: RGBA(0.4549, 0.4157, 0.3333, 1.0), dark: RGBA(0.6118, 0.5725, 0.502, 1.0), increasedLight: RGBA(0.3686, 0.3333, 0.2706, 1.0), increasedDark: RGBA(0.7882, 0.7529, 0.698, 1.0))
         public static let textInverse = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
         public static let textInverseMuted = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 0.6), dark: RGBA(0.1176, 0.102, 0.0784, 0.55))
         public static let textLink = ColorPair(light: RGBA(0.4784, 0.3059, 0.1686, 1.0), dark: RGBA(0.8078, 0.6118, 0.4, 1.0))
         public static let textLinkHover = ColorPair(light: RGBA(0.2824, 0.1569, 0.0941, 1.0), dark: RGBA(0.8745, 0.7098, 0.5216, 1.0))
         public static let borderCode = ColorPair(light: RGBA(0.9412, 0.9216, 0.8824, 0.09), dark: RGBA(0.9412, 0.9216, 0.8824, 0.09))
-        public static let borderDefault = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0))
+        public static let borderDefault = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0), increasedLight: RGBA(0.5804, 0.5412, 0.4549, 1.0), increasedDark: RGBA(0.4706, 0.4314, 0.349, 1.0))
         public static let borderStrong = ColorPair(light: RGBA(0.8353, 0.8118, 0.7529, 1.0), dark: RGBA(0.2706, 0.2353, 0.1922, 1.0))
         public static let borderInverse = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 0.18), dark: RGBA(0.1176, 0.102, 0.0784, 0.2))
         public static let borderControl = ColorPair(light: RGBA(0.5804, 0.5412, 0.4549, 1.0), dark: RGBA(0.4706, 0.4314, 0.349, 1.0))
@@ -134,11 +134,11 @@ public enum GlamorTokens {
         public static let focusRingOffset = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
         public static let avatarBg = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
         public static let avatarFg = ColorPair(light: RGBA(0.3686, 0.3333, 0.2706, 1.0), dark: RGBA(0.7882, 0.7529, 0.698, 1.0))
-        public static let stateHoverOnCard = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
-        public static let stateHoverOnPanel = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
-        public static let stateHoverOnTab = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
-        public static let stateHoverOnWindow = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
-        public static let statePressed = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0))
+        public static let stateHoverOnCard = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
+        public static let stateHoverOnPanel = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
+        public static let stateHoverOnTab = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
+        public static let stateHoverOnWindow = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
+        public static let statePressed = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0), increasedLight: RGBA(0.8353, 0.8118, 0.7529, 1.0), increasedDark: RGBA(0.2667, 0.2392, 0.1961, 1.0))
     }
 
     /// Lengths in points (CSS px = pt).
@@ -218,6 +218,15 @@ public enum GlamorTokens {
         public static let opacityPill: Double = 0.1
         public static let opacityIncreased: Double = 0.16
         public static let opacityBanner: Double = 0.1
+        public static let opacitySelected: Double = 0.1
+        public static let opacityBannerEdge: Double = 0.25
+        public static let opacityAttention: Double = 0.05
+        public static let opacityAttentionEdge: Double = 0.25
+        public static let opacityRing: Double = 0.7
+        public static let opacityKbd: Double = 0.18
+        public static let opacitySoftHairline: Double = 0.7
+        public static let opacityChip: Double = 0.6
+        public static let opacityDisabled: Double = 0.3
     }
 
     /// Letter spacing as a fraction of the font size.

@@ -193,6 +193,15 @@
   --opacity-pill: 0.1;
   --opacity-increased: 0.16;
   --opacity-banner: 0.1;
+  --opacity-selected: 0.1;
+  --opacity-banner-edge: 0.25;
+  --opacity-attention: 0.05;
+  --opacity-attention-edge: 0.25;
+  --opacity-ring: 0.7;
+  --opacity-kbd: 0.18;
+  --opacity-soft-hairline: 0.7;
+  --opacity-chip: 0.6;
+  --opacity-disabled: 0.3;
 }
 
 [data-theme="dark"] {
@@ -320,5 +329,44 @@
     --control-h-sm: var(--tap-min);
     --control-h-md: var(--tap-min);
     --control-h-lg: var(--tap-min);
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --danger-600: var(--danger-700);
+    --text-muted: var(--text-secondary);
+    --border-default: var(--border-control);
+    --state-hover-on-card: var(--sand-200);
+    --state-hover-on-panel: var(--sand-200);
+    --state-hover-on-tab: var(--sand-200);
+    --state-hover-on-window: var(--sand-200);
+    --state-pressed: var(--sand-300);
+  }
+}
+
+@media (prefers-contrast: more) {
+  [data-theme="dark"] {
+    --danger-600: var(--danger-on-dark);
+    --text-muted: var(--text-secondary);
+    --border-default: var(--border-control);
+    --state-hover-on-card: var(--sand-900);
+    --state-hover-on-panel: var(--sand-900);
+    --state-hover-on-tab: var(--sand-900);
+    --state-hover-on-window: var(--sand-900);
+    --state-pressed: var(--sand-800);
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme:dark) {
+  :root:not(:where([data-theme="light"])) {
+    --danger-600: var(--danger-on-dark);
+    --text-muted: var(--text-secondary);
+    --border-default: var(--border-control);
+    --state-hover-on-card: var(--sand-900);
+    --state-hover-on-panel: var(--sand-900);
+    --state-hover-on-tab: var(--sand-900);
+    --state-hover-on-window: var(--sand-900);
+    --state-pressed: var(--sand-800);
   }
 }

@@ -22,4 +22,13 @@
   --opacity-pill: 0.1;
   --opacity-increased: 0.16;
   --opacity-banner: 0.1;
+  --opacity-selected: 0.1;
+  --opacity-banner-edge: 0.25;
+  --opacity-attention: 0.05;
+  --opacity-attention-edge: 0.25;
+  --opacity-ring: 0.7;
+  --opacity-kbd: 0.18;
+  --opacity-soft-hairline: 0.7;
+  --opacity-chip: 0.6;
+  --opacity-disabled: 0.3;
 }
