@@ -1,5 +1,6 @@
 /* Generated from tokens.json by scripts/build.mjs. Do not edit. */
 :root {
+  color-scheme: light;
   --sand-25: #FCFBF9;
   --sand-50: #FAF9F6;
   --sand-100: #F3F1EB;
@@ -178,6 +179,7 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --success-100: #1C2B1F;
   --success-300: #2E4A34;
   --success-600: #5FB86E;
@@ -223,6 +225,64 @@
   --accent-subtle-fg: var(--brand-400);
   --focus-ring-color: var(--brand-400);
 }
+[data-theme="dark"] ::selection {
+  background: #453728;
+  color: #F3EFE7;
+}
+
+@media (prefers-color-scheme:dark) {
+  :root:not(:where([data-theme="light"])) {
+    color-scheme: dark;
+    --success-100: #1C2B1F;
+    --success-300: #2E4A34;
+    --success-600: #5FB86E;
+    --success-contrast: #1E1A14;
+    --warning-100: #2E2413;
+    --warning-300: #4A3A1D;
+    --warning-600: #D9822B;
+    --warning-contrast: #1E1A14;
+    --danger-100: #321B18;
+    --danger-300: #54291F;
+    --danger-600: #E85D4A;
+    --danger-700: #F47765;
+    --danger-contrast: #1E1A14;
+    --chart-1: #3987E5;
+    --chart-2: #D95926;
+    --chart-3: #199E70;
+    --chart-4: #9085E9;
+    --chart-5: #D55181;
+    --surface-page: #191512;
+    --surface-card: #211C17;
+    --surface-sunken: #2A251E;
+    --surface-subtle: #1D1814;
+    --surface-inverse: var(--sand-50);
+    --surface-brand: var(--brand-950);
+    --text-primary: #F3EFE7;
+    --text-secondary: #C9C0B2;
+    --text-muted: #9C9280;
+    --text-inverse: var(--sand-950);
+    --text-inverse-muted: rgba(30,26,20,.55);
+    --text-link: var(--brand-400);
+    --text-link-hover: var(--brand-300);
+    --border-default: #332C24;
+    --border-strong: #453C31;
+    --border-inverse: rgba(30,26,20,.2);
+    --border-control: var(--sand-600);
+    --border-control-hover: var(--sand-400);
+    --accent: #F3EFE7;
+    --accent-hover: #FFFFFF;
+    --accent-active: #D5CFC0;
+    --accent-subtle: #2A2119;
+    --accent-subtle-border: #453728;
+    --accent-contrast: #1E1A14;
+    --accent-subtle-fg: var(--brand-400);
+    --focus-ring-color: var(--brand-400);
+  }
+  :root:not(:where([data-theme="light"])) ::selection {
+    background: #453728;
+    color: #F3EFE7;
+  }
+}
 
 [data-density="compact"] {
   --control-h-sm: 24px;
@@ -233,7 +293,7 @@
 }
 
 @media (pointer: coarse) {
-  :root {
+  :root, [data-density="compact"] {
     --control-h-sm: var(--tap-min);
     --control-h-md: var(--tap-min);
     --control-h-lg: var(--tap-min);

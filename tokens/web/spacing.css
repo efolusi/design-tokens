@@ -39,7 +39,7 @@
 }
 
 @media (pointer: coarse) {
-  :root {
+  :root, [data-density="compact"] {
     --control-h-sm: var(--tap-min);
     --control-h-md: var(--tap-min);
     --control-h-lg: var(--tap-min);

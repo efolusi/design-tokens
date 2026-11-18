@@ -34,6 +34,8 @@ Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (c
 
 | Mode | Web | Swift |
 |---|---|---|
-| `dark` | `[data-theme="dark"]` | `ColorPair.dark` |
+| `dark` | `[data-theme="dark"]`, and `@media (prefers-color-scheme:dark)` unless `data-theme="light"`; sets `color-scheme` and `::selection` | `ColorPair.dark` |
 | `compact` | `[data-density="compact"]` | `GlamorTokens.Compact` |
-| `coarse` | `@media (pointer: coarse)` | not emitted; touch devices use `GlamorTokens.Length.tapMin` |
+| `coarse` | `@media (pointer: coarse)` on `:root` and `[data-density="compact"]` | not emitted; touch devices use `GlamorTokens.Length.tapMin` |
+
+The blocks for each mode live in root `$extensions."com.efolusi.meridian".modes`. `color-scheme` and `::selection` are fixed extras there, not tokens, and go only into the CSS files that hold colors.

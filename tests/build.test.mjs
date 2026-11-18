@@ -18,7 +18,7 @@ test("committed exports match tokens.json", () => {
 test("every alias resolves in every mode", () => {
   const resolve = resolver(src.tokens);
   for (const t of src.tokens) {
-    for (const mode of [null, ...Object.keys(src.selectors)]) {
+    for (const mode of [null, ...Object.keys(src.modeDefs)]) {
       assert.doesNotMatch(resolve(valueIn(t, mode), mode), /\{/, t.path.join("."));
     }
   }
@@ -26,7 +26,7 @@ test("every alias resolves in every mode", () => {
 
 test("modes used by tokens are declared at the root", () => {
   for (const t of src.tokens) {
-    for (const mode of Object.keys(t.modes)) assert.ok(mode in src.selectors, `${t.path.join(".")}: ${mode}`);
+    for (const mode of Object.keys(t.modes)) assert.ok(mode in src.modeDefs, `${t.path.join(".")}: ${mode}`);
   }
 });
 
@@ -79,4 +79,18 @@ test("the four CSS files hold every token once, same names as Meridian's split",
   assert.equal(n("colors.css") + n("typography.css") + n("spacing.css") + n("effects.css"), all);
   assert.equal(cssFile({ path: ["text", "primary"], type: "color" }), "colors");
   assert.equal(cssFile({ path: ["text", "xs"], type: "dimension" }), "typography");
+});
+
+test("CSS keeps Meridian's theme behaviour", () => {
+  const css = readFileSync(join(ROOT, "tokens/web/colors.css"), "utf8");
+  assert.match(css, /^:root \{\n  color-scheme: light;/m);
+  const dark = css.match(/^\[data-theme="dark"\] \{\n([\s\S]*?)\n\}/m)[1];
+  const os = css.match(/@media \(prefers-color-scheme:dark\) \{\n  :root:not\(:where\(\[data-theme="light"\]\)\) \{\n([\s\S]*?)\n  \}/)[1];
+  assert.equal(os.replace(/^  /gm, ""), dark, "OS-follow block must equal the dark block");
+  assert.match(dark, /color-scheme: dark;/);
+  assert.match(css, /\[data-theme="dark"\] ::selection \{/);
+  assert.match(css, /:root:not\(:where\(\[data-theme="light"\]\)\) ::selection \{/);
+  const spacing = readFileSync(join(ROOT, "tokens/web/spacing.css"), "utf8");
+  assert.match(spacing, /@media \(pointer: coarse\) \{\n  :root, \[data-density="compact"\] \{/);
+  assert.doesNotMatch(spacing, /color-scheme|::selection/);
 });

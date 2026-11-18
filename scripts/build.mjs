@@ -12,7 +12,9 @@ const EXT = "com.efolusi.meridian";
 
 export function load(path = join(ROOT, "tokens.json")) {
   const doc = JSON.parse(readFileSync(path, "utf8"));
-  const selectors = doc.$extensions?.[EXT]?.modes ?? {};
+  const ext = doc.$extensions?.[EXT] ?? {};
+  const modeDefs = ext.modes ?? {};
+  const base = ext.base ?? {};
   const tokens = [];
   const walk = (node, path) => {
     for (const [key, val] of Object.entries(node)) {
@@ -28,7 +30,7 @@ export function load(path = join(ROOT, "tokens.json")) {
     }
   };
   walk(doc, []);
-  return { selectors, tokens };
+  return { base, modeDefs, tokens };
 }
 
 // "text.primary" -> "text-primary"; "accent._" -> "accent"
@@ -70,29 +72,46 @@ export function cssFile(t) {
   for (const [file, groups] of Object.entries(FILE_OF)) if (groups.includes(t.path[0])) return file;
   return "colors";
 }
-const part = (file) => (src) => buildCss({ ...src, tokens: src.tokens.filter((t) => cssFile(t) === file) });
+const part = (file) => (src) =>
+  buildCss({ ...src, tokens: src.tokens.filter((t) => cssFile(t) === file) }, { extras: file === "colors" });
 
-export function buildCss({ selectors, tokens }) {
-  const decl = (list, pick) => list.map((t) => `  --${cssName(t.path)}: ${cssValue(pick(t))};`).join("\n");
-  let out = `/* Generated from tokens.json by scripts/build.mjs. Do not edit. */\n:root {\n${decl(tokens, (t) => t.value)}\n}\n`;
-  for (const [mode, selector] of Object.entries(selectors)) {
+// Mode blocks come from root $extensions: each block is a selector, optionally inside @media.
+// `declarations` (color-scheme) and `rules` (::selection) are not tokens; only files with colors get them.
+export function buildCss({ base, modeDefs, tokens }, { extras = true } = {}) {
+  const lines = (list, pick, decls) => [
+    ...(extras ? Object.entries(decls ?? {}).map(([k, v]) => `${k}: ${v};`) : []),
+    ...list.map((t) => `--${cssName(t.path)}: ${cssValue(pick(t))};`),
+  ];
+  const rule = (selector, body, pad) =>
+    `${pad}${selector} {\n${body.map((l) => `${pad}  ${l}`).join("\n")}\n${pad}}\n`;
+  let out = "/* Generated from tokens.json by scripts/build.mjs. Do not edit. */\n";
+  out += rule(":root", lines(tokens, (t) => t.value, base.declarations), "");
+  for (const [mode, def] of Object.entries(modeDefs)) {
     const list = tokens.filter((t) => mode in t.modes);
     if (!list.length) continue;
-    const body = decl(list, (t) => t.modes[mode]);
-    out += selector.startsWith("@media")
-      ? `\n${selector} {\n  :root {\n${body.replace(/^/gm, "  ")}\n  }\n}\n`
-      : `\n${selector} {\n${body}\n}\n`;
+    const body = lines(list, (t) => t.modes[mode], def.declarations);
+    for (const { media, selector } of def.blocks) {
+      const pad = media ? "  " : "";
+      let block = rule(selector, body, pad);
+      if (extras) {
+        for (const [pseudo, props] of Object.entries(def.rules ?? {})) {
+          const sel = selector.split(/,\s*/).map((s) => `${s} ${pseudo}`).join(", ");
+          block += rule(sel, Object.entries(props).map(([k, v]) => `${k}: ${v};`), pad);
+        }
+      }
+      out += media ? `\n@media ${media} {\n${block}}\n` : `\n${block}`;
+    }
   }
   return out;
 }
 
-export function buildJs({ selectors, tokens }) {
+export function buildJs({ modeDefs, tokens }) {
   const resolve = resolver(tokens);
   const table = (mode) =>
     Object.fromEntries(
       tokens.filter((t) => !mode || mode in t.modes).map((t) => [cssName(t.path), resolve(valueIn(t, mode), mode)]),
     );
-  const modes = Object.fromEntries(Object.keys(selectors).map((m) => [m, table(m)]));
+  const modes = Object.fromEntries(Object.keys(modeDefs).map((m) => [m, table(m)]));
   return (
     "// Generated from tokens.json by scripts/build.mjs. Do not edit.\n" +
     "// `tokens` holds base values; `modes.<mode>` holds only the tokens that mode overrides.\n" +
