@@ -266,23 +266,11 @@ export const modes = {
     "control-h-lg": "44px"
   },
   "increased": {
-    "danger-600": "#B91C1C",
     "text-muted": "#5E5545",
-    "border-default": "#948A74",
-    "state-hover-on-card": "#E7E3D9",
-    "state-hover-on-panel": "#E7E3D9",
-    "state-hover-on-tab": "#E7E3D9",
-    "state-hover-on-window": "#E7E3D9",
-    "state-pressed": "#D5CFC0"
+    "border-default": "#948A74"
   },
   "increased-dark": {
-    "danger-600": "#F49B93",
     "text-muted": "#C9C0B2",
-    "border-default": "#786E59",
-    "state-hover-on-card": "#2E2922",
-    "state-hover-on-panel": "#2E2922",
-    "state-hover-on-tab": "#2E2922",
-    "state-hover-on-window": "#2E2922",
-    "state-pressed": "#443D32"
+    "border-default": "#786E59"
   }
 };

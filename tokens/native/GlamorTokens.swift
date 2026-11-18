@@ -69,7 +69,7 @@ public enum GlamorTokens {
         public static let warningContrast = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
         public static let danger100 = ColorPair(light: RGBA(0.9922, 0.9333, 0.9255, 1.0), dark: RGBA(0.1961, 0.1059, 0.0941, 1.0))
         public static let danger300 = ColorPair(light: RGBA(0.9608, 0.7765, 0.7529, 1.0), dark: RGBA(0.3294, 0.1608, 0.1216, 1.0))
-        public static let danger600 = ColorPair(light: RGBA(0.7843, 0.1176, 0.1176, 1.0), dark: RGBA(0.9098, 0.3647, 0.2902, 1.0), increasedLight: RGBA(0.7255, 0.1098, 0.1098, 1.0), increasedDark: RGBA(0.9569, 0.6078, 0.5765, 1.0))
+        public static let danger600 = ColorPair(light: RGBA(0.7843, 0.1176, 0.1176, 1.0), dark: RGBA(0.9098, 0.3647, 0.2902, 1.0))
         public static let danger700 = ColorPair(light: RGBA(0.7255, 0.1098, 0.1098, 1.0), dark: RGBA(0.9569, 0.4667, 0.3961, 1.0))
         public static let dangerOnDark = ColorPair(light: RGBA(0.9569, 0.6078, 0.5765, 1.0), dark: RGBA(0.9569, 0.6078, 0.5765, 1.0))
         public static let dangerContrast = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
@@ -134,11 +134,11 @@ public enum GlamorTokens {
         public static let focusRingOffset = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
         public static let avatarBg = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
         public static let avatarFg = ColorPair(light: RGBA(0.3686, 0.3333, 0.2706, 1.0), dark: RGBA(0.7882, 0.7529, 0.698, 1.0))
-        public static let stateHoverOnCard = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
-        public static let stateHoverOnPanel = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
-        public static let stateHoverOnTab = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
-        public static let stateHoverOnWindow = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0), increasedLight: RGBA(0.9059, 0.8902, 0.851, 1.0), increasedDark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
-        public static let statePressed = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0), increasedLight: RGBA(0.8353, 0.8118, 0.7529, 1.0), increasedDark: RGBA(0.2667, 0.2392, 0.1961, 1.0))
+        public static let stateHoverOnCard = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
+        public static let stateHoverOnPanel = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
+        public static let stateHoverOnTab = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
+        public static let stateHoverOnWindow = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
+        public static let statePressed = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0), increasedLight: RGBA(0.5804, 0.5412, 0.4549, 1.0), increasedDark: RGBA(0.4706, 0.4314, 0.349, 1.0))
     }
 
     /// Lengths in points (CSS px = pt).

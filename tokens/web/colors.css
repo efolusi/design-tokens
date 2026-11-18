@@ -230,39 +230,21 @@
 
 @media (prefers-contrast: more) {
   :root {
-    --danger-600: var(--danger-700);
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
-    --state-hover-on-card: var(--sand-200);
-    --state-hover-on-panel: var(--sand-200);
-    --state-hover-on-tab: var(--sand-200);
-    --state-hover-on-window: var(--sand-200);
-    --state-pressed: var(--sand-300);
   }
 }
 
 @media (prefers-contrast: more) {
   [data-theme="dark"] {
-    --danger-600: var(--danger-on-dark);
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
-    --state-hover-on-card: var(--sand-900);
-    --state-hover-on-panel: var(--sand-900);
-    --state-hover-on-tab: var(--sand-900);
-    --state-hover-on-window: var(--sand-900);
-    --state-pressed: var(--sand-800);
   }
 }
 
 @media (prefers-contrast: more) and (prefers-color-scheme:dark) {
   :root:not(:where([data-theme="light"])) {
-    --danger-600: var(--danger-on-dark);
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
-    --state-hover-on-card: var(--sand-900);
-    --state-hover-on-panel: var(--sand-900);
-    --state-hover-on-tab: var(--sand-900);
-    --state-hover-on-window: var(--sand-900);
-    --state-pressed: var(--sand-800);
   }
 }
