@@ -6,16 +6,27 @@
   "license": "Apache-2.0",
   "repository": "github:efolusi/design-tokens",
   "type": "module",
-  "files": ["tokens.json", "tokens/web/", "tokens/native/"],
+  "files": [
+    "tokens.json",
+    "tokens/web/",
+    "tokens/native/"
+  ],
   "exports": {
     "./tokens.json": "./tokens.json",
     "./tokens.css": "./tokens/web/tokens.css",
-    "./tokens.js": "./tokens/web/tokens.js"
+    "./tokens.js": "./tokens/web/tokens.js",
+    "./colors.css": "./tokens/web/colors.css",
+    "./typography.css": "./tokens/web/typography.css",
+    "./spacing.css": "./tokens/web/spacing.css",
+    "./effects.css": "./tokens/web/effects.css",
+    "./GlamorTokens.swift": "./tokens/native/GlamorTokens.swift"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/build.mjs --check",
-    "test": "node --test tests/"
+    "test": "node --test tests/*.test.mjs"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

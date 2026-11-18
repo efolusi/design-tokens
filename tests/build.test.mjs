@@ -33,7 +33,7 @@ test("modes used by tokens are declared at the root", () => {
 test("every color parses", () => {
   const resolve = resolver(src.tokens);
   for (const t of src.tokens.filter((t) => t.type === "color")) {
-    for (const mode of [null, "dark"]) assert.doesNotThrow(() => parseColor(resolve(valueIn(t, mode), mode)), t.path.join("."));
+    for (const mode of [null, ...Object.keys(src.modeDefs)]) assert.doesNotThrow(() => parseColor(resolve(valueIn(t, mode), mode)), t.path.join("."));
   }
 });
 
