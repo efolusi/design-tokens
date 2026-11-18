@@ -6,7 +6,7 @@ Shape of this repo and the contract Meridian and Glamor rely on. Read before mov
 
 ```
 design-tokens/
-├── tokens.json           # authored shared source (interim Glamor seed)
+├── tokens.json           # authored shared source (DTCG)
 ├── tokens/web/           # CSS / Style Dictionary / DTCG exports (later)
 ├── tokens/native/        # Swift / other native exports (later)
 ├── docs/                 # consumers.md
