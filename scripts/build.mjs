@@ -59,6 +59,19 @@ export function resolver(tokens) {
 
 const cssValue = (v) => String(v).replace(ALIAS, (_, key) => `var(--${cssName(key.split("."))})`);
 
+// Meridian's file split: tokens/{colors,typography,spacing,effects}.css.
+const FILE_OF = {
+  typography: ["font", "leading", "tracking", "weight"],
+  spacing: ["container", "control", "radius", "space", "table", "tap"],
+  effects: ["dur", "ease", "shadow", "z"],
+};
+export function cssFile(t) {
+  if (t.path[0] === "text") return t.type === "color" ? "colors" : "typography";
+  for (const [file, groups] of Object.entries(FILE_OF)) if (groups.includes(t.path[0])) return file;
+  return "colors";
+}
+const part = (file) => (src) => buildCss({ ...src, tokens: src.tokens.filter((t) => cssFile(t) === file) });
+
 export function buildCss({ selectors, tokens }) {
   const decl = (list, pick) => list.map((t) => `  --${cssName(t.path)}: ${cssValue(pick(t))};`).join("\n");
   let out = `/* Generated from tokens.json by scripts/build.mjs. Do not edit. */\n:root {\n${decl(tokens, (t) => t.value)}\n}\n`;
@@ -200,6 +213,10 @@ ${body}
 
 export const OUTPUTS = {
   "tokens/web/tokens.css": buildCss,
+  "tokens/web/colors.css": part("colors"),
+  "tokens/web/typography.css": part("typography"),
+  "tokens/web/spacing.css": part("spacing"),
+  "tokens/web/effects.css": part("effects"),
   "tokens/web/tokens.js": buildJs,
   "tokens/native/GlamorTokens.swift": buildSwift,
 };

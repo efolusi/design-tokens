@@ -4,7 +4,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { load, OUTPUTS, cssName, swiftName, resolver, valueIn, parseColor, swiftKind, buildSwift } from "../scripts/build.mjs";
+import { load, OUTPUTS, cssFile, cssName, swiftName, resolver, valueIn, parseColor, swiftKind, buildSwift } from "../scripts/build.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = load();
@@ -71,4 +71,12 @@ test("Swift values are converted", () => {
 const swiftc = spawnSync("swiftc", ["--version"]).status === 0;
 test("GlamorTokens.swift type-checks", { skip: !swiftc && "swiftc not installed" }, () => {
   execFileSync("swiftc", ["-typecheck", join(ROOT, "tokens/native/GlamorTokens.swift")], { stdio: "pipe" });
+});
+
+test("the four CSS files hold every token once, same names as Meridian's split", () => {
+  const n = (f) => (readFileSync(join(ROOT, "tokens/web", f), "utf8").match(/^\s*--[\w-]+:/gm) ?? []).length;
+  const all = n("tokens.css");
+  assert.equal(n("colors.css") + n("typography.css") + n("spacing.css") + n("effects.css"), all);
+  assert.equal(cssFile({ path: ["text", "primary"], type: "color" }), "colors");
+  assert.equal(cssFile({ path: ["text", "xs"], type: "dimension" }), "typography");
 });

@@ -31,6 +31,7 @@ npm test        # aliases, names, stale exports, swiftc type-check
 | Output | For | Names |
 |---|---|---|
 | `tokens/web/tokens.css` | Meridian | `--group-leaf`, same as Meridian's CSS |
+| `tokens/web/{colors,typography,spacing,effects}.css` | Meridian sync | Same tokens, split like Meridian's `tokens/` |
 | `tokens/web/tokens.js` | Meridian, scripts | `tokens["text-primary"]`, `modes.dark[...]` |
 | `tokens/native/GlamorTokens.swift` | Glamor | `GlamorTokens.Color.textPrimary` (values only) |
 
