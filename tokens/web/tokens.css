@@ -53,9 +53,13 @@
   --chart-5: #E87BA4;
   --surface-page: var(--sand-50);
   --surface-card: #FFFFFF;
+  --surface-panel: var(--surface-card);
+  --surface-card-hover: var(--surface-sunken);
   --surface-sunken: var(--sand-100);
   --surface-subtle: var(--sand-25);
   --surface-inverse: var(--sand-950);
+  --surface-inverse-hover: var(--sand-900);
+  --surface-inverse-active: var(--sand-800);
   --surface-brand: var(--brand-900);
   --surface-code: #14110B;
   --text-code: #E8E3D9;
@@ -115,6 +119,13 @@
   --focus-ring-offset: var(--surface-card);
   --focus-ring: 0 0 0 2px var(--focus-ring-offset),0 0 0 4px var(--focus-ring-color);
   --focus-ring-danger: 0 0 0 2px var(--focus-ring-offset),0 0 0 4px var(--danger-600);
+  --avatar-bg: var(--surface-sunken);
+  --avatar-fg: var(--text-secondary);
+  --state-hover-on-card: var(--surface-sunken);
+  --state-hover-on-panel: var(--surface-sunken);
+  --state-hover-on-tab: var(--surface-card);
+  --state-hover-on-window: var(--surface-sunken);
+  --state-pressed: var(--border-default);
   --font-display: 'Bricolage Grotesque','Bricolage Grotesque Fallback','Figtree',ui-sans-serif,system-ui,sans-serif;
   --font-sans: 'Figtree','Figtree Fallback',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
   --font-mono: 'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
@@ -144,7 +155,9 @@
   --space-20: 80px;
   --space-24: 96px;
   --space-32: 128px;
+  --space-0-5: 2px;
   --radius-xs: 4px;
+  --radius-xs-plus: 6px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -176,6 +189,10 @@
   --dur-fast: 100ms;
   --dur-med: 160ms;
   --dur-slow: 240ms;
+  --opacity-tint: 0.12;
+  --opacity-pill: 0.1;
+  --opacity-increased: 0.16;
+  --opacity-banner: 0.1;
 }
 
 [data-theme="dark"] {
@@ -203,6 +220,8 @@
   --surface-sunken: #2A251E;
   --surface-subtle: #1D1814;
   --surface-inverse: var(--sand-50);
+  --surface-inverse-hover: var(--sand-100);
+  --surface-inverse-active: var(--sand-200);
   --surface-brand: var(--brand-950);
   --text-primary: #F3EFE7;
   --text-secondary: #C9C0B2;
@@ -257,6 +276,8 @@
     --surface-sunken: #2A251E;
     --surface-subtle: #1D1814;
     --surface-inverse: var(--sand-50);
+    --surface-inverse-hover: var(--sand-100);
+    --surface-inverse-active: var(--sand-200);
     --surface-brand: var(--brand-950);
     --text-primary: #F3EFE7;
     --text-secondary: #C9C0B2;

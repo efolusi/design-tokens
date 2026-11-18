@@ -44,7 +44,11 @@ export function swiftName(path) {
 
 const ALIAS = /\{([\w.-]+)\}/g;
 
-export const valueIn = (t, mode) => (mode && mode in t.modes ? t.modes[mode] : t.value);
+// `mode` is one mode or a fallback list such as ["increased-dark", "dark"]; the first one the token has wins.
+export const valueIn = (t, mode) => {
+  const m = [mode ?? []].flat().find((x) => x in t.modes);
+  return m ? t.modes[m] : t.value;
+};
 
 // Replace every {group.leaf} with the target's value in the same mode.
 export function resolver(tokens) {
@@ -65,7 +69,7 @@ const cssValue = (v) => String(v).replace(ALIAS, (_, key) => `var(--${cssName(ke
 const FILE_OF = {
   typography: ["font", "leading", "tracking", "weight"],
   spacing: ["container", "control", "radius", "space", "table", "tap"],
-  effects: ["dur", "ease", "shadow", "z"],
+  effects: ["dur", "ease", "opacity", "shadow", "z"],
 };
 export function cssFile(t) {
   if (t.path[0] === "text") return t.type === "color" ? "colors" : "typography";
@@ -153,7 +157,7 @@ export function points(s) {
 export function swiftKind(t) {
   if (t.type === "color") return "Color";
   if (t.path[0] === "font" || t.type === "shadow") return null; // CSS font stacks and box-shadows
-  if (["leading", "weight", "z"].includes(t.path[0])) return "Number";
+  if (["leading", "opacity", "weight", "z"].includes(t.path[0])) return "Number";
   if (t.path[0] === "tracking") return "Em";
   if (t.type === "duration") return "Duration";
   if (t.type === "cubicBezier") return "Curve";
@@ -162,10 +166,10 @@ export function swiftKind(t) {
 }
 
 const DOC = {
-  Color: "sRGB components 0...1. `light` is the base value, `dark` the dark-mode value.",
+  Color: "sRGB components 0...1: light, dark, and increased-contrast light and dark.",
   Length: "Lengths in points (CSS px = pt).",
   Compact: "Lengths in points for compact density. Only the tokens that change.",
-  Number: "Unitless: line-height multipliers, font weights, z-index.",
+  Number: "Unitless: line-height multipliers, opacities, font weights, z-index.",
   Em: "Letter spacing as a fraction of the font size.",
   Duration: "Durations in seconds.",
   Curve: "Cubic Bezier control points (x1, y1, x2, y2).",
@@ -181,7 +185,13 @@ export function buildSwift({ tokens }) {
     const base = resolve(t.value, null);
     const line = (k, rest) => sections[k].push(`public static let ${name}${rest}`);
     if (kind === "Color") {
-      line("Color", ` = ColorPair(light: ${rgba(base)}, dark: ${rgba(resolve(valueIn(t, "dark"), "dark"))})`);
+      // Fallbacks: increased-dark -> dark -> base, increased -> base. Aliases follow the same chain.
+      const pick = (...modes) => rgba(resolve(valueIn(t, modes), modes));
+      const light = rgba(base), dark = pick("dark");
+      const incLight = pick("increased"), incDark = pick("increased-dark", "dark");
+      line("Color", incLight === light && incDark === dark
+        ? ` = ColorPair(light: ${light}, dark: ${dark})`
+        : ` = ColorPair(light: ${light}, dark: ${dark}, increasedLight: ${incLight}, increasedDark: ${incDark})`);
     } else if (kind === "Length") {
       line("Length", `: Double = ${num(points(base))}`);
       if ("compact" in t.modes) line("Compact", `: Double = ${num(points(resolve(t.modes.compact, "compact")))}`);
@@ -214,8 +224,13 @@ public enum GlamorTokens {
         }
     }
 
+    /// Increased-contrast values default to the normal ones.
     public struct ColorPair: Equatable, Sendable {
-        public let light, dark: RGBA
+        public let light, dark, increasedLight, increasedDark: RGBA
+        public init(light: RGBA, dark: RGBA, increasedLight: RGBA? = nil, increasedDark: RGBA? = nil) {
+            self.light = light; self.dark = dark
+            self.increasedLight = increasedLight ?? light; self.increasedDark = increasedDark ?? dark
+        }
     }
 
     public struct Bezier: Equatable, Sendable {

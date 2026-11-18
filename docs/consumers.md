@@ -37,5 +37,11 @@ Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (c
 | `dark` | `[data-theme="dark"]`, and `@media (prefers-color-scheme:dark)` unless `data-theme="light"`; sets `color-scheme` and `::selection` | `ColorPair.dark` |
 | `compact` | `[data-density="compact"]` | `GlamorTokens.Compact` |
 | `coarse` | `@media (pointer: coarse)` on `:root` and `[data-density="compact"]` | not emitted; touch devices use `GlamorTokens.Length.tapMin` |
+| `increased` | `@media (prefers-contrast: more)` on `:root` | `ColorPair.increasedLight` |
+| `increased-dark` | the same, on both dark selectors | `ColorPair.increasedDark` |
 
 The blocks for each mode live in root `$extensions."com.efolusi.meridian".modes`. `color-scheme` and `::selection` are fixed extras there, not tokens, and go only into the CSS files that hold colors.
+
+A token with an `increased` value must also have `increased-dark`; otherwise dark screens with more contrast would get the light value. In Swift, a missing increased value falls back to the normal one (`increased-dark` falls back to `dark`).
+
+Product themes, such as Komando's grey palette, live in the product repo as an override file with the same role names and only values. This repo holds one Efolusi default.

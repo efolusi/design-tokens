@@ -18,4 +18,8 @@
   --dur-fast: 100ms;
   --dur-med: 160ms;
   --dur-slow: 240ms;
+  --opacity-tint: 0.12;
+  --opacity-pill: 0.1;
+  --opacity-increased: 0.16;
+  --opacity-banner: 0.1;
 }

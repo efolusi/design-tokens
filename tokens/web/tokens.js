@@ -53,9 +53,13 @@ export const tokens = {
   "chart-5": "#E87BA4",
   "surface-page": "#FAF9F6",
   "surface-card": "#FFFFFF",
+  "surface-panel": "#FFFFFF",
+  "surface-card-hover": "#F3F1EB",
   "surface-sunken": "#F3F1EB",
   "surface-subtle": "#FCFBF9",
   "surface-inverse": "#1E1A14",
+  "surface-inverse-hover": "#2E2922",
+  "surface-inverse-active": "#443D32",
   "surface-brand": "#482818",
   "surface-code": "#14110B",
   "text-code": "#E8E3D9",
@@ -115,6 +119,13 @@ export const tokens = {
   "focus-ring-offset": "#FFFFFF",
   "focus-ring": "0 0 0 2px #FFFFFF,0 0 0 4px #7A4E2B",
   "focus-ring-danger": "0 0 0 2px #FFFFFF,0 0 0 4px #C81E1E",
+  "avatar-bg": "#F3F1EB",
+  "avatar-fg": "#5E5545",
+  "state-hover-on-card": "#F3F1EB",
+  "state-hover-on-panel": "#F3F1EB",
+  "state-hover-on-tab": "#FFFFFF",
+  "state-hover-on-window": "#F3F1EB",
+  "state-pressed": "#E7E3D9",
   "font-display": "'Bricolage Grotesque','Bricolage Grotesque Fallback','Figtree',ui-sans-serif,system-ui,sans-serif",
   "font-sans": "'Figtree','Figtree Fallback',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif",
   "font-mono": "'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace",
@@ -144,7 +155,9 @@ export const tokens = {
   "space-20": "80px",
   "space-24": "96px",
   "space-32": "128px",
+  "space-0-5": "2px",
   "radius-xs": "4px",
+  "radius-xs-plus": "6px",
   "radius-sm": "8px",
   "radius-md": "12px",
   "radius-lg": "16px",
@@ -175,7 +188,11 @@ export const tokens = {
   "ease-in-out": "cubic-bezier(.65,0,.35,1)",
   "dur-fast": "100ms",
   "dur-med": "160ms",
-  "dur-slow": "240ms"
+  "dur-slow": "240ms",
+  "opacity-tint": "0.12",
+  "opacity-pill": "0.1",
+  "opacity-increased": "0.16",
+  "opacity-banner": "0.1"
 };
 
 export const modes = {
@@ -203,6 +220,8 @@ export const modes = {
     "surface-sunken": "#2A251E",
     "surface-subtle": "#1D1814",
     "surface-inverse": "#FAF9F6",
+    "surface-inverse-hover": "#F3F1EB",
+    "surface-inverse-active": "#E7E3D9",
     "surface-brand": "#2C1709",
     "text-primary": "#F3EFE7",
     "text-secondary": "#C9C0B2",
@@ -236,5 +255,7 @@ export const modes = {
     "control-h-sm": "44px",
     "control-h-md": "44px",
     "control-h-lg": "44px"
-  }
+  },
+  "increased": {},
+  "increased-dark": {}
 };

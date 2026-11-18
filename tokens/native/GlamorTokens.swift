@@ -10,8 +10,13 @@ public enum GlamorTokens {
         }
     }
 
+    /// Increased-contrast values default to the normal ones.
     public struct ColorPair: Equatable, Sendable {
-        public let light, dark: RGBA
+        public let light, dark, increasedLight, increasedDark: RGBA
+        public init(light: RGBA, dark: RGBA, increasedLight: RGBA? = nil, increasedDark: RGBA? = nil) {
+            self.light = light; self.dark = dark
+            self.increasedLight = increasedLight ?? light; self.increasedDark = increasedDark ?? dark
+        }
     }
 
     public struct Bezier: Equatable, Sendable {
@@ -21,7 +26,7 @@ public enum GlamorTokens {
         }
     }
 
-    /// sRGB components 0...1. `light` is the base value, `dark` the dark-mode value.
+    /// sRGB components 0...1: light, dark, and increased-contrast light and dark.
     public enum Color {
         public static let sand25 = ColorPair(light: RGBA(0.9882, 0.9843, 0.9765, 1.0), dark: RGBA(0.9882, 0.9843, 0.9765, 1.0))
         public static let sand50 = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 1.0), dark: RGBA(0.9804, 0.9765, 0.9647, 1.0))
@@ -75,9 +80,13 @@ public enum GlamorTokens {
         public static let chart5 = ColorPair(light: RGBA(0.9098, 0.4824, 0.6431, 1.0), dark: RGBA(0.8353, 0.3176, 0.5059, 1.0))
         public static let surfacePage = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 1.0), dark: RGBA(0.098, 0.0824, 0.0706, 1.0))
         public static let surfaceCard = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
+        public static let surfacePanel = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
+        public static let surfaceCardHover = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
         public static let surfaceSunken = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
         public static let surfaceSubtle = ColorPair(light: RGBA(0.9882, 0.9843, 0.9765, 1.0), dark: RGBA(0.1137, 0.0941, 0.0784, 1.0))
         public static let surfaceInverse = ColorPair(light: RGBA(0.1176, 0.102, 0.0784, 1.0), dark: RGBA(0.9804, 0.9765, 0.9647, 1.0))
+        public static let surfaceInverseHover = ColorPair(light: RGBA(0.1804, 0.1608, 0.1333, 1.0), dark: RGBA(0.9529, 0.9451, 0.9216, 1.0))
+        public static let surfaceInverseActive = ColorPair(light: RGBA(0.2667, 0.2392, 0.1961, 1.0), dark: RGBA(0.9059, 0.8902, 0.851, 1.0))
         public static let surfaceBrand = ColorPair(light: RGBA(0.2824, 0.1569, 0.0941, 1.0), dark: RGBA(0.1725, 0.0902, 0.0353, 1.0))
         public static let surfaceCode = ColorPair(light: RGBA(0.0784, 0.0667, 0.0431, 1.0), dark: RGBA(0.0784, 0.0667, 0.0431, 1.0))
         public static let textCode = ColorPair(light: RGBA(0.9098, 0.8902, 0.851, 1.0), dark: RGBA(0.9098, 0.8902, 0.851, 1.0))
@@ -123,6 +132,13 @@ public enum GlamorTokens {
         public static let accentSubtleFg = ColorPair(light: RGBA(0.4784, 0.3059, 0.1686, 1.0), dark: RGBA(0.8078, 0.6118, 0.4, 1.0))
         public static let focusRingColor = ColorPair(light: RGBA(0.4784, 0.3059, 0.1686, 1.0), dark: RGBA(0.8078, 0.6118, 0.4, 1.0))
         public static let focusRingOffset = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
+        public static let avatarBg = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
+        public static let avatarFg = ColorPair(light: RGBA(0.3686, 0.3333, 0.2706, 1.0), dark: RGBA(0.7882, 0.7529, 0.698, 1.0))
+        public static let stateHoverOnCard = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
+        public static let stateHoverOnPanel = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
+        public static let stateHoverOnTab = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1294, 0.1098, 0.0902, 1.0))
+        public static let stateHoverOnWindow = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
+        public static let statePressed = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0))
     }
 
     /// Lengths in points (CSS px = pt).
@@ -153,7 +169,9 @@ public enum GlamorTokens {
         public static let space20: Double = 80.0
         public static let space24: Double = 96.0
         public static let space32: Double = 128.0
+        public static let space05: Double = 2.0
         public static let radiusXs: Double = 4.0
+        public static let radiusXsPlus: Double = 6.0
         public static let radiusSm: Double = 8.0
         public static let radiusMd: Double = 12.0
         public static let radiusLg: Double = 16.0
@@ -178,7 +196,7 @@ public enum GlamorTokens {
         public static let tablePadX: Double = 12.0
     }
 
-    /// Unitless: line-height multipliers, font weights, z-index.
+    /// Unitless: line-height multipliers, opacities, font weights, z-index.
     public enum Number {
         public static let leadingTight: Double = 1.05
         public static let leadingSnug: Double = 1.25
@@ -196,6 +214,10 @@ public enum GlamorTokens {
         public static let zPopover: Double = 1400.0
         public static let zToast: Double = 1500.0
         public static let zTooltip: Double = 1600.0
+        public static let opacityTint: Double = 0.12
+        public static let opacityPill: Double = 0.1
+        public static let opacityIncreased: Double = 0.16
+        public static let opacityBanner: Double = 0.1
     }
 
     /// Letter spacing as a fraction of the font size.
