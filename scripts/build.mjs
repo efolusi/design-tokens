@@ -96,7 +96,7 @@ export function buildCss({ base, modeDefs, tokens }, { extras = true } = {}) {
       if (extras) {
         for (const [pseudo, props] of Object.entries(def.rules ?? {})) {
           const sel = selector.split(/,\s*/).map((s) => `${s} ${pseudo}`).join(", ");
-          block += rule(sel, Object.entries(props).map(([k, v]) => `${k}: ${v};`), pad);
+          block += "\n" + rule(sel, Object.entries(props).map(([k, v]) => `${k}: ${cssValue(v)};`), pad);
         }
       }
       out += media ? `\n@media ${media} {\n${block}}\n` : `\n${block}`;

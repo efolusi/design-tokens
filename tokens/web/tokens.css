@@ -225,9 +225,10 @@
   --accent-subtle-fg: var(--brand-400);
   --focus-ring-color: var(--brand-400);
 }
+
 [data-theme="dark"] ::selection {
-  background: #453728;
-  color: #F3EFE7;
+  background: var(--accent-subtle-border);
+  color: var(--text-primary);
 }
 
 @media (prefers-color-scheme:dark) {
@@ -278,9 +279,10 @@
     --accent-subtle-fg: var(--brand-400);
     --focus-ring-color: var(--brand-400);
   }
+
   :root:not(:where([data-theme="light"])) ::selection {
-    background: #453728;
-    color: #F3EFE7;
+    background: var(--accent-subtle-border);
+    color: var(--text-primary);
   }
 }
 

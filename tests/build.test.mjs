@@ -94,3 +94,12 @@ test("CSS keeps Meridian's theme behaviour", () => {
   assert.match(spacing, /@media \(pointer: coarse\) \{\n  :root, \[data-density="compact"\] \{/);
   assert.doesNotMatch(spacing, /color-scheme|::selection/);
 });
+
+test("aliases in mode rules name tokens", () => {
+  const resolve = resolver(src.tokens);
+  for (const def of Object.values(src.modeDefs)) {
+    for (const props of Object.values(def.rules ?? {})) {
+      for (const v of Object.values(props)) assert.doesNotThrow(() => resolve(v, null), v);
+    }
+  }
+});
