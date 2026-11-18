@@ -53,9 +53,13 @@
   --chart-5: #E87BA4;
   --surface-page: var(--sand-50);
   --surface-card: #FFFFFF;
+  --surface-panel: var(--surface-card);
+  --surface-card-hover: var(--surface-sunken);
   --surface-sunken: var(--sand-100);
   --surface-subtle: var(--sand-25);
   --surface-inverse: var(--sand-950);
+  --surface-inverse-hover: var(--sand-900);
+  --surface-inverse-active: var(--sand-800);
   --surface-brand: var(--brand-900);
   --surface-code: #14110B;
   --text-code: #E8E3D9;
@@ -103,6 +107,13 @@
   --focus-ring-offset: var(--surface-card);
   --focus-ring: 0 0 0 2px var(--focus-ring-offset),0 0 0 4px var(--focus-ring-color);
   --focus-ring-danger: 0 0 0 2px var(--focus-ring-offset),0 0 0 4px var(--danger-600);
+  --avatar-bg: var(--surface-sunken);
+  --avatar-fg: var(--text-secondary);
+  --state-hover-on-card: var(--surface-sunken);
+  --state-hover-on-panel: var(--surface-sunken);
+  --state-hover-on-tab: var(--surface-card);
+  --state-hover-on-window: var(--surface-sunken);
+  --state-pressed: var(--border-default);
 }
 
 [data-theme="dark"] {
@@ -130,6 +141,8 @@
   --surface-sunken: #2A251E;
   --surface-subtle: #1D1814;
   --surface-inverse: var(--sand-50);
+  --surface-inverse-hover: var(--sand-100);
+  --surface-inverse-active: var(--sand-200);
   --surface-brand: var(--brand-950);
   --text-primary: #F3EFE7;
   --text-secondary: #C9C0B2;
@@ -184,6 +197,8 @@
     --surface-sunken: #2A251E;
     --surface-subtle: #1D1814;
     --surface-inverse: var(--sand-50);
+    --surface-inverse-hover: var(--sand-100);
+    --surface-inverse-active: var(--sand-200);
     --surface-brand: var(--brand-950);
     --text-primary: #F3EFE7;
     --text-secondary: #C9C0B2;
@@ -210,5 +225,26 @@
   :root:not(:where([data-theme="light"])) ::selection {
     background: var(--accent-subtle-border);
     color: var(--text-primary);
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-muted: var(--text-secondary);
+    --border-default: var(--border-control);
+  }
+}
+
+@media (prefers-contrast: more) {
+  [data-theme="dark"] {
+    --text-muted: var(--text-secondary);
+    --border-default: var(--border-control);
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme:dark) {
+  :root:not(:where([data-theme="light"])) {
+    --text-muted: var(--text-secondary);
+    --border-default: var(--border-control);
   }
 }
