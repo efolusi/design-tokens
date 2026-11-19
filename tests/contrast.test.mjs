@@ -79,3 +79,24 @@ test("every hover fill shows on the ground it is drawn on", () => {
   }
   assert.deepEqual(faint, []);
 });
+
+test("accent, link, focus and status pairs keep their ratios in every mode", () => {
+  const low = [];
+  const pairs = [
+    // [foreground, background, minimum]
+    ["accent._", "surface.page", 4.5], ["accent._", "surface.card", 4.5],
+    ["text.link", "surface.page", 4.5], ["text.link", "surface.card", 4.5],
+    ["accent.contrast", "accent._", 4.5],
+    ["accent.subtle-fg", "accent.subtle", 4.5],
+    ["focus.ring-color", "surface.page", 3], ["focus.ring-color", "surface.card", 3],
+    ...["success.600", "warning.600", "danger.600"].flatMap((s) => [[s, "surface.page", 4.5], [s, "surface.panel", 4.5]]),
+  ];
+  for (const mode of Object.keys(MODES)) {
+    for (const [fg, bg, min] of pairs) {
+      const back = rgb(bg, mode);
+      const r = ratio(over(rgb(fg, mode), back), back);
+      if (r < min) low.push(`${fg} on ${bg} [${mode}]: ${r.toFixed(2)} < ${min}`);
+    }
+  }
+  assert.deepEqual(low, []);
+});
