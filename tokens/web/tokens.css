@@ -10,6 +10,7 @@
   --sand-500: #948A74;
   --sand-600: #786E59;
   --sand-700: #5E5545;
+  --sand-750: #595041;
   --sand-800: #443D32;
   --sand-900: #2E2922;
   --sand-950: #1E1A14;
@@ -68,7 +69,7 @@
   --text-on-media: var(--sand-50);
   --text-on-media-muted: rgba(250,249,246,.75);
   --text-primary: var(--sand-950);
-  --text-secondary: #595041;
+  --text-secondary: var(--sand-750);
   --text-muted: #6B624E;
   --text-inverse: var(--sand-50);
   --text-inverse-muted: rgba(250,249,246,.6);
@@ -355,6 +356,7 @@
     --danger-600: #C41D1D;
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
+    --state-hover-on-tab: #ECE9E1;
     --state-pressed: #D3CEC4;
   }
 }
@@ -366,6 +368,7 @@
     --danger-600: #EB7262;
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
+    --state-hover-on-tab: #2F2A22;
     --state-pressed: #524A3C;
   }
 }
@@ -377,6 +380,7 @@
     --danger-600: #EB7262;
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
+    --state-hover-on-tab: #2F2A22;
     --state-pressed: #524A3C;
   }
 }

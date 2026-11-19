@@ -11,6 +11,7 @@ export const tokens = {
   "sand-500": "#948A74",
   "sand-600": "#786E59",
   "sand-700": "#5E5545",
+  "sand-750": "#595041",
   "sand-800": "#443D32",
   "sand-900": "#2E2922",
   "sand-950": "#1E1A14",
@@ -298,6 +299,7 @@ export const modes = {
     "text-muted": "#595041",
     "border-default": "#948A74",
     "focus-ring-danger": "0 0 0 2px #FFFFFF,0 0 0 4px #C41D1D",
+    "state-hover-on-tab": "#ECE9E1",
     "state-pressed": "#D3CEC4"
   },
   "increased-dark": {
@@ -356,7 +358,7 @@ export const modes = {
     "avatar-fg": "#C9C0B2",
     "state-hover-on-card": "#2A251E",
     "state-hover-on-panel": "#2A251E",
-    "state-hover-on-tab": "#25201A",
+    "state-hover-on-tab": "#2F2A22",
     "state-hover-on-window": "#2A251E",
     "state-pressed": "#524A3C"
   }

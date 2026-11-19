@@ -74,7 +74,9 @@ test("every hover fill shows on the ground it is drawn on", () => {
   for (const mode of Object.keys(MODES)) {
     for (const [hover, ground] of pairs) {
       const r = ratio(rgb(hover, mode), rgb(ground, mode));
-      if (r < 1.04) faint.push(`${hover} on ${ground} [${mode}]: ${r.toFixed(2)}`);
+      // With Increase contrast a hover must stand out more, as state.pressed does.
+      const min = mode.startsWith("increased") && hover === "state.hover-on-tab" ? 1.15 : 1.04;
+      if (r < min) faint.push(`${hover} on ${ground} [${mode}]: ${r.toFixed(2)}`);
     }
   }
   assert.deepEqual(faint, []);

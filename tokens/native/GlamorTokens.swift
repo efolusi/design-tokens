@@ -37,6 +37,7 @@ public enum GlamorTokens {
         public static let sand500 = ColorPair(light: RGBA(0.5804, 0.5412, 0.4549, 1.0), dark: RGBA(0.5804, 0.5412, 0.4549, 1.0))
         public static let sand600 = ColorPair(light: RGBA(0.4706, 0.4314, 0.349, 1.0), dark: RGBA(0.4706, 0.4314, 0.349, 1.0))
         public static let sand700 = ColorPair(light: RGBA(0.3686, 0.3333, 0.2706, 1.0), dark: RGBA(0.3686, 0.3333, 0.2706, 1.0))
+        public static let sand750 = ColorPair(light: RGBA(0.349, 0.3137, 0.2549, 1.0), dark: RGBA(0.349, 0.3137, 0.2549, 1.0))
         public static let sand800 = ColorPair(light: RGBA(0.2667, 0.2392, 0.1961, 1.0), dark: RGBA(0.2667, 0.2392, 0.1961, 1.0))
         public static let sand900 = ColorPair(light: RGBA(0.1804, 0.1608, 0.1333, 1.0), dark: RGBA(0.1804, 0.1608, 0.1333, 1.0))
         public static let sand950 = ColorPair(light: RGBA(0.1176, 0.102, 0.0784, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
@@ -136,7 +137,7 @@ public enum GlamorTokens {
         public static let avatarFg = ColorPair(light: RGBA(0.349, 0.3137, 0.2549, 1.0), dark: RGBA(0.7882, 0.7529, 0.698, 1.0))
         public static let stateHoverOnCard = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
         public static let stateHoverOnPanel = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
-        public static let stateHoverOnTab = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 1.0), dark: RGBA(0.1451, 0.1255, 0.102, 1.0))
+        public static let stateHoverOnTab = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 1.0), dark: RGBA(0.1451, 0.1255, 0.102, 1.0), increasedLight: RGBA(0.9255, 0.9137, 0.8824, 1.0), increasedDark: RGBA(0.1843, 0.1647, 0.1333, 1.0))
         public static let stateHoverOnWindow = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
         public static let statePressed = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0), increasedLight: RGBA(0.8275, 0.8078, 0.7686, 1.0), increasedDark: RGBA(0.3216, 0.2902, 0.2353, 1.0))
     }
