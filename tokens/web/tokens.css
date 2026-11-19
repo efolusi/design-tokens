@@ -130,6 +130,12 @@
   --state-hover-on-tab: var(--sand-50);
   --state-hover-on-window: var(--surface-sunken);
   --state-pressed: var(--border-default);
+  --tone-peach-fill: var(--brand-100);
+  --tone-peach-on-fill: var(--sand-950);
+  --tone-cocoa-fill: var(--surface-brand);
+  --tone-cocoa-on-fill: var(--cream-50);
+  --tone-amber-fill: var(--warning-100);
+  --tone-amber-on-fill: var(--text-primary);
   --font-display: 'Bricolage Grotesque','Bricolage Grotesque Fallback','Figtree',ui-sans-serif,system-ui,sans-serif;
   --font-sans: 'Figtree','Figtree Fallback',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
   --font-mono: 'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
@@ -173,6 +179,7 @@
   --control-h-sm: 28px;
   --control-h-md: 36px;
   --control-h-lg: 44px;
+  --control-h-xl: 52px;
   --icon-xs: 8px;
   --icon-sm: 12px;
   --icon-md: 16px;
@@ -336,6 +343,7 @@
   --control-h-sm: 24px;
   --control-h-md: 30px;
   --control-h-lg: 38px;
+  --control-h-xl: 46px;
   --table-pad-y: 7px;
   --table-pad-x: 12px;
 }
