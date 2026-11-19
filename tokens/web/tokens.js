@@ -38,7 +38,7 @@ export const tokens = {
   "success-contrast": "#FFFFFF",
   "warning-100": "#FDF3E0",
   "warning-300": "#F3D9A8",
-  "warning-600": "#B45309",
+  "warning-600": "#B05109",
   "warning-on-dark": "#F2C078",
   "warning-contrast": "#FFFFFF",
   "danger-100": "#FDEEEC",
@@ -70,7 +70,7 @@ export const tokens = {
   "text-on-media-muted": "rgba(250,249,246,.75)",
   "text-primary": "#1E1A14",
   "text-secondary": "#5E5545",
-  "text-muted": "#746A55",
+  "text-muted": "#6B624E",
   "text-inverse": "#FAF9F6",
   "text-inverse-muted": "rgba(250,249,246,.6)",
   "text-link": "#7A4E2B",
@@ -229,7 +229,7 @@ export const modes = {
     "warning-contrast": "#1E1A14",
     "danger-100": "#321B18",
     "danger-300": "#54291F",
-    "danger-600": "#E85D4A",
+    "danger-600": "#E96350",
     "danger-700": "#F47765",
     "danger-contrast": "#1E1A14",
     "chart-1": "#3987E5",
@@ -249,7 +249,7 @@ export const modes = {
     "surface-brand": "#2C1709",
     "text-primary": "#F3EFE7",
     "text-secondary": "#C9C0B2",
-    "text-muted": "#9C9280",
+    "text-muted": "#9E9483",
     "text-inverse": "#1E1A14",
     "text-inverse-muted": "rgba(30,26,20,.55)",
     "text-link": "#CE9C66",
@@ -269,7 +269,7 @@ export const modes = {
     "focus-ring-color": "#CE9C66",
     "focus-ring-offset": "#211C17",
     "focus-ring": "0 0 0 2px #211C17,0 0 0 4px #CE9C66",
-    "focus-ring-danger": "0 0 0 2px #211C17,0 0 0 4px #E85D4A",
+    "focus-ring-danger": "0 0 0 2px #211C17,0 0 0 4px #E96350",
     "avatar-bg": "#2A251E",
     "avatar-fg": "#C9C0B2",
     "state-hover-on-card": "#2A251E",
@@ -292,9 +292,13 @@ export const modes = {
     "control-h-md": "44px"
   },
   "increased": {
+    "success-600": "#2D753D",
+    "warning-600": "#A24A07",
+    "danger-600": "#C41D1D",
     "text-muted": "#5E5545",
     "border-default": "#948A74",
-    "state-pressed": "#948A74"
+    "focus-ring-danger": "0 0 0 2px #FFFFFF,0 0 0 4px #C41D1D",
+    "state-pressed": "#D3CEC4"
   },
   "increased-dark": {
     "success-100": "#1C2B1F",
@@ -307,7 +311,7 @@ export const modes = {
     "warning-contrast": "#1E1A14",
     "danger-100": "#321B18",
     "danger-300": "#54291F",
-    "danger-600": "#E85D4A",
+    "danger-600": "#EB7262",
     "danger-700": "#F47765",
     "danger-contrast": "#1E1A14",
     "chart-1": "#3987E5",
@@ -347,13 +351,13 @@ export const modes = {
     "focus-ring-color": "#CE9C66",
     "focus-ring-offset": "#211C17",
     "focus-ring": "0 0 0 2px #211C17,0 0 0 4px #CE9C66",
-    "focus-ring-danger": "0 0 0 2px #211C17,0 0 0 4px #E85D4A",
+    "focus-ring-danger": "0 0 0 2px #211C17,0 0 0 4px #EB7262",
     "avatar-bg": "#2A251E",
     "avatar-fg": "#C9C0B2",
     "state-hover-on-card": "#2A251E",
     "state-hover-on-panel": "#2A251E",
     "state-hover-on-tab": "#211C17",
     "state-hover-on-window": "#2A251E",
-    "state-pressed": "#786E59"
+    "state-pressed": "#524A3C"
   }
 };
