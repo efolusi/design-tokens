@@ -40,6 +40,15 @@ test("text, secondary and muted text keep 4.5:1 on every ground, the pressed fil
   assert.deepEqual(low, []);
 });
 
+test("secondary text keeps 7:1 on every surface in light, as Glamor promises", () => {
+  const low = [];
+  for (const ground of ["surface.page", "surface.panel", "surface.card", "surface.card-hover", "surface.sunken", "surface.subtle"]) {
+    const r = ratio(rgb("text.secondary", "light"), rgb(ground, "light"));
+    if (r < 7) low.push(`text.secondary on ${ground}: ${r.toFixed(2)}`);
+  }
+  assert.deepEqual(low, []);
+});
+
 test("status colours keep 4.5:1 as text on the card, the sunken ground and their own tint", () => {
   const low = [];
   for (const mode of Object.keys(MODES)) {
@@ -56,4 +65,17 @@ test("status colours keep 4.5:1 as text on the card, the sunken ground and their
     }
   }
   assert.deepEqual(low, []);
+});
+
+test("every hover fill shows on the ground it is drawn on", () => {
+  const faint = [];
+  const pairs = [["state.hover-on-card", "surface.card"], ["state.hover-on-panel", "surface.panel"],
+    ["state.hover-on-tab", "surface.panel"], ["state.hover-on-window", "surface.page"], ["state.pressed", "state.hover-on-card"]];
+  for (const mode of Object.keys(MODES)) {
+    for (const [hover, ground] of pairs) {
+      const r = ratio(rgb(hover, mode), rgb(ground, mode));
+      if (r < 1.04) faint.push(`${hover} on ${ground} [${mode}]: ${r.toFixed(2)}`);
+    }
+  }
+  assert.deepEqual(faint, []);
 });

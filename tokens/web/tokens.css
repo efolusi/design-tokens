@@ -68,7 +68,7 @@
   --text-on-media: var(--sand-50);
   --text-on-media-muted: rgba(250,249,246,.75);
   --text-primary: var(--sand-950);
-  --text-secondary: var(--sand-700);
+  --text-secondary: #595041;
   --text-muted: #6B624E;
   --text-inverse: var(--sand-50);
   --text-inverse-muted: rgba(250,249,246,.6);
@@ -126,7 +126,7 @@
   --avatar-lg: 40px;
   --state-hover-on-card: var(--surface-sunken);
   --state-hover-on-panel: var(--surface-sunken);
-  --state-hover-on-tab: var(--surface-card);
+  --state-hover-on-tab: var(--sand-50);
   --state-hover-on-window: var(--surface-sunken);
   --state-pressed: var(--border-default);
   --font-display: 'Bricolage Grotesque','Bricolage Grotesque Fallback','Figtree',ui-sans-serif,system-ui,sans-serif;
@@ -264,6 +264,7 @@
   --accent-contrast: #1E1A14;
   --accent-subtle-fg: var(--brand-400);
   --focus-ring-color: var(--brand-400);
+  --state-hover-on-tab: #25201A;
 }
 
 [data-theme="dark"] ::selection {
@@ -320,6 +321,7 @@
     --accent-contrast: #1E1A14;
     --accent-subtle-fg: var(--brand-400);
     --focus-ring-color: var(--brand-400);
+    --state-hover-on-tab: #25201A;
   }
 
   :root:not(:where([data-theme="light"])) ::selection {
