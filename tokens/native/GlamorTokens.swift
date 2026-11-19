@@ -140,6 +140,12 @@ public enum GlamorTokens {
         public static let stateHoverOnTab = ColorPair(light: RGBA(0.9804, 0.9765, 0.9647, 1.0), dark: RGBA(0.1451, 0.1255, 0.102, 1.0), increasedLight: RGBA(0.9255, 0.9137, 0.8824, 1.0), increasedDark: RGBA(0.1843, 0.1647, 0.1333, 1.0))
         public static let stateHoverOnWindow = ColorPair(light: RGBA(0.9529, 0.9451, 0.9216, 1.0), dark: RGBA(0.1647, 0.1451, 0.1176, 1.0))
         public static let statePressed = ColorPair(light: RGBA(0.9059, 0.8902, 0.851, 1.0), dark: RGBA(0.2, 0.1725, 0.1412, 1.0), increasedLight: RGBA(0.8275, 0.8078, 0.7686, 1.0), increasedDark: RGBA(0.3216, 0.2902, 0.2353, 1.0))
+        public static let tonePeachFill = ColorPair(light: RGBA(0.9569, 0.9137, 0.8235, 1.0), dark: RGBA(0.9569, 0.9137, 0.8235, 1.0))
+        public static let tonePeachOnFill = ColorPair(light: RGBA(0.1176, 0.102, 0.0784, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
+        public static let toneCocoaFill = ColorPair(light: RGBA(0.2824, 0.1569, 0.0941, 1.0), dark: RGBA(0.1725, 0.0902, 0.0353, 1.0))
+        public static let toneCocoaOnFill = ColorPair(light: RGBA(0.9725, 0.9569, 0.902, 1.0), dark: RGBA(0.9725, 0.9569, 0.902, 1.0))
+        public static let toneAmberFill = ColorPair(light: RGBA(0.9922, 0.9529, 0.8784, 1.0), dark: RGBA(0.1804, 0.1412, 0.0745, 1.0))
+        public static let toneAmberOnFill = ColorPair(light: RGBA(0.1176, 0.102, 0.0784, 1.0), dark: RGBA(0.9529, 0.9373, 0.9059, 1.0))
     }
 
     /// Lengths in points (CSS px = pt).
@@ -187,6 +193,7 @@ public enum GlamorTokens {
         public static let controlHSm: Double = 28.0
         public static let controlHMd: Double = 36.0
         public static let controlHLg: Double = 44.0
+        public static let controlHXl: Double = 52.0
         public static let iconXs: Double = 8.0
         public static let iconSm: Double = 12.0
         public static let iconMd: Double = 16.0
@@ -206,6 +213,7 @@ public enum GlamorTokens {
         public static let controlHSm: Double = 24.0
         public static let controlHMd: Double = 30.0
         public static let controlHLg: Double = 38.0
+        public static let controlHXl: Double = 46.0
         public static let tablePadY: Double = 7.0
         public static let tablePadX: Double = 12.0
     }

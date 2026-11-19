@@ -131,6 +131,12 @@ export const tokens = {
   "state-hover-on-tab": "#FAF9F6",
   "state-hover-on-window": "#F3F1EB",
   "state-pressed": "#E7E3D9",
+  "tone-peach-fill": "#F4E9D2",
+  "tone-peach-on-fill": "#1E1A14",
+  "tone-cocoa-fill": "#482818",
+  "tone-cocoa-on-fill": "#F8F4E6",
+  "tone-amber-fill": "#FDF3E0",
+  "tone-amber-on-fill": "#1E1A14",
   "font-display": "'Bricolage Grotesque','Bricolage Grotesque Fallback','Figtree',ui-sans-serif,system-ui,sans-serif",
   "font-sans": "'Figtree','Figtree Fallback',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif",
   "font-mono": "'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace",
@@ -174,6 +180,7 @@ export const tokens = {
   "control-h-sm": "28px",
   "control-h-md": "36px",
   "control-h-lg": "44px",
+  "control-h-xl": "52px",
   "icon-xs": "8px",
   "icon-sm": "12px",
   "icon-md": "16px",
@@ -277,13 +284,17 @@ export const modes = {
     "state-hover-on-panel": "#2A251E",
     "state-hover-on-tab": "#25201A",
     "state-hover-on-window": "#2A251E",
-    "state-pressed": "#332C24"
+    "state-pressed": "#332C24",
+    "tone-cocoa-fill": "#2C1709",
+    "tone-amber-fill": "#2E2413",
+    "tone-amber-on-fill": "#F3EFE7"
   },
   "compact": {
     "control-h-xs": "20px",
     "control-h-sm": "24px",
     "control-h-md": "30px",
     "control-h-lg": "38px",
+    "control-h-xl": "46px",
     "table-pad-y": "7px",
     "table-pad-x": "12px"
   },
@@ -360,6 +371,9 @@ export const modes = {
     "state-hover-on-panel": "#2A251E",
     "state-hover-on-tab": "#2F2A22",
     "state-hover-on-window": "#2A251E",
-    "state-pressed": "#524A3C"
+    "state-pressed": "#524A3C",
+    "tone-cocoa-fill": "#2C1709",
+    "tone-amber-fill": "#2E2413",
+    "tone-amber-on-fill": "#F3EFE7"
   }
 };
