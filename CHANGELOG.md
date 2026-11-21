@@ -2,6 +2,10 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
+## Unreleased
+
+- **Notice rule 3 allows a `role="log"` stack.** The polite live region can be `role="status"`, or one `role="log"` stack with `aria-live="polite"` and no role on each notice, so nothing is announced twice (Meridian's Toast does this). A doc check states both.
+
 ## 0.4.0 — 2026-11-21
 
 - **A shared motion scale** ([docs/motion.md](docs/motion.md)). Durations `dur.fast` 120 ms, `dur.base` 200 ms, `dur.slow` 250 ms, `dur.progress` 250 ms (use with `linear`) and `dur.long` 480 ms (web marketing only, not in Swift); four curves, `ease.standard`, `ease.enter`, `ease.exit` and `ease.emphasised`, each with four numbers so SwiftUI's `timingCurve` runs the same curve; distance steps `shift.sm`, `shift.md` and `shift.lg` (4, 8, 16, aliases of `space.1`, `space.2` and `space.4`); holds `hold.spinner-delay` 300 ms, `hold.spinner-min` 500 ms, `hold.confirm` 1500 ms, `hold.notice` 8000 ms and `guard.click` 300 ms. The numbers are Glamor's, so web and native share one set.
