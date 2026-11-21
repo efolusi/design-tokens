@@ -42,7 +42,7 @@ Behaviour constants, so a web skeleton and a native spinner wait the same time. 
 | `hold.spinner-delay` | `--hold-spinner-delay` | 300 ms | Wait this long before showing a spinner or skeleton. |
 | `hold.spinner-min` | `--hold-spinner-min` | 500 ms | Once shown, keep it at least this long. |
 | `hold.confirm` | `--hold-confirm` | 1500 ms | How long a confirmation (a copied check) stays. |
-| `hold.notice` | `--hold-notice` | 8000 ms | How long a notice stays before it dismisses itself. |
+| `hold.notice` | `--hold-notice` | 8000 ms | How long a self-dismissing notice stays. Only the notices allowed to dismiss themselves use it (see Notices). |
 | `guard.click` | `--guard-click` | 300 ms | Ignore a second click this soon after the first. |
 
 ## Reduced motion
@@ -51,16 +51,25 @@ The rule every consumer follows:
 
 - `dur.base`, `dur.slow` and `dur.long` become the `dur.fast` fade, with no travel. `shift.*` is 0.
 - `dur.progress` becomes an instant jump. Shimmer and counters show the final state at once.
+- `ease.emphasised` becomes `ease.standard`: it is the one curve that overshoots, and a bounce is motion. `ease.standard`, `ease.enter` and `ease.exit` stay as they are, because none of their control points leaves the 0 to 1 range.
 - A transition that only moves, with no opacity change, is dropped.
 
-Web: `effects.css` swaps the tokens inside `@media (prefers-reduced-motion:reduce)`, so a component does not write its own query. A JavaScript animation (a count-up, a smooth scroll) cannot read a CSS token swap: it checks `matchMedia('(prefers-reduced-motion: reduce)')` itself. Native: Glamor's `MotionToken.animation(reduceMotion:)` applies the same rule; the Swift output carries no reduced values.
+Web: `effects.css` swaps the tokens (durations, shifts and the curve) inside `@media (prefers-reduced-motion:reduce)`, so a component does not write its own query. A JavaScript animation (a count-up, a smooth scroll) cannot read a CSS token swap: it checks `matchMedia('(prefers-reduced-motion: reduce)')` itself. Native: Glamor's `MotionToken.animation(reduceMotion:)` applies the same rule, including the curve swap (`easeEmphasised` becomes `easeStandard` when `reduceMotion` is on); the Swift output carries no reduced values.
 
 ## Rules for consumers
 
 - Take a duration and a curve from the tokens. A literal duration or curve in a component is a bug.
 - Animate `opacity` and `transform`. A `transition` on `width`, `height`, `top` or `left` makes the browser lay the page out on every frame.
 - Hold the motion budget: product UI never runs longer than `dur.slow`. `dur.long` is for marketing pages.
-- A notice that carries an action or an error should not dismiss itself on `hold.notice`; give a notice that does a way to pause (hover and focus) and to dismiss.
+- A notice follows the rules in Notices below.
+
+## Notices
+
+`hold.notice` is only a number. These rules come with it, because every consumer builds its notices from this contract (WCAG 2.2.1 Timing Adjustable):
+
+1. A notice with an action, an error, or anything the user must act on never dismisses itself.
+2. A notice that does dismiss itself pauses while it is hovered or focused (keyboard users included) and while the window is not visible, and it has a visible dismiss control.
+3. It is announced through a polite live region (`role="status"`), so a screen-reader user hears it within the hold.
 
 ## Renamed in 0.4.0
 

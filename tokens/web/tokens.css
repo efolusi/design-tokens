@@ -406,6 +406,7 @@
 
 @media (prefers-reduced-motion:reduce) {
   :root {
+    --ease-emphasised: var(--ease-standard);
     --dur-base: var(--dur-fast);
     --dur-slow: var(--dur-fast);
     --dur-progress: 0ms;

@@ -124,7 +124,9 @@ test("reduced motion: base, slow and long fall to the fast fade, progress is ins
   assert.match(body, /--dur-progress: 0ms;/);
   for (const name of ["shift-sm", "shift-md", "shift-lg"]) assert.match(body, new RegExp(`--${name}: 0;`), name);
   // fast stays, so the fade still happens; holds and the guard are behaviour, not motion
-  assert.doesNotMatch(body, /--dur-fast:|--hold-|--guard-|--ease-/);
+  assert.doesNotMatch(body, /--dur-fast:|--hold-|--guard-/);
+  // the only curve that changes is the one that overshoots
+  assert.deepEqual(body.match(/--ease-[\w-]+:/g), ["--ease-emphasised:"]);
 });
 
 test("reduced motion is in the JS modes too, and Swift leaves it to Glamor's reduceMotion", async () => {
@@ -156,4 +158,41 @@ test("generated outputs are fresh (rebuild with npm run build)", () => {
   for (const [file, build] of Object.entries(OUTPUTS)) assert.equal(read(file), build(src), file);
   assert.equal(buildCss(src).includes("prefers-reduced-motion"), true);
   assert.equal(typeof buildSwift(src), "string");
+});
+
+test("reduced motion: the bouncing curve falls to ease.standard, the others need no swap", async () => {
+  assert.equal(token("ease.emphasised").modes["reduced-motion"], "{ease.standard}");
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\) \{\n  :root \{\n[\s\S]*--ease-emphasised: var\(--ease-standard\);/);
+  const { tokens, modes } = await import("../tokens/web/tokens.js");
+  assert.equal(modes["reduced-motion"]["ease-emphasised"], tokens["ease-standard"]);
+  // a curve overshoots when a control point's y leaves 0..1; only emphasised may, and only outside reduced motion
+  const overshoots = (name) => token(name).value.match(/\(([^)]+)\)/)[1].split(",").map(Number).filter((_, i) => i % 2 === 1).some((y) => y < 0 || y > 1);
+  for (const name of ["ease.standard", "ease.enter", "ease.exit"]) {
+    assert.equal(overshoots(name), false, `${name} does not overshoot`);
+    assert.ok(!("reduced-motion" in token(name).modes), `${name} needs no reduced-motion swap`);
+  }
+  assert.equal(overshoots("ease.emphasised"), true);
+  const reduced = resolve(token("ease.emphasised").modes["reduced-motion"], "reduced-motion");
+  assert.deepEqual(reduced.match(/\(([^)]+)\)/)[1].split(",").map(Number), CURVES["ease.standard"]);
+});
+
+test("docs/motion.md tells Glamor the same curve swap", () => {
+  const doc = read("docs/motion.md");
+  assert.match(doc, /`ease\.emphasised` becomes `ease\.standard`/);
+  assert.match(doc, /Glamor/);
+});
+
+test("docs/motion.md states the three notice rules as rules, not suggestions", () => {
+  const doc = read("docs/motion.md");
+  const section = doc.slice(doc.indexOf("## Notices"), doc.indexOf("## Renamed"));
+  assert.ok(section.length > 0, "a Notices section");
+  assert.match(section, /never dismisses itself/i);
+  assert.match(section, /action, an error, or anything the user must act on/i);
+  assert.match(section, /pauses while it is hovered or focused/i);
+  assert.match(section, /while the window is not visible/i);
+  assert.match(section, /visible dismiss control/i);
+  assert.match(section, /polite live region/i);
+  assert.match(section, /role="status"/);
+  assert.match(section, /WCAG 2\.2\.1/);
+  assert.doesNotMatch(section, /\bshould\b|\bshould not\b|\bconsider\b|\bideally\b/i, "the contract says must, not should");
 });

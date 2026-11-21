@@ -388,6 +388,7 @@ export const modes = {
     "tone-amber-on-fill": "#F3EFE7"
   },
   "reduced-motion": {
+    "ease-emphasised": "cubic-bezier(.65,0,.35,1)",
     "dur-base": "120ms",
     "dur-slow": "120ms",
     "dur-progress": "0ms",
