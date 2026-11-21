@@ -21,6 +21,8 @@ Web and native tokens stay identical only if both consumers move together:
 2. Re-vendor it in Meridian (`node scripts/sync_tokens.mjs <tag>`) and in Glamor (set `TOKENS_VERSION` and `TOKENS_COMMIT`, run `scripts/vendor-tokens.sh`), to the same tag.
 3. Neither Meridian nor Glamor releases while it pins a different design-tokens version than the other.
 
+A release that renames a token (0.4.0 renamed `dur.med`, `ease.out`, `ease.in-out` and `ease.spring`) lists every old and new name in its CHANGELOG and in [motion.md](motion.md); the consumer updates its callers in its own change, with no alias.
+
 ## Format
 
 Root `tokens.json` is DTCG (`$value`, `$type`, aliases as `{group.leaf}`, modes in `$extensions`). It was copied from Meridian on 2026-11-18. Glamor's names (`window`, `panel`, `text2`, …) still need a mapping to these roles.
@@ -36,7 +38,7 @@ One token, one name per platform, derived by `scripts/build.mjs`:
 | `control.h-sm` | `--control-h-sm` | `GlamorTokens.Length.controlHSm` |
 | `sand.25` | `--sand-25` | `GlamorTokens.Color.sand25` |
 
-Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (compact-density lengths), `Number`, `Em`, `Duration` (seconds), `Curve`. Font stacks and box-shadows are web-only and not in Swift.
+Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (compact-density lengths), `Number`, `Em`, `Duration` (seconds), `Curve`. Font stacks and box-shadows are web-only and not in Swift. A token can also be marked web-only in `tokens.json` (`"web-only": true` in its extension); `dur.long` is. The motion scale, its reduced-motion rule and the 0.4.0 renames are in [motion.md](motion.md).
 
 ## Modes
 
@@ -47,6 +49,7 @@ Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (c
 | `coarse` | `@media (pointer: coarse)` on `:root` and `[data-density="compact"]` | not emitted; touch devices use `GlamorTokens.Length.tapMin` |
 | `increased` | `@media (prefers-contrast: more)` on `:root` | `ColorPair.increasedLight` |
 | `increased-dark` | the same, on both dark selectors | `ColorPair.increasedDark` |
+| `reduced-motion` | `@media (prefers-reduced-motion:reduce)` on `:root`, in `effects.css` only | not emitted; Glamor's `MotionToken.animation(reduceMotion:)` applies the rule |
 
 The blocks for each mode live in root `$extensions."com.efolusi.meridian".modes`. `color-scheme` and `::selection` are fixed extras there, not tokens, and go only into the CSS files that hold colors.
 

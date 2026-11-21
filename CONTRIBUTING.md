@@ -6,7 +6,7 @@ Apache-2.0. Token changes here should stay usable by both Meridian (web) and Gla
 
 - Authored source: root `tokens.json`
 - Exports (when they exist): `tokens/web/`, `tokens/native/`
-- Consumer notes: `docs/consumers.md`
+- Consumer notes: `docs/consumers.md`; motion scale: `docs/motion.md`
 
 Do not add a deep product-specific tree. Keep names and roles shared.
 

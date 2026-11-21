@@ -205,6 +205,9 @@ public enum GlamorTokens {
         public static let tapMin: Double = 44.0
         public static let tablePadY: Double = 12.0
         public static let tablePadX: Double = 16.0
+        public static let shiftSm: Double = 4.0
+        public static let shiftMd: Double = 8.0
+        public static let shiftLg: Double = 16.0
     }
 
     /// Lengths in points for compact density. Only the tokens that change.
@@ -260,15 +263,22 @@ public enum GlamorTokens {
 
     /// Durations in seconds.
     public enum Duration {
-        public static let durFast: Double = 0.1
-        public static let durMed: Double = 0.16
-        public static let durSlow: Double = 0.24
+        public static let durFast: Double = 0.12
+        public static let durBase: Double = 0.2
+        public static let durSlow: Double = 0.25
+        public static let durProgress: Double = 0.25
+        public static let holdSpinnerDelay: Double = 0.3
+        public static let holdSpinnerMin: Double = 0.5
+        public static let holdConfirm: Double = 1.5
+        public static let holdNotice: Double = 8.0
+        public static let guardClick: Double = 0.3
     }
 
     /// Cubic Bezier control points (x1, y1, x2, y2).
     public enum Curve {
-        public static let easeSpring = Bezier(0.3, 1.04, 0.35, 1.0)
-        public static let easeOut = Bezier(0.22, 1.0, 0.36, 1.0)
-        public static let easeInOut = Bezier(0.65, 0.0, 0.35, 1.0)
+        public static let easeStandard = Bezier(0.65, 0.0, 0.35, 1.0)
+        public static let easeEnter = Bezier(0.22, 1.0, 0.36, 1.0)
+        public static let easeExit = Bezier(0.5, 0.0, 0.75, 0.0)
+        public static let easeEmphasised = Bezier(0.3, 1.04, 0.35, 1.0)
     }
 }
