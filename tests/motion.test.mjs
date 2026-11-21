@@ -193,6 +193,8 @@ test("docs/motion.md states the three notice rules as rules, not suggestions", (
   assert.match(section, /visible dismiss control/i);
   assert.match(section, /polite live region/i);
   assert.match(section, /role="status"/);
+  assert.match(section, /role="log"/);
+  assert.match(section, /nothing is announced twice/);
   assert.match(section, /WCAG 2\.2\.1/);
   assert.doesNotMatch(section, /\bshould\b|\bshould not\b|\bconsider\b|\bideally\b/i, "the contract says must, not should");
 });

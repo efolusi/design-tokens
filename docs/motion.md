@@ -69,7 +69,7 @@ Web: `effects.css` swaps the tokens (durations, shifts and the curve) inside `@m
 
 1. A notice with an action, an error, or anything the user must act on never dismisses itself.
 2. A notice that does dismiss itself pauses while it is hovered or focused (keyboard users included) and while the window is not visible, and it has a visible dismiss control.
-3. It is announced through a polite live region (`role="status"`), so a screen-reader user hears it within the hold.
+3. It is announced through a polite live region (`role="status"`, or one `role="log"` stack with `aria-live="polite"` that holds the notices, with no role on each notice, so nothing is announced twice), so a screen-reader user hears it within the hold.
 
 ## Renamed in 0.4.0
 
