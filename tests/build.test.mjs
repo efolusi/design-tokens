@@ -64,7 +64,7 @@ test("Swift values are converted", () => {
   const swift = buildSwift(src);
   assert.match(swift, /static let textPrimary = ColorPair\(light: RGBA\(0\.1176, 0\.102, 0\.0784, 1\.0\)/);
   assert.match(swift, /static let space4: Double = 16\.0/);
-  assert.match(swift, /static let durFast: Double = 0\.1\b/);
+  assert.match(swift, /static let durFast: Double = 0\.12\b/);
   assert.doesNotMatch(swift, /import SwiftUI|fontSans|shadowMd/);
 });
 

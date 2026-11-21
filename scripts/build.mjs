@@ -25,6 +25,8 @@ export function load(path = join(ROOT, "tokens.json")) {
           type: val.$type,
           value: val.$value,
           modes: val.$extensions?.[EXT]?.modes ?? {},
+          // A token marked web-only is in the CSS and the JS, and not in Swift.
+          webOnly: val.$extensions?.[EXT]?.["web-only"] === true,
         });
       } else walk(val, [...path, key]);
     }
@@ -69,7 +71,7 @@ const cssValue = (v) => String(v).replace(ALIAS, (_, key) => `var(--${cssName(ke
 const FILE_OF = {
   typography: ["font", "leading", "tracking", "weight"],
   spacing: ["container", "control", "icon", "radius", "sidebar", "space", "table", "tap"],
-  effects: ["dur", "ease", "opacity", "shadow", "z"],
+  effects: ["dur", "ease", "guard", "hold", "opacity", "shadow", "shift", "z"],
 };
 export function cssFile(t) {
   if (t.path[0] === "text") return t.type === "color" ? "colors" : "typography";
@@ -170,6 +172,7 @@ export function points(s) {
 
 // The Swift section for a token, or null when it is web-only.
 export function swiftKind(t) {
+  if (t.webOnly) return null;
   if (t.type === "color") return "Color";
   if (t.path[0] === "font" || t.type === "shadow") return null; // CSS font stacks and box-shadows
   if (["leading", "opacity", "weight", "z"].includes(t.path[0])) return "Number";

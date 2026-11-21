@@ -13,6 +13,7 @@ Framework-agnostic JSON. Consumers map names into CSS, Swift, or other platforms
 | `tokens.json` | Authored shared source, DTCG format |
 | `tokens/` | Export dirs: `web/`, `native/` when generators exist |
 | `docs/consumers.md` | How Meridian and Glamor use this repo |
+| `docs/motion.md` | The motion scale, its reduced-motion rule and the renames |
 | `scripts/build.mjs` | Builds `tokens/web/` and `tokens/native/` from `tokens.json` |
 | `tests/` | Checks aliases, names, and that exports are up to date |
 
