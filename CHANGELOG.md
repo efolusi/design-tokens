@@ -2,9 +2,9 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
-## Unreleased
+## v0.7.0 - 2026-11-22
 
-- **Breaking: `material.glow` is removed** (DT13). The owner found the coloured shadow under the orange buttons too big; the rule now is contact shadows only, no coloured glow, and none in dark ([docs/glass.md](docs/glass.md)). Remove every `--material-glow` and `materialGlow` use.
+- **Breaking: `material.glow` is removed** (DT13). The coloured glow read as too large; the rule now is contact shadows only, no coloured glow, and none in dark ([docs/glass.md](docs/glass.md)). Remove every `--material-glow` and `materialGlow` use.
 
 ## v0.6.1 - 2026-11-22
 
