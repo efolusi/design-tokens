@@ -280,7 +280,6 @@ export const tokens = {
   "material-spec": 0.5016,
   "material-spec-low": 0.1155,
   "material-sheen": 0.1815,
-  "material-glow": 0,
   "motion-lift": 1.012,
   "motion-press": 0.98,
   "opacity-tint": 0.12,
@@ -404,8 +403,7 @@ export const modes = {
     "material-edge": 0.0739,
     "material-spec": 0.1162,
     "material-spec-low": 0.0165,
-    "material-sheen": 0.033,
-    "material-glow": 0.0594
+    "material-sheen": 0.033
   },
   "compact": {
     "control-h-xs": "20px",

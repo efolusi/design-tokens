@@ -32,7 +32,6 @@ Shape: `radius.sm` to `xl` are 10, 16, 22 and 28 px. `weight.display` is 560, `t
 | `material.saturate` | 1 + 0.8 × s | 1.264 | Backdrop saturation |
 | `material.edge`, `spec` | 0.75 or 0.95 × min(1, 1.6 s); dark 0.14 or 0.22 × … | 0.396, 0.5016 / 0.0739, 0.1162 | White rim and inner top highlight |
 | `material.spec-low`, `sheen` | 0.35 or 0.55 × s; dark 0.05 or 0.1 × s | 0.1155, 0.1815 / 0.0165, 0.033 | Inner bottom highlight, diagonal sheen |
-| `material.glow` | 0; dark 0.18 × s | 0 / 0.0594 | Accent glow around bars and sheets in dark |
 | `material.tint` | colour | `#FFFDF9` / `#26201B` | The glass colour; the opacities above apply to it |
 | `field.strength` | s | 0.33 | Opacity of the field glows |
 
@@ -40,7 +39,7 @@ In CSS the formulas stay live (`calc(1 - var(--glass-strength) * 0.58)`). In `to
 
 ## Fallbacks
 
-Every material becomes solid (opacity 1, blur 0, saturate 1, sheen and glow 0) in three cases, emitted as mode blocks after the dark blocks so they win. The blocks select `:root`, `[data-theme="light"]` and `[data-theme="dark"]`, so a nested theme subtree turns solid too; the base block also selects `[data-theme="light"]`, so a light subtree inside a dark page gets the light values back:
+Every material becomes solid (opacity 1, blur 0, saturate 1, sheen 0) in three cases, emitted as mode blocks after the dark blocks so they win. The blocks select `:root`, `[data-theme="light"]` and `[data-theme="dark"]`, so a nested theme subtree turns solid too; the base block also selects `[data-theme="light"]`, so a light subtree inside a dark page gets the light values back:
 
 | Mode | Web |
 |---|---|
@@ -56,6 +55,7 @@ Forced colours are the component's job (Meridian): system colours, no blur, and 
 - At most four blurred surfaces on screen. Never nest a blurred surface in another: the outer one becomes the backdrop root and the inner one blurs nothing.
 - Sheets and popovers never animate their opacity. An opacity entrance shows the text behind them for the length of the animation. Enter by transform only.
 - Only `text.primary` sits on chrome glass; `text.secondary` sits on clear and thick glass, where the gate below proves it.
+- No coloured glow (owner, 2026-11-22: the shadow under the orange buttons looked too big). A filled button (accent, brand band, danger) has a contact shadow only: at most 3px offset and 8px blur, its coloured part at most 0.16 alpha; hover adds at most 2px of blur; in dark no coloured shadow at all. Glass bars and sheets use the neutral shadow scale.
 - Decorative text added in CSS gets empty alt text (`content: "On" / ""`).
 
 ## Contrast gate
