@@ -4,6 +4,7 @@ Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/c
 
 ## Unreleased
 
+- **The Design Tokens logo is the logo-system file.** `assets/design-tokens.svg` is replaced byte for byte by the approved file (sha256 starts 4877ab6e1951): the same four cells, now on the 64 artboard in the square box, one path. The README names `efolusi/efolusi` as the source of the marks.
 - **New: the Design Tokens logo, `assets/design-tokens.svg`.** A circle, a square, a pill and a leaning bar in one grid, one colour, tight viewBox (ratio 1). It is the mark `efolusi.com` shows for Design Tokens.
 
 ## v0.5.0 - 2026-11-22
