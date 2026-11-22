@@ -11,6 +11,8 @@ The shared motion scale: durations, curves, distance steps and holds. Web (Merid
 | `dur.slow` | `--dur-slow` | 250 ms | A panel or drawer. Nothing in product UI is longer. |
 | `dur.progress` | `--dur-progress` | 250 ms | A bar moving to a new value. Use the `linear` keyword with it: a keyword has no numbers to share. |
 | `dur.long` | `--dur-long` | 480 ms | Web marketing only: a hero reveal, a stat counter, a View Transition. Not in Swift. |
+| `dur.loop` | `--dur-loop` | 1400 ms | One turn of a looping pulse (skeleton, pending row, loader). Stopped under reduced motion, not shortened. |
+| `dur.loop-slow` | `--dur-loop-slow` | 1600 ms | One turn of a slower loop (shimmer, status ring). Use `linear` for a shimmer. |
 
 ## Curves
 
