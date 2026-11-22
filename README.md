@@ -16,7 +16,9 @@ Framework-agnostic JSON. Consumers map names into CSS, Swift, or other platforms
 | `docs/consumers.md` | How Meridian and Glamor use this repo |
 | `docs/motion.md` | The motion scale, its reduced-motion rule and the renames |
 | `docs/status.md` | The status layer, the brand and sand mappings, the loop durations |
+| `docs/glass.md` | The warm glass palette, `glass.strength` and the material derived from it, the fallbacks, the rules for components |
 | `scripts/build.mjs` | Builds `tokens/web/` and `tokens/native/` from `tokens.json` |
+| `scripts/check-contrast.mjs` | The contrast gate: every text and icon pair on glass against the worst backdrop, in CI |
 | `tests/` | Checks aliases, names, and that exports are up to date |
 
 ## Status
@@ -29,6 +31,7 @@ Needs Node 20 or newer. No dependencies.
 ```bash
 npm run build   # write tokens/web/ and tokens/native/
 npm test        # aliases, names, stale exports, swiftc type-check
+npm run contrast  # AA for every pair on glass, light and dark
 ```
 
 | Output | For | Names |

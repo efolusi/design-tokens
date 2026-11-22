@@ -4,6 +4,13 @@ Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/c
 
 ## Unreleased
 
+- **Warm glass palette** (DT09, [docs/glass.md](docs/glass.md)). The owner's direction of 2026-11-22: an `ember` ramp for the accent, links and focus; `sand.75` and `sand.150`; lighter paper and lifted dark surfaces; `surface.brand` becomes the warm band (`ember.100`, dark `#3A2418`) and `text.on-brand` dark ink on it. Cocoa stays only in the product marks and the wordmark. Radius 10, 16, 22, 28 px; `weight.display` 560, `tracking.display` -0.025em, `leading.tight` 1.1; softer shadows, and a ring plus shadow in dark. `field.0` to `field.3`: the quiet field behind the page.
+- **Breaking: `tone.cocoa` is renamed `tone.band`.** Its fill is the warm band now, its text `text.on-brand`. Rename every `tone-cocoa` use.
+- **Contrast kept on the lifted dark surfaces:** `text.muted` dark `#A89E8D`, `danger.600` dark `#EB6E5C` and increased-dark `#EC7C6D`, `warning.600` increased-dark `#DC8B3A`, `state.hover-on-tab` dark `#2C2520` and increased-dark `#3A322A`.
+- **Glass material from one number** (DT10). `glass.strength` (0.33) and `material.*` derived from it: `clear`, `regular`, `chrome`, `thick` (with a floor so text behind a sheet never reads through), `blur`, `blur-thick`, `saturate`, `edge`, `spec`, `spec-low`, `sheen`, `glow`, `tint`; `field.strength`; `motion.lift` and `motion.press`. CSS keeps the formulas live; `tokens.js` and Swift get the numbers (`materialThickDark` for the dark floor). Every material turns solid under `prefers-reduced-transparency`, `prefers-contrast: more` and without `backdrop-filter` (new modes `reduced-transparency` and `no-backdrop`; mode blocks can now carry a `supports` condition).
+- **Contrast gate for glass** (DT11). `npm run contrast` and a CI job check every pair on glass against the worst backdrop, and the sheet ghost-text limit.
+- **Fix: a nested dark subtree resolves aliases in dark** (DT07). An alias whose target changes in a mode (`status.success.bg`, `surface.panel`) is declared again in that mode's block.
+
 - **The Design Tokens logo is the logo-system file.** `assets/design-tokens.svg` is replaced byte for byte by the approved file (sha256 starts 4877ab6e1951): the same four cells, now on the 64 artboard in the square box, one path. The README names `efolusi/efolusi` as the source of the marks.
 - **New: the Design Tokens logo, `assets/design-tokens.svg`.** A circle, a square, a pill and a leaning bar in one grid, one colour, tight viewBox (ratio 1). It is the mark `efolusi.com` shows for Design Tokens.
 

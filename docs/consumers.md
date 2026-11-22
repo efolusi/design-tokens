@@ -38,7 +38,7 @@ One token, one name per platform, derived by `scripts/build.mjs`:
 | `control.h-sm` | `--control-h-sm` | `GlamorTokens.Length.controlHSm` |
 | `sand.25` | `--sand-25` | `GlamorTokens.Color.sand25` |
 
-Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (compact-density lengths), `Number`, `Em`, `Duration` (seconds), `Curve`. Font stacks and box-shadows are web-only and not in Swift. A token can also be marked web-only in `tokens.json` (`"web-only": true` in its extension); `dur.long` is. The motion scale, its reduced-motion rule and the 0.4.0 renames are in [motion.md](motion.md).
+Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (compact-density lengths), `Number`, `Em`, `Duration` (seconds), `Curve`. A number that differs in dark gets a second constant with `Dark` appended (`materialThickDark`). Values written as CSS math (`calc`, `min`, `max`, the glass material) stay live in CSS and are evaluated to numbers in `tokens.js` and Swift. Font stacks and box-shadows are web-only and not in Swift. A token can also be marked web-only in `tokens.json` (`"web-only": true` in its extension); `dur.long` is. The motion scale, its reduced-motion rule and the 0.4.0 renames are in [motion.md](motion.md).
 
 ## Modes
 
@@ -50,8 +50,10 @@ Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (c
 | `increased` | `@media (prefers-contrast: more)` on `:root` | `ColorPair.increasedLight` |
 | `increased-dark` | the same, on both dark selectors | `ColorPair.increasedDark` |
 | `reduced-motion` | `@media (prefers-reduced-motion:reduce)` on `:root`, in `effects.css` only | not emitted; Glamor's `MotionToken.animation(reduceMotion:)` applies the rule |
+| `reduced-transparency` | `@media (prefers-reduced-transparency: reduce)` on `:root` and `[data-theme="dark"]`: every material solid | not emitted; Glamor reads `accessibilityReduceTransparency` |
+| `no-backdrop` | `@supports not (backdrop-filter: blur(1px))` on `:root` and `[data-theme="dark"]`: every material solid | not emitted |
 
-The blocks for each mode live in root `$extensions."com.efolusi.meridian".modes`. `color-scheme` and `::selection` are fixed extras there, not tokens, and go only into the CSS files that hold colors.
+The blocks for each mode live in root `$extensions."com.efolusi.meridian".modes`; a block has a `selector` and optionally a `media` or a `supports` condition. An alias whose target changes in a mode (`status.success.bg` is `{success.100}`, which turns dark) is declared again in that mode's block, so a nested `[data-theme="dark"]` subtree inside a light page resolves it to the dark value. `color-scheme` and `::selection` are fixed extras there, not tokens, and go only into the CSS files that hold colors.
 
 A token with an `increased` value must also have `increased-dark`; otherwise dark screens with more contrast would get the light value. In Swift, a missing increased value falls back to the normal one (`increased-dark` falls back to `dark`).
 

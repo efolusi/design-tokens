@@ -9,8 +9,8 @@ design-tokens/
 ├── tokens.json           # authored shared source (DTCG)
 ├── tokens/web/           # tokens.css, 4 split .css, tokens.js (generated)
 ├── tokens/native/        # GlamorTokens.swift (generated)
-├── docs/                 # consumers.md, motion.md
-├── scripts/              # build.mjs
+├── docs/                 # consumers.md, motion.md, status.md, glass.md
+├── scripts/              # build.mjs, check-contrast.mjs
 ├── tests/                # node --test
 └── README, ARCHITECTURE, CONTRIBUTING, SECURITY, …
 ```
