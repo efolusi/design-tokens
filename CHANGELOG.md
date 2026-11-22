@@ -2,7 +2,7 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
-## Unreleased
+## 0.5.0 — 2026-11-22
 
 - **A semantic status layer** ([docs/status.md](docs/status.md)). `--status-<s>-bg`, `-border`, `-text`, `-solid` and `-on-solid` for `success`, `warning`, `danger` and `info` (Swift `statusDangerBg` and so on), remapped in dark and both Increase contrast modes. Tests hold 4.5:1 for `text` on `bg`, the card and the page, and for `on-solid` on `solid`, and 3:1 for `solid` on the card, in every mode.
 - **Status border is decorative.** A component that shows status by its outline alone uses `status-<s>-solid` for the outline. `docs/status.md` also maps `brand-600` (Toast info icon) to `status.info.text` and `success-500` (Avatar badge) to `status.success.solid`.
