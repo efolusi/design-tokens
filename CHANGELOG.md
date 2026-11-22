@@ -5,6 +5,7 @@ Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/c
 ## Unreleased
 
 - **A semantic status layer** ([docs/status.md](docs/status.md)). `--status-<s>-bg`, `-border`, `-text`, `-solid` and `-on-solid` for `success`, `warning`, `danger` and `info` (Swift `statusDangerBg` and so on), remapped in dark and both Increase contrast modes. Tests hold 4.5:1 for `text` on `bg`, the card and the page, and for `on-solid` on `solid`, and 3:1 for `solid` on the card, in every mode.
+- **Status border is decorative.** A component that shows status by its outline alone uses `status-<s>-solid` for the outline. `docs/status.md` also maps `brand-600` (Toast info icon) to `status.info.text` and `success-500` (Avatar badge) to `status.success.solid`.
 - **An `info` ramp** (`info.100`, `.300`, `.600`, `.on-dark`, `.contrast`), the fourth status. Components read `status.info.*`.
 - **Six semantic tokens for raw ramp uses** in Meridian's components: `border.hover`, `surface.track`, `surface.brand-hover`, `text.disabled`, `accent.warm`, `accent.soft`. The docs map every other raw `brand`, `sand`, `cream`, `peach`, `caramel` and `cocoa` stop to a token that already existed.
 - **Loop durations.** `dur.loop` 1400 ms and `dur.loop-slow` 1600 ms, in CSS, JS and Swift, with no reduced-motion value: a loop stops, it is not shortened.

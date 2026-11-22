@@ -73,7 +73,7 @@ test("on-solid keeps 4.5:1 on solid, in every mode", () => {
   assert.deepEqual(low, []);
 });
 
-test("solid and border show against the card at 3:1 (solid) in every mode", () => {
+test("solid shows against the card at 3:1 in every mode", () => {
   const low = [];
   for (const mode of Object.keys(MODES)) {
     for (const s of STATUSES) {
@@ -144,4 +144,32 @@ test("loop durations: 1.4 s and 1.6 s, durations, in CSS, JS and Swift, with no 
   assert.match(css, /--dur-loop-slow: 1600ms;/);
   assert.match(swift, /static let durLoop: Double = 1\.4$/m);
   assert.match(swift, /static let durLoopSlow: Double = 1\.6$/m);
+});
+
+test("tokens.js holds the same 20 status values as tokens.json, in light and dark", async () => {
+  const { tokens, modes } = await import("../tokens/web/tokens.js");
+  let n = 0;
+  for (const s of STATUSES) {
+    for (const p of PARTS) {
+      const name = `status-${s}-${p}`;
+      assert.equal(tokens[name], value(`status.${s}.${p}`, "light"), `${name} [light]`);
+      assert.equal({ ...tokens, ...modes.dark }[name], value(`status.${s}.${p}`, "dark"), `${name} [dark]`);
+      n++;
+    }
+  }
+  assert.equal(n, 20);
+});
+
+test("docs/status.md says the border is decorative and where an outline gets its colour", () => {
+  const doc = readFileSync(join(ROOT, "docs/status.md"), "utf8");
+  assert.ok(doc.includes("status border is decorative; a component that shows status by its outline alone uses `status-<s>-solid` for the outline."));
+});
+
+test("docs/status.md names a home for every ramp stop Meridian reads, brand-600 and success-500 included", () => {
+  const doc = readFileSync(join(ROOT, "docs/status.md"), "utf8");
+  const stops = ["brand-50", "brand-100", "brand-200", "brand-300", "brand-500", "brand-600", "brand-700", "brand-800", "brand-900", "brand-950",
+    "cream-50", "peach-200", "caramel-500", "cocoa-700", "sand-200", "sand-300", "sand-400", "sand-500", "sand-700",
+    "success-500", "success-100", "success-300", "success-600", "success-on-dark", "success-contrast"];
+  const missing = stops.filter((x) => !doc.includes(`\`${x}\``));
+  assert.deepEqual(missing, []);
 });
