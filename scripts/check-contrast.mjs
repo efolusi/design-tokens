@@ -78,6 +78,8 @@ export function checkContrast(src) {
       add("Focus ring", ring, bg, NON_TEXT, name);
     }
     add("Tinted label", color("accent.subtle-fg"), color("accent.subtle"), TEXT, "accent.subtle");
+    // Form-control edges (WCAG 1.4.11): Meridian's inputs draw border.control on every surface.
+    for (const [name, bg] of [["page", page], ["card", card], ["sunken", color("surface.sunken")]]) add("Form control edge", color("border.control"), bg, NON_TEXT, name);
     // Legibility rule: text behind a sheet must not read through it.
     for (const [name, bg] of [["card", card], ["field", f0]]) {
       const r = ratio(mix(tint, ink, thick), mix(tint, bg, thick));
