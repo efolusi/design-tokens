@@ -12,6 +12,7 @@ Framework-agnostic JSON. Consumers map names into CSS, Swift, or other platforms
 |---|---|
 | `tokens.json` | Authored shared source, DTCG format |
 | `tokens/` | Export dirs: `web/`, `native/` when generators exist |
+| `assets/design-tokens.svg` | The logo: one colour, shape only, paint it through a CSS mask. The same file is `public/design-tokens.svg` on efolusi.com |
 | `docs/consumers.md` | How Meridian and Glamor use this repo |
 | `docs/motion.md` | The motion scale, its reduced-motion rule and the renames |
 | `docs/status.md` | The status layer, the brand and sand mappings, the loop durations |

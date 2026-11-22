@@ -2,6 +2,10 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
+## Unreleased
+
+- **New: the Design Tokens logo, `assets/design-tokens.svg`.** A circle, a square, a pill and a leaning bar in one grid, one colour, tight viewBox (ratio 1). It is the mark `efolusi.com` shows for Design Tokens.
+
 ## v0.5.0 - 2026-11-22
 
 - **A semantic status layer** ([docs/status.md](docs/status.md)). `--status-<s>-bg`, `-border`, `-text`, `-solid` and `-on-solid` for `success`, `warning`, `danger` and `info` (Swift `statusDangerBg` and so on), remapped in dark and both Increase contrast modes. Tests hold 4.5:1 for `text` on `bg`, the card and the page, and for `on-solid` on `solid`, and 3:1 for `solid` on the card, in every mode.
