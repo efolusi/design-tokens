@@ -163,7 +163,7 @@ test("JS increased-dark aliases follow the dark value of their target", async ()
 test("JS modes include aliases whose target changes, and numbers are numbers", async () => {
   const { tokens, modes } = await import("../tokens/web/tokens.js");
   assert.equal(modes.dark["state-pressed"], modes.dark["border-default"]);
-  assert.equal(modes["increased-dark"]["border-default"], "#786E59");
+  assert.equal(modes["increased-dark"]["border-default"], "#7C725E");
   assert.equal(typeof tokens["opacity-tint"], "number");
   assert.equal(typeof tokens["z-modal"], "number");
   assert.equal(typeof tokens["space-4"], "string");
