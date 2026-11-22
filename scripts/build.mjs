@@ -67,11 +67,59 @@ export function resolver(tokens) {
 
 const cssValue = (v) => String(v).replace(ALIAS, (_, key) => `var(--${cssName(key.split("."))})`);
 
+// Evaluate a resolved CSS math value such as "max(0.92, calc(1 - 0.33 * 0.18))" or "calc(12px + 16px * 0.33)".
+// Arithmetic only: numbers (px allowed), + - * /, parentheses, commas, calc, min and max. Anything else throws.
+// The result is rounded to four decimals, the precision of the Swift and JS outputs.
+export function evaluate(expr) {
+  const src = String(expr).trim();
+  const tokens = src.match(/\d*\.?\d+(?:px)?|calc|min|max|[-+*/(),]|\S/g) ?? [];
+  let i = 0;
+  const peek = () => tokens[i];
+  const take = (want) => {
+    const t = tokens[i++];
+    if (want !== undefined && t !== want) throw new Error(`bad expression ${src}: expected ${want}, got ${t ?? "end"}`);
+    return t;
+  };
+  const args = () => {
+    take("(");
+    const list = [sum()];
+    while (peek() === ",") { take(","); list.push(sum()); }
+    take(")");
+    return list;
+  };
+  const atom = () => {
+    const t = peek();
+    if (t === "-") { take(); return -atom(); }
+    if (t === "(") { take(); const v = sum(); take(")"); return v; }
+    if (t === "calc") { take(); const [v, ...rest] = args(); if (rest.length) throw new Error(`bad expression ${src}`); return v; }
+    if (t === "min" || t === "max") { take(); return Math[t](...args()); }
+    if (t !== undefined && /^\d*\.?\d+(px)?$/.test(t)) { take(); return parseFloat(t); }
+    throw new Error(`bad expression ${src}: unexpected ${t ?? "end"}`);
+  };
+  const product = () => {
+    let v = atom();
+    while (peek() === "*" || peek() === "/") v = take() === "*" ? v * atom() : v / atom();
+    return v;
+  };
+  function sum() {
+    let v = product();
+    while (peek() === "+" || peek() === "-") v = take() === "+" ? v + product() : v - product();
+    return v;
+  }
+  const v = sum();
+  if (i !== tokens.length || !Number.isFinite(v)) throw new Error(`bad expression ${src}`);
+  return Math.round(v * 10000) / 10000;
+}
+
+const isMath = (v) => /^(calc|min|max)\(/.test(String(v).trim());
+// A plain number or length, or a math expression evaluated.
+const numeric = (v) => (isMath(v) ? evaluate(v) : Number(String(v).replace(/px$/, "")));
+
 // Meridian's file split: tokens/{colors,typography,spacing,effects}.css.
 const FILE_OF = {
   typography: ["font", "leading", "tracking", "weight"],
   spacing: ["container", "control", "icon", "radius", "sidebar", "space", "table", "tap"],
-  effects: ["dur", "ease", "guard", "hold", "opacity", "shadow", "shift", "z"],
+  effects: ["dur", "ease", "glass", "guard", "hold", "material", "motion", "opacity", "shadow", "shift", "z"],
 };
 export function cssFile(t) {
   if (t.path[0] === "text") return t.type === "color" ? "colors" : "typography";
@@ -80,11 +128,29 @@ export function cssFile(t) {
   return "colors";
 }
 const part = (file) => (src) =>
-  buildCss({ ...src, tokens: src.tokens.filter((t) => cssFile(t) === file) }, { extras: file === "colors" });
+  buildCss({ ...src, all: src.tokens, tokens: src.tokens.filter((t) => cssFile(t) === file) }, { extras: file === "colors" });
+
+// True when the token, or any token its value names, has its own value in `mode`.
+// Such an alias is declared again in that mode's block, so a nested theme subtree resolves it there (DT07).
+export function changesIn(all) {
+  const byKey = new Map(all.map((t) => [t.path.join("."), t]));
+  const memo = new Map();
+  const changes = (t, mode) => {
+    const key = `${t.path.join(".")}@${mode}`;
+    if (memo.has(key)) return memo.get(key);
+    memo.set(key, false);
+    const names = [...String(t.value).matchAll(ALIAS)].map((m) => byKey.get(m[1])).filter(Boolean);
+    const out = mode in t.modes || names.some((n) => changes(n, mode));
+    memo.set(key, out);
+    return out;
+  };
+  return changes;
+}
 
 // Mode blocks come from root $extensions: each block is a selector, optionally inside @media.
 // `declarations` (color-scheme) and `rules` (::selection) are not tokens; only files with colors get them.
-export function buildCss({ base, modeDefs, tokens }, { extras = true } = {}) {
+export function buildCss({ base, modeDefs, tokens, all = tokens }, { extras = true } = {}) {
+  const changes = changesIn(all);
   const lines = (list, pick, decls) => [
     ...(extras ? Object.entries(decls ?? {}).map(([k, v]) => `${k}: ${v};`) : []),
     ...list.map((t) => `--${cssName(t.path)}: ${cssValue(pick(t))};`),
@@ -92,13 +158,15 @@ export function buildCss({ base, modeDefs, tokens }, { extras = true } = {}) {
   const rule = (selector, body, pad) =>
     `${pad}${selector} {\n${body.map((l) => `${pad}  ${l}`).join("\n")}\n${pad}}\n`;
   let out = "/* Generated from tokens.json by scripts/build.mjs. Do not edit. */\n";
-  out += rule(":root", lines(tokens, (t) => t.value, base.declarations), "");
+  // The base block also matches [data-theme="light"], so a light subtree inside a dark page gets the light values back.
+  out += rule(base.selector ?? ":root", lines(tokens, (t) => t.value, base.declarations), "");
   for (const [mode, def] of Object.entries(modeDefs)) {
-    const list = tokens.filter((t) => mode in t.modes);
+    const list = tokens.filter((t) => changes(t, mode));
     if (!list.length) continue;
-    const body = lines(list, (t) => t.modes[mode], def.declarations);
-    for (const { media, selector } of def.blocks) {
-      const pad = media ? "  " : "";
+    const body = lines(list, (t) => (mode in t.modes ? t.modes[mode] : t.value), def.declarations);
+    for (const { media, supports, selector } of def.blocks) {
+      const wrap = media ? `@media ${media}` : supports ? `@supports ${supports}` : null;
+      const pad = wrap ? "  " : "";
       let block = rule(selector, body, pad);
       if (extras) {
         for (const [pseudo, props] of Object.entries(def.rules ?? {})) {
@@ -106,7 +174,7 @@ export function buildCss({ base, modeDefs, tokens }, { extras = true } = {}) {
           block += "\n" + rule(sel, Object.entries(props).map(([k, v]) => `${k}: ${cssValue(v)};`), pad);
         }
       }
-      out += media ? `\n@media ${media} {\n${block}}\n` : `\n${block}`;
+      out += wrap ? `\n${wrap} {\n${block}}\n` : `\n${block}`;
     }
   }
   return out;
@@ -120,7 +188,8 @@ export function buildJs({ modeDefs, tokens }) {
   // Number-kind tokens (opacity, z, weight, leading) become JS numbers.
   const value = (t, mode) => {
     const v = resolve(valueIn(t, mode), mode);
-    return swiftKind(t) === "Number" ? Number(v) : v;
+    if (swiftKind(t) === "Number") return numeric(v);
+    return isMath(v) ? `${evaluate(v)}px` : v;
   };
   const base = Object.fromEntries(tokens.map((t) => [cssName(t.path), value(t, null)]));
   // A mode lists every token whose resolved value differs from base, aliases included,
@@ -175,7 +244,7 @@ export function swiftKind(t) {
   if (t.webOnly) return null;
   if (t.type === "color") return "Color";
   if (t.path[0] === "font" || t.type === "shadow") return null; // CSS font stacks and box-shadows
-  if (["leading", "opacity", "weight", "z"].includes(t.path[0])) return "Number";
+  if (["leading", "opacity", "weight", "z"].includes(t.path[0]) || t.type === "number") return "Number";
   if (t.path[0] === "tracking") return "Em";
   if (t.type === "duration") return "Duration";
   if (t.type === "cubicBezier") return "Curve";
@@ -187,7 +256,7 @@ const DOC = {
   Color: "sRGB components 0...1: light, dark, and increased-contrast light and dark.",
   Length: "Lengths in points (CSS px = pt).",
   Compact: "Lengths in points for compact density. Only the tokens that change.",
-  Number: "Unitless: line-height multipliers, opacities, font weights, z-index.",
+  Number: "Unitless: line-height multipliers, opacities, font weights, z-index, the glass strength and its materials.",
   Em: "Letter spacing as a fraction of the font size.",
   Duration: "Durations in seconds.",
   Curve: "Cubic Bezier control points (x1, y1, x2, y2).",
@@ -211,10 +280,15 @@ export function buildSwift({ tokens }) {
         ? ` = ColorPair(light: ${light}, dark: ${dark})`
         : ` = ColorPair(light: ${light}, dark: ${dark}, increasedLight: ${incLight}, increasedDark: ${incDark})`);
     } else if (kind === "Length") {
-      line("Length", `: Double = ${num(points(base))}`);
+      line("Length", `: Double = ${num(isMath(base) ? evaluate(base) : points(base))}`);
       if ("compact" in t.modes) line("Compact", `: Double = ${num(points(resolve(t.modes.compact, "compact")))}`);
     } else if (kind === "Number") {
-      line("Number", `: Double = ${num(Number(base))}`);
+      line("Number", `: Double = ${num(numeric(base))}`);
+      // A number that differs in dark (a material floor) gets its own constant; colors carry dark in ColorPair.
+      if ("dark" in t.modes) {
+        const dark = numeric(resolve(t.modes.dark, "dark"));
+        if (dark !== numeric(base)) line("Number", `Dark: Double = ${num(dark)}`);
+      }
     } else if (kind === "Em") {
       line("Em", `: Double = ${num(Number(base.replace(/em$/, "")))}`);
     } else if (kind === "Duration") {

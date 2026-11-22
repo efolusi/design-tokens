@@ -106,7 +106,7 @@ test("accent, link, focus and status pairs keep their ratios in every mode", () 
 test("feature-card tones keep 4.5:1 for their text in every mode", () => {
   const low = [];
   for (const mode of Object.keys(MODES)) {
-    for (const tone of ["peach", "cocoa", "amber"]) {
+    for (const tone of ["peach", "band", "amber"]) {
       const r = ratio(rgb(`tone.${tone}.on-fill`, mode), rgb(`tone.${tone}.fill`, mode));
       if (r < 4.5) low.push(`tone.${tone} [${mode}]: ${r.toFixed(2)}`);
     }
