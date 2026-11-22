@@ -61,7 +61,7 @@ test("DT10: material values follow glass.strength at .33 (halus)", () => {
   close(number("glass.strength"), 0.33, "strength");
   close(number("material.clear"), 0.8086, "clear");
   close(number("material.regular"), 0.8218, "regular");
-  close(number("material.chrome"), 0.8614, "chrome");
+  close(number("material.chrome"), 0.9406, "chrome");
   close(number("material.thick"), 0.9406, "thick light");
   close(number("material.thick", "dark"), 0.9472, "thick dark");
   close(number("material.blur"), 17.28, "blur");
@@ -77,7 +77,7 @@ test("DT10: one number moves every material value (.5, sedang)", async () => {
   const n = (key, mode = null) => evaluate(r(valueIn(map.get(key), mode), mode));
   assert.equal(n("material.clear"), 0.71);
   assert.equal(n("material.regular"), 0.73);
-  assert.equal(n("material.chrome"), 0.79);
+  assert.equal(n("material.chrome"), 0.91);
   assert.equal(n("material.thick"), 0.92, "the light floor holds");
   assert.equal(n("material.thick", "dark"), 0.94, "the dark floor holds");
   assert.equal(n("material.blur"), 20);
@@ -117,7 +117,7 @@ test("DT10: native output carries the strength and the material", () => {
 
 test("DT10: JS numbers are evaluated", async () => {
   const { tokens, modes } = await import("../tokens/web/tokens.js");
-  assert.equal(tokens["material-chrome"], 0.8614);
+  assert.equal(tokens["material-chrome"], 0.9406);
   assert.equal(modes.dark["material-thick"], 0.9472);
   assert.equal(tokens["material-blur"], "17.28px");
 });
@@ -135,7 +135,7 @@ test("DT07: aliases are redeclared where their target changes, so a dark subtree
   const dark = css.match(/^\[data-theme="dark"\] \{\n([\s\S]*?)\n\}/m)[1];
   assert.match(dark, /--status-success-bg: var\(--success-100\);/);
   assert.match(dark, /--surface-panel: var\(--surface-card\);/);
-  const plain = css.match(/^:root \{\n([\s\S]*?)\n\}/m)[1];
+  const plain = css.match(/^:root, \[data-theme="light"\] \{\n([\s\S]*?)\n\}/m)[1];
   assert.match(plain, /--status-success-bg: var\(--success-100\);/);
 });
 
@@ -157,6 +157,26 @@ test("DT10: the fallbacks also reach a nested dark subtree", () => {
   const css = readFileSync(join(ROOT, "tokens/web/effects.css"), "utf8");
   for (const head of ["@media (prefers-reduced-transparency: reduce) {", "@supports not (backdrop-filter: blur(1px)) {"]) {
     const at = css.indexOf(head);
-    assert.match(css.slice(at, at + 120), /\n  :root, \[data-theme="dark"\] \{/, `${head} must also select [data-theme="dark"]`);
+    assert.match(css.slice(at, at + 140), /\n  :root, \[data-theme="light"\], \[data-theme="dark"\] \{/, `${head} must also select [data-theme="dark"]`);
+  }
+});
+
+test("DT11: glass is checked over any content, black and white included, for muted and status text too", () => {
+  const { rows } = checkContrast(src);
+  for (const theme of ["light", "dark"]) {
+    for (const backdrop of ["black content", "white content"]) {
+      for (const what of ["Bar text on chrome glass", "Muted text on chrome glass", "Status text on chrome glass", "Sheet secondary text on thick glass"]) {
+        assert.ok(rows.some((r) => r.theme === theme && r.what.startsWith(what) && r.against.endsWith(backdrop)), `${theme}: ${what} over ${backdrop}`);
+      }
+    }
+  }
+});
+
+test("a nested light subtree inside a dark page gets the light values back", () => {
+  const css = buildCss(src);
+  assert.match(css, /^:root, \[data-theme="light"\] \{\n  color-scheme: light;/m);
+  for (const head of ["@media (prefers-reduced-transparency: reduce) {", "@supports not (backdrop-filter: blur(1px)) {", "@media (prefers-contrast: more) {"]) {
+    const at = css.indexOf(head);
+    assert.match(css.slice(at, at + 140), /\n  :root, \[data-theme="light"\](, \[data-theme="dark"\])? \{/, `${head} must also select [data-theme="light"]`);
   }
 });

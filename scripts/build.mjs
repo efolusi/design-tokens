@@ -158,7 +158,8 @@ export function buildCss({ base, modeDefs, tokens, all = tokens }, { extras = tr
   const rule = (selector, body, pad) =>
     `${pad}${selector} {\n${body.map((l) => `${pad}  ${l}`).join("\n")}\n${pad}}\n`;
   let out = "/* Generated from tokens.json by scripts/build.mjs. Do not edit. */\n";
-  out += rule(":root", lines(tokens, (t) => t.value, base.declarations), "");
+  // The base block also matches [data-theme="light"], so a light subtree inside a dark page gets the light values back.
+  out += rule(base.selector ?? ":root", lines(tokens, (t) => t.value, base.declarations), "");
   for (const [mode, def] of Object.entries(modeDefs)) {
     const list = tokens.filter((t) => changes(t, mode));
     if (!list.length) continue;

@@ -1,5 +1,5 @@
 /* Generated from tokens.json by scripts/build.mjs. Do not edit. */
-:root {
+:root, [data-theme="light"] {
   --avatar-sm: 24px;
   --avatar-md: 32px;
   --avatar-lg: 40px;

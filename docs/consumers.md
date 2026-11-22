@@ -47,11 +47,11 @@ Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (c
 | `dark` | `[data-theme="dark"]`, and `@media (prefers-color-scheme:dark)` unless `data-theme="light"`; sets `color-scheme` and `::selection` | `ColorPair.dark` |
 | `compact` | `[data-density="compact"]` | `GlamorTokens.Compact` |
 | `coarse` | `@media (pointer: coarse)` on `:root` and `[data-density="compact"]` | not emitted; touch devices use `GlamorTokens.Length.tapMin` |
-| `increased` | `@media (prefers-contrast: more)` on `:root` | `ColorPair.increasedLight` |
+| `increased` | `@media (prefers-contrast: more)` on `:root` and `[data-theme="light"]` | `ColorPair.increasedLight` |
 | `increased-dark` | the same, on both dark selectors | `ColorPair.increasedDark` |
 | `reduced-motion` | `@media (prefers-reduced-motion:reduce)` on `:root`, in `effects.css` only | not emitted; Glamor's `MotionToken.animation(reduceMotion:)` applies the rule |
-| `reduced-transparency` | `@media (prefers-reduced-transparency: reduce)` on `:root` and `[data-theme="dark"]`: every material solid | not emitted; Glamor reads `accessibilityReduceTransparency` |
-| `no-backdrop` | `@supports not (backdrop-filter: blur(1px))` on `:root` and `[data-theme="dark"]`: every material solid | not emitted |
+| `reduced-transparency` | `@media (prefers-reduced-transparency: reduce)` on `:root`, `[data-theme="light"]` and `[data-theme="dark"]`: every material solid | not emitted; Glamor reads `accessibilityReduceTransparency` |
+| `no-backdrop` | `@supports not (backdrop-filter: blur(1px))` on `:root`, `[data-theme="light"]` and `[data-theme="dark"]`: every material solid | not emitted |
 
 The blocks for each mode live in root `$extensions."com.efolusi.meridian".modes`; a block has a `selector` and optionally a `media` or a `supports` condition. An alias whose target changes in a mode (`status.success.bg` is `{success.100}`, which turns dark) is declared again in that mode's block, so a nested `[data-theme="dark"]` subtree inside a light page resolves it to the dark value. `color-scheme` and `::selection` are fixed extras there, not tokens, and go only into the CSS files that hold colors.
 

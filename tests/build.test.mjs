@@ -106,7 +106,7 @@ test("size groups: control xs, icon, avatar and sidebar", () => {
 
 test("CSS keeps Meridian's theme behaviour", () => {
   const css = readFileSync(join(ROOT, "tokens/web/colors.css"), "utf8");
-  assert.match(css, /^:root \{\n  color-scheme: light;/m);
+  assert.match(css, /^:root, \[data-theme="light"\] \{\n  color-scheme: light;/m);
   const dark = css.match(/^\[data-theme="dark"\] \{\n([\s\S]*?)\n\}/m)[1];
   const os = css.match(/@media \(prefers-color-scheme:dark\) \{\n  :root:not\(:where\(\[data-theme="light"\]\)\) \{\n([\s\S]*?)\n  \}/)[1];
   assert.equal(os.replace(/^  /gm, ""), dark, "OS-follow block must equal the dark block");

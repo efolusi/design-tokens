@@ -25,7 +25,7 @@ Shape: `radius.sm` to `xl` are 10, 16, 22 and 28 px. `weight.display` is 560, `t
 |---|---|---|---|
 | `material.clear` | 1 − s × 0.58 | 0.8086 | Controls on a panel: theme switch, segmented control, search field |
 | `material.regular` | 1 − s × 0.54 | 0.8218 | Cards and panels on the static field, no backdrop blur |
-| `material.chrome` | 1 − s × 0.42 | 0.8614 | Bars that content scrolls under |
+| `material.chrome` | 1 − s × 0.18 | 0.9406 | Bars that content scrolls under. As thick as a sheet at 0.33: muted and status text sit on bars too, over any content |
 | `material.thick` | max(0.92, 1 − s × 0.18) / max(0.94, 1 − s × 0.16) | 0.9406 / 0.9472 | Sheets and popovers |
 | `material.blur` | 12px + 16px × s | 17.28px | Backdrop blur of bars |
 | `material.blur-thick` | fixed | 28px | Backdrop blur of sheets and popovers |
@@ -40,7 +40,7 @@ In CSS the formulas stay live (`calc(1 - var(--glass-strength) * 0.58)`). In `to
 
 ## Fallbacks
 
-Every material becomes solid (opacity 1, blur 0, saturate 1, sheen and glow 0) in three cases, emitted as mode blocks after the dark blocks so they win:
+Every material becomes solid (opacity 1, blur 0, saturate 1, sheen and glow 0) in three cases, emitted as mode blocks after the dark blocks so they win. The blocks select `:root`, `[data-theme="light"]` and `[data-theme="dark"]`, so a nested theme subtree turns solid too; the base block also selects `[data-theme="light"]`, so a light subtree inside a dark page gets the light values back:
 
 | Mode | Web |
 |---|---|
@@ -60,4 +60,4 @@ Forced colours are the component's job (Meridian): system colours, no blur, and 
 
 ## Contrast gate
 
-`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings 3:1. It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.
+`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings 3:1. Backdrops include pure black and pure white, for content that is not a token (photos, video, a product's own art), and the bar is checked for primary, muted and status text. Disabled text is exempt: WCAG 1.4.3 does not apply to inactive controls. It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.

@@ -1,5 +1,5 @@
 /* Generated from tokens.json by scripts/build.mjs. Do not edit. */
-:root {
+:root, [data-theme="light"] {
   --text-2xs: 11px;
   --text-xs: 12px;
   --text-sm: 13px;

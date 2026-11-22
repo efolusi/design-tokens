@@ -289,7 +289,7 @@ public enum GlamorTokens {
         public static let glassStrength: Double = 0.33
         public static let materialClear: Double = 0.8086
         public static let materialRegular: Double = 0.8218
-        public static let materialChrome: Double = 0.8614
+        public static let materialChrome: Double = 0.9406
         public static let materialThick: Double = 0.9406
         public static let materialThickDark: Double = 0.9472
         public static let materialSaturate: Double = 1.264

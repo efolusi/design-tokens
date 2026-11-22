@@ -1,5 +1,5 @@
 /* Generated from tokens.json by scripts/build.mjs. Do not edit. */
-:root {
+:root, [data-theme="light"] {
   color-scheme: light;
   --sand-25: #FCFBF9;
   --sand-50: #FAF9F6;
@@ -380,7 +380,7 @@
 }
 
 @media (prefers-contrast: more) {
-  :root {
+  :root, [data-theme="light"] {
     --success-600: #2D753D;
     --warning-600: #A24A07;
     --danger-600: #C41D1D;

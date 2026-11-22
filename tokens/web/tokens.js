@@ -271,7 +271,7 @@ export const tokens = {
   "material-tint": "#FFFDF9",
   "material-clear": 0.8086,
   "material-regular": 0.8218,
-  "material-chrome": 0.8614,
+  "material-chrome": 0.9406,
   "material-thick": 0.9406,
   "material-blur": "17.28px",
   "material-blur-thick": "28px",

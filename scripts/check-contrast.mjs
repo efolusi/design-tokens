@@ -42,7 +42,9 @@ export function checkContrast(src) {
     const strength = num("field.strength");
     const f0 = color("field.0");
     const field = [0, 1, 2, 3].map((i) => [`field.${i}`, i === 0 ? f0 : mix(color(`field.${i}`), f0, strength)]);
-    const under = [...field, ["accent", color("accent._")], ["code block", color("surface.code")], ["card", color("surface.card")], ["band", color("surface.brand")]];
+    const under = [...field, ["accent", color("accent._")], ["code block", color("surface.code")], ["card", color("surface.card")], ["band", color("surface.brand")],
+      // Content that is not a token (photos, video, a product's own art) can be anything: the extremes.
+      ["black content", [0, 0, 0]], ["white content", [255, 255, 255]]];
     const [clear, regular, chrome, thick] = ["clear", "regular", "chrome", "thick"].map((k) => num(`material.${k}`));
     const ink = color("text.primary"), secondary = color("text.secondary"), ring = color("focus.ring-color");
 
@@ -54,6 +56,8 @@ export function checkContrast(src) {
     for (const [name, b] of under) {
       const bar = mix(tint, b, chrome);
       add("Bar text on chrome glass", ink, bar, TEXT, `chrome over ${name}`);
+      add("Muted text on chrome glass", color("text.muted"), bar, TEXT, `chrome over ${name}`);
+      for (const s of ["success", "warning", "danger", "info"]) add(`Status text on chrome glass, ${s}`, color(`status.${s}.text`), bar, TEXT, `chrome over ${name}`);
       add("Control label on clear glass in a bar", ink, mix(tint, bar, clear), TEXT, `clear in chrome over ${name}`);
       add("Search placeholder on clear glass in a bar", secondary, mix(tint, bar, clear), TEXT, `clear in chrome over ${name}`);
       add("Focus ring on chrome glass", ring, bar, NON_TEXT, `chrome over ${name}`);
