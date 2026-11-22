@@ -2,7 +2,7 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
-## Unreleased
+## v0.6.0 - 2026-11-22
 
 - **Warm glass palette** (DT09, [docs/glass.md](docs/glass.md)). The owner's direction of 2026-11-22: an `ember` ramp for the accent, links and focus; `sand.75` and `sand.150`; lighter paper and lifted dark surfaces; `surface.brand` becomes the warm band (`ember.100`, dark `#3A2418`) and `text.on-brand` dark ink on it. Cocoa stays only in the product marks and the wordmark. Radius 10, 16, 22, 28 px; `weight.display` 560, `tracking.display` -0.025em, `leading.tight` 1.1; softer shadows, and a ring plus shadow in dark. `field.0` to `field.3`: the quiet field behind the page.
 - **Breaking: `tone.cocoa` is renamed `tone.band`.** Its fill is the warm band now, its text `text.on-brand`. Rename every `tone-cocoa` use.
