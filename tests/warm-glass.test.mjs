@@ -187,3 +187,10 @@ test("DT12: form-control edges keep 3:1 on every surface, the lifted dark sunken
   assert.equal(edges.length, 6);
   for (const r of edges) assert.ok(r.pass, `${r.theme} border.control on ${r.against}: ${r.ratio}`);
 });
+
+test("DT13: no coloured glow token: glass and filled controls carry contact shadows only", () => {
+  assert.equal(byKey.get("material.glow"), undefined, "material.glow is removed, with no alias");
+  const css = readFileSync(join(ROOT, "tokens/web/effects.css"), "utf8");
+  assert.doesNotMatch(css, /--material-glow/);
+  assert.doesNotMatch(buildSwift(src), /materialGlow/);
+});

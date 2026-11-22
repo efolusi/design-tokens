@@ -2,6 +2,10 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
+## v0.7.0 - 2026-11-22
+
+- **Breaking: `material.glow` is removed** (DT13). The coloured glow read as too large; the rule now is contact shadows only, no coloured glow, and none in dark ([docs/glass.md](docs/glass.md)). Remove every `--material-glow` and `materialGlow` use.
+
 ## v0.6.1 - 2026-11-22
 
 - **Fix: form-control edges keep 3:1 on the lifted dark surfaces** (DT12). `border.control` dark is `#7C725E` (was `{sand.600}`, 2.88:1 on `surface.sunken`; now 3.06, 3.39 on the card, 3.72 on the page). The contrast gate checks form-control edges on every surface, so a consumer pair like this fails here first.

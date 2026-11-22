@@ -301,8 +301,6 @@ public enum GlamorTokens {
         public static let materialSpecLowDark: Double = 0.0165
         public static let materialSheen: Double = 0.1815
         public static let materialSheenDark: Double = 0.033
-        public static let materialGlow: Double = 0.0
-        public static let materialGlowDark: Double = 0.0594
         public static let motionLift: Double = 1.012
         public static let motionPress: Double = 0.98
         public static let opacityTint: Double = 0.12
