@@ -104,6 +104,32 @@ test("size groups: control xs, icon, avatar and sidebar", () => {
   for (const name of ["controlHXs", "iconXs", "icon2xl", "avatarMd", "sidebarWidthIcon"]) assert.match(swift, new RegExp(`static let ${name}: Double = `), name);
 });
 
+test("DT01 font sizes below 11px and DT02 control heights 32 and 40", () => {
+  const css = (f) => readFileSync(join(ROOT, "tokens/web", f), "utf8");
+  const type = css("typography.css");
+  // the text scale continues downwards in the same pattern: 2xs 11, 3xs 10, 4xs 9
+  assert.match(type, /--text-3xs: 10px;/);
+  assert.match(type, /--text-4xs: 9px;/);
+  assert.equal(cssFile({ path: ["text", "3xs"], type: "dimension" }), "typography");
+  const spacing = css("spacing.css");
+  // control heights between sm and md, and md and lg, follow radius.xs-plus: "<step>-plus"
+  assert.match(spacing, /--control-h-sm-plus: 32px;/);
+  assert.match(spacing, /--control-h-md-plus: 40px;/);
+  assert.match(spacing, /\[data-density="compact"\] \{[^}]*--control-h-sm-plus: 28px;/);
+  assert.match(spacing, /\[data-density="compact"\] \{[^}]*--control-h-md-plus: 34px;/);
+  assert.match(spacing, /--control-h-sm-plus: var\(--tap-min\);/);
+  assert.match(spacing, /--control-h-md-plus: var\(--tap-min\);/);
+  // control heights stay in order in every density
+  const heights = (block) => ["xs", "sm", "sm-plus", "md", "md-plus", "lg", "xl"].map((n) => Number(block.match(new RegExp(`--control-h-${n}: (\\d+)px;`))?.[1]));
+  const ascending = (a) => a.every((v, i) => i === 0 || v > a[i - 1]);
+  assert.ok(ascending(heights(spacing.match(/:root[^{]*\{([\s\S]*?)\n\}/)[1])), "default heights ascend");
+  assert.ok(ascending(heights(spacing.match(/\[data-density="compact"\] \{([\s\S]*?)\n\}/)[1])), "compact heights ascend");
+  const swift = buildSwift(src);
+  for (const name of ["text3xs", "text4xs", "controlHSmPlus", "controlHMdPlus"]) assert.match(swift, new RegExp(`static let ${name}: Double = `), name);
+  assert.match(swift, /static let text3xs: Double = 10\.0/);
+  assert.match(swift, /static let controlHMdPlus: Double = 40\.0/);
+});
+
 test("CSS keeps Meridian's theme behaviour", () => {
   const css = readFileSync(join(ROOT, "tokens/web/colors.css"), "utf8");
   assert.match(css, /^:root, \[data-theme="light"\] \{\n  color-scheme: light;/m);

@@ -17,6 +17,7 @@ Framework-agnostic JSON. Consumers map names into CSS, Swift, or other platforms
 | `docs/motion.md` | The motion scale, its reduced-motion rule and the renames |
 | `docs/status.md` | The status layer, the brand and sand mappings, the loop durations |
 | `docs/glass.md` | The warm glass palette, `glass.strength` and the material derived from it, the fallbacks, the rules for components |
+| `docs/sizes.md` | The font size steps down to `text.4xs` and the control heights with their `-plus` steps |
 | `scripts/build.mjs` | Builds `tokens/web/` and `tokens/native/` from `tokens.json` |
 | `scripts/check-contrast.mjs` | The contrast gate: every text and icon pair on glass against the worst backdrop, in CI |
 | `tests/` | Checks aliases, names, and that exports are up to date |

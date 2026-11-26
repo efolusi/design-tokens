@@ -2,6 +2,11 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
+## Unreleased
+
+- **Font sizes below 11px** (DT01, [docs/sizes.md](docs/sizes.md)). `text.3xs` is 10px and `text.4xs` is 9px, so Meridian's sub-11px literals (MD07) can use tokens. Swift `text3xs` and `text4xs`.
+- **Control heights 32px and 40px** (DT02). `control.h-sm-plus` is 32px (compact 28px) and `control.h-md-plus` is 40px (compact 34px), both `tap.min` on a coarse pointer, like the other heights. Swift `controlHSmPlus`, `controlHMdPlus`.
+
 ## v0.7.0 - 2026-11-22
 
 - **Breaking: `material.glow` is removed** (DT13). The coloured glow read as too large; the rule now is contact shadows only, no coloured glow, and none in dark ([docs/glass.md](docs/glass.md)). Remove every `--material-glow` and `materialGlow` use.
