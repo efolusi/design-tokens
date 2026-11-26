@@ -38,7 +38,7 @@ One token, one name per platform, derived by `scripts/build.mjs`:
 | `control.h-sm` | `--control-h-sm` | `GlamorTokens.Length.controlHSm` |
 | `sand.25` | `--sand-25` | `GlamorTokens.Color.sand25` |
 
-Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (compact-density lengths), `Number`, `Em`, `Duration` (seconds), `Curve`. A number that differs in dark gets a second constant with `Dark` appended (`materialThickDark`). Values written as CSS math (`calc`, `min`, `max`, the glass material) stay live in CSS and are evaluated to numbers in `tokens.js` and Swift. Font stacks and box-shadows are web-only and not in Swift. A token can also be marked web-only in `tokens.json` (`"web-only": true` in its extension); `dur.long` is. The motion scale, its reduced-motion rule and the 0.4.0 renames are in [motion.md](motion.md).
+Swift groups by kind: `Color` (light/dark pair), `Length` (points), `Compact` (compact-density lengths), `Number`, `Em`, `Duration` (seconds), `Curve`. A number that differs in dark gets a second constant with `Dark` appended (`materialThickDark`). Values written as CSS math (`calc`, `min`, `max`, the glass material) stay live in CSS and are evaluated to numbers in `tokens.js` and Swift. Font stacks and box-shadows are web-only and not in Swift. A token can also be marked web-only in `tokens.json` (`"web-only": true` in its extension); `dur.long` is. The motion scale, its reduced-motion rule and the 0.4.0 renames are in [motion.md](motion.md). The font size steps and control heights are in [sizes.md](sizes.md).
 
 ## Modes
 

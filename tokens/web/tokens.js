@@ -116,6 +116,8 @@ export const tokens = {
   "text-inverse-muted": "rgba(250,249,246,.6)",
   "text-link": "#A1401A",
   "text-link-hover": "#7E3214",
+  "text-4xs": "9px",
+  "text-3xs": "10px",
   "text-2xs": "11px",
   "text-xs": "12px",
   "text-sm": "13px",
@@ -222,7 +224,9 @@ export const tokens = {
   "container-text": "720px",
   "control-h-xs": "24px",
   "control-h-sm": "28px",
+  "control-h-sm-plus": "32px",
   "control-h-md": "36px",
+  "control-h-md-plus": "40px",
   "control-h-lg": "44px",
   "control-h-xl": "52px",
   "icon-xs": "8px",
@@ -408,7 +412,9 @@ export const modes = {
   "compact": {
     "control-h-xs": "20px",
     "control-h-sm": "24px",
+    "control-h-sm-plus": "28px",
     "control-h-md": "30px",
+    "control-h-md-plus": "34px",
     "control-h-lg": "38px",
     "control-h-xl": "46px",
     "table-pad-y": "7px",
@@ -417,7 +423,9 @@ export const modes = {
   "coarse": {
     "control-h-xs": "44px",
     "control-h-sm": "44px",
-    "control-h-md": "44px"
+    "control-h-sm-plus": "44px",
+    "control-h-md": "44px",
+    "control-h-md-plus": "44px"
   },
   "increased": {
     "success-600": "#2D753D",

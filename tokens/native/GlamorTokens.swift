@@ -194,6 +194,8 @@ public enum GlamorTokens {
 
     /// Lengths in points (CSS px = pt).
     public enum Length {
+        public static let text4xs: Double = 9.0
+        public static let text3xs: Double = 10.0
         public static let text2xs: Double = 11.0
         public static let textXs: Double = 12.0
         public static let textSm: Double = 13.0
@@ -235,7 +237,9 @@ public enum GlamorTokens {
         public static let containerText: Double = 720.0
         public static let controlHXs: Double = 24.0
         public static let controlHSm: Double = 28.0
+        public static let controlHSmPlus: Double = 32.0
         public static let controlHMd: Double = 36.0
+        public static let controlHMdPlus: Double = 40.0
         public static let controlHLg: Double = 44.0
         public static let controlHXl: Double = 52.0
         public static let iconXs: Double = 8.0
@@ -260,7 +264,9 @@ public enum GlamorTokens {
     public enum Compact {
         public static let controlHXs: Double = 20.0
         public static let controlHSm: Double = 24.0
+        public static let controlHSmPlus: Double = 28.0
         public static let controlHMd: Double = 30.0
+        public static let controlHMdPlus: Double = 34.0
         public static let controlHLg: Double = 38.0
         public static let controlHXl: Double = 46.0
         public static let tablePadY: Double = 7.0
