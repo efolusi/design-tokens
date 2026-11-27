@@ -4,6 +4,37 @@ Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/c
 
 ## Unreleased
 
+Semver level: MINOR (v0.8.0). Tokens are removed, which is breaking for any consumer that used them; while this repo is used only inside Efolusi, 0.6.0 and 0.7.0 shipped the same kind of change as a minor. The release also carries DT01 and DT02 below.
+
+- **Breaking: the accent is the owl's copper, the `ember` ramp is removed** (DT15, [docs/glass.md](docs/glass.md#the-accent)). Decided by the chief on 2026-11-27 (accent option B): one hue, `#CD8F69`, in both themes, so the interface fits the logo. A copper fill reads 2.12 to 2.72:1 as a shape on a light surface, so the shape or icon uses the new `accent.edge` (3:1, WCAG 1.4.11), and the accent as text is `text.link` (4.5:1). The `accent._` as text pair of the contrast tests is replaced by `accent.edge` at 3:1 on the page, card, sunken, track and border; `npm run contrast` checks those pairs and the new link, tint and focus pairs too (294 pairs, was 268).
+
+  | Kind | Names |
+  |---|---|
+  | Removed, no alias (6) | `ember.50`, `ember.100`, `ember.150`, `ember.300`, `ember.600`, `ember.700` (CSS `--ember-50` and so on, `tokens.js` `ember-50`, Swift `GlamorTokens.Color.ember50`, DTCG `ember.50`: 24 export entries) |
+  | New (5) | `copper.300` `#E7B496`, `copper.400` `#DBA582`, `copper.500` `#CD8F69`, `copper.600` `#BD805A`, `accent.edge` (`--accent-edge`, Swift `accentEdge`) |
+
+  | Token | Light, old → new | Dark, old → new |
+  |---|---|---|
+  | `accent` | `#B8491D` → `#CD8F69` | `#F2A36B` → `#CD8F69` |
+  | `accent.hover` | `#A1401A` → `#DBA582` | `#F6BB8F` → `#DBA582` |
+  | `accent.active` | `#8A3615` → `#BD805A` | `#E8935A` → `#BD805A` |
+  | `accent.subtle` | `#FCEEE4` → `#F4E9D2` | `#3A2418` (same) |
+  | `accent.subtle-border` | `#F7D9C2` → `#EFCFAC` | `#5A3622` (same) |
+  | `accent.contrast` | `#FFFFFF` → `#1E1A14` | `#1E1A14` (same) |
+  | `accent.subtle-fg` | `#A1401A` → `#5C3A1F` | `#F2A36B` → `#EFCFAC` |
+  | `text.link` | `#A1401A` → `#7A4E2B` | `#F2A36B` → `#DBA582` |
+  | `text.link-hover` | `#7E3214` → `#5C3A1F` | `#F6BB8F` → `#E7B496` |
+  | `focus.ring-color` | `#A1401A` → `#7A4E2B` | `#F2A36B` → `#DBA582` |
+  | `surface.brand` | `#F7E6D6` → `#F4E9D2` | `#3A2418` (same) |
+  | `surface.brand-hover` | `#F2DCC4` → `#EFCFAC` | `#44291B` (same) |
+  | `field.1` | `#F7E6D6` → `#F4E9D2` | `#3A2418` (same) |
+  | `field.2` | `#F2DCC4` → `#EFCFAC` | `#44291B` (same) |
+  | `text.on-brand` | `#1E1A14` (same) | `#F7E6D6` → `#F4E9D2` |
+
+  15 tokens, 22 changed values. `tone.band.fill` (light) and `tone.band.on-fill` (dark) follow their aliases, `focus.ring` and the dark `::selection` follow their colours: Swift shows 17 changed constants. The label on the accent is ink in both themes (6.37:1 on copper; white was 5.24:1 on ember).
+
+  What a consumer does: re-vendor to v0.8.0 (Meridian `sync_tokens`, Glamor `scripts/vendor-tokens.sh`), then remove every `--ember-*` and `Color.ember*` use (a `var()` that points at a missing property is silently invalid); read `accent.edge` for a copper icon, line, thin fill or 1px edge on a light surface (`--accent-edge`, Swift `accentEdge`); use `text.link` for the accent as text; look at primary buttons, checked states, tabs and charts in light. Meridian and Glamor release the same day on the same tag.
+
 - **Font sizes below 11px** (DT01, [docs/sizes.md](docs/sizes.md)). `text.3xs` is 10px and `text.4xs` is 9px, so Meridian's sub-11px literals (MD07) can use tokens. Swift `text3xs` and `text4xs`.
 - **Control heights 32px and 40px** (DT02). `control.h-sm-plus` is 32px (compact 28px) and `control.h-md-plus` is 40px (compact 34px), both `tap.min` on a coarse pointer, like the other heights. Swift `controlHSmPlus`, `controlHMdPlus`.
 

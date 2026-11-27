@@ -75,9 +75,22 @@ export function checkContrast(src) {
       add("Secondary text", secondary, bg, TEXT, name);
       add("Muted text", color("text.muted"), bg, TEXT, name);
       add("Link", color("text.link"), bg, TEXT, name);
+      add("Link, hover", color("text.link-hover"), bg, TEXT, name);
       add("Focus ring", ring, bg, NON_TEXT, name);
     }
     add("Tinted label", color("accent.subtle-fg"), color("accent.subtle"), TEXT, "accent.subtle");
+    add("Tinted label on a card", color("accent.subtle-fg"), card, TEXT, "card");
+    add("Link inside an accent tint", color("text.link"), color("accent.subtle"), TEXT, "accent.subtle");
+    add("Body text on a selected row", color("text.primary"), color("accent.subtle"), TEXT, "accent.subtle");
+    add("Focus ring on an accent tint", ring, color("accent.subtle"), NON_TEXT, "accent.subtle");
+    add("Focus ring on the band", ring, color("surface.brand"), NON_TEXT, "surface.brand");
+    // DT15: the accent fill is one copper in both themes and reads 2.1 to 2.7:1 as a shape on a light surface. As a shape or icon
+    // (button edge, checked box, switch, tab underline, progress fill, check mark) it needs accent.edge at 3:1 (WCAG 1.4.11);
+    // as text it is text.link at 4.5. The track and the border are the grounds a progress fill and Glamor's ProgressBar sit on.
+    const sunken = color("surface.sunken");
+    for (const [name, bg] of [["page", page], ["card", card], ["sunken", sunken], ["track", color("surface.track")], ["border", color("border.default")]]) {
+      add("Accent shape or icon (accent.edge)", color("accent.edge"), bg, NON_TEXT, name);
+    }
     // Form-control edges (WCAG 1.4.11): Meridian's inputs draw border.control on every surface.
     for (const [name, bg] of [["page", page], ["card", card], ["sunken", color("surface.sunken")]]) add("Form control edge", color("border.control"), bg, NON_TEXT, name);
     // Legibility rule: text behind a sheet must not read through it.

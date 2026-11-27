@@ -1,19 +1,34 @@
 # Warm glass
 
-The palette, the glass material and the rules that go with them. The owner chose this direction on 2026-11-22 ("halus"): a warm paper page with an ember accent and a touch of glass. Cocoa (`brand.950`) stays only in the product marks and the wordmark; no interface token points at it.
+The palette, the glass material and the rules that go with them. The owner chose this direction on 2026-11-22 ("halus"): a warm paper page and a touch of glass. The accent was ember until 2026-11-27 and is now the owl's copper (DT15, see "The accent" below). Cocoa (`brand.950`) stays only in the product marks and the wordmark; no interface token points at it.
 
 ## Palette
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `ember.50` to `ember.700` | `#FCEEE4`, `#F7E6D6`, `#F2DCC4`, `#F2A36B`, `#B8491D`, `#A1401A` | ramp, same in both | Accent ramp: a deeper, livelier step of caramel |
+| `copper.300` to `copper.600` | `#E7B496`, `#DBA582`, `#CD8F69`, `#BD805A` | ramp, same in both | The accent ramp: the owl's copper at 500 |
 | `sand.75`, `sand.150` | `#F6F4EF`, `#EDE6DA` | ramp | New paper stops |
 | `surface.page` | `{sand.25}` | `#1C1814` | The page |
 | `surface.card` | `#FFFFFF` | `#26201B` | Cards |
-| `surface.brand` | `{ember.100}` | `#3A2418` | The warm band (was a cocoa slab); text on it is `text.on-brand` |
-| `accent` | `{ember.600}` | `{ember.300}` | Primary actions |
-| `text.link`, `focus.ring-color` | `{ember.700}` | `{ember.300}` | Links and focus |
+| `surface.brand` | `{brand.100}` | `#3A2418` | The warm band (was a cocoa slab); text on it is `text.on-brand` |
+| `accent` | `{copper.500}` | `{copper.500}` | Primary actions: the fill, one hue in both themes |
+| `accent.edge` | `{brand.600}` | `{copper.500}` | The 1px edge of a copper fill and the colour of a copper icon, line or thin fill on a light surface |
+| `text.link`, `focus.ring-color` | `{brand.700}` | `{copper.400}` | Links and focus |
 | `field.0` to `field.3` | paper and three warm glows | dark paper and three warm glows | The field behind the page that glass blurs |
+
+## The accent
+
+Copper is lighter than the ember it replaced, so the accent works as a fill and a label, not as a line or as text:
+
+| Role | Token | Light | Dark | Needs |
+|---|---|---|---|---|
+| The fill (button, checked box, switch on) | `accent` | `#CD8F69` | `#CD8F69` | none alone; the label on it is `accent.contrast` (ink `#1E1A14`, 6.37:1) |
+| The shape or icon on a surface (the 1px edge of the fill, a check mark, a tab underline, a progress fill, a chart line) | `accent.edge` | `#A0693C` | `#CD8F69` | 3:1 on the page, card, sunken, track and border (WCAG 1.4.11): 3.58 to 4.58 in light, 4.63 to 6.49 in dark |
+| The accent as text | `text.link` | `#7A4E2B` | `#DBA582` | 4.5:1 |
+
+`accent` as a shape reads 2.12 to 2.72:1 on a light surface, so a component never draws a copper shape without `accent.edge`. In dark the edge is the fill, so it is invisible and moves no layout. Hover is `copper.400` and pressed `copper.600` in both themes. Cocoa stays out: `accent.subtle-fg` and `text.link-hover` use `brand.800`, no token uses `brand.900` or `brand.950`.
+
+With Increase contrast `accent.edge` has no override: on the border ground, which becomes the control edge in that mode, it reads 1.34 (light) and 1.75 (dark). The ember accent was already below 3 there (1.53 and 2.31).
 
 Shape: `radius.sm` to `xl` are 10, 16, 22 and 28 px. `weight.display` is 560, `tracking.display` -0.025em, `leading.tight` 1.1. Elevation is `shadow.sm`, `md`, `lg`: soft warm shadows in light, a 1 px `#3A322A` ring plus a black shadow in dark.
 
@@ -60,4 +75,4 @@ Forced colours are the component's job (Meridian): system colours, no blur, and 
 
 ## Contrast gate
 
-`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings 3:1. Backdrops include pure black and pure white, for content that is not a token (photos, video, a product's own art), and the bar is checked for primary, muted and status text. Disabled text is exempt: WCAG 1.4.3 does not apply to inactive controls. It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.
+`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings and the accent as a shape (`accent.edge` on the page, card, sunken, track and border) 3:1. Backdrops include pure black and pure white, for content that is not a token (photos, video, a product's own art), and the bar is checked for primary, muted and status text. Disabled text is exempt: WCAG 1.4.3 does not apply to inactive controls. It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.

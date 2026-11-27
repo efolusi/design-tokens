@@ -31,7 +31,7 @@ Where a ramp stop was used raw, use the semantic token that already exists, or o
 | `brand-50`, `cream-50` | `accent.subtle` |
 | `brand-100`, `brand-200`, `peach-200` | `accent.subtle-border` |
 | `brand-700`, `cocoa-700`, `cocoa-900` | By meaning: `text.link` for a link, `focus.ring-color` for a focus ring, `accent.subtle-fg` for text on an accent tint |
-| `brand-600` (a Toast info icon) | `status.info.text`; info is a status now |
+| `brand-600` (a Toast info icon) | `status.info.text`; info is a status now. A copper shape or icon on a light surface (the edge of an accent fill, a check mark, a progress fill) is `accent.edge`, not raw `brand-600` |
 | `brand-300` | `accent.soft` (fill, not text); `accent.subtle-fg` for text |
 | `brand-500`, `caramel-500` | `accent.warm` (a mark, not text; pair with a label) |
 | `brand-800` | `surface.brand-hover` |

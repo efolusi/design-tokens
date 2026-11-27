@@ -86,8 +86,11 @@ test("accent, link, focus and status pairs keep their ratios in every mode", () 
   const low = [];
   const pairs = [
     // [foreground, background, minimum]
-    ["accent._", "surface.page", 4.5], ["accent._", "surface.card", 4.5],
-    ["text.link", "surface.page", 4.5], ["text.link", "surface.card", 4.5],
+    // DT15: the accent is a shape, not text. A copper fill reads as a shape only through accent.edge (3:1, WCAG 1.4.11);
+    // the accent as text is text.link (4.5:1).
+    ["accent.edge", "surface.page", 3], ["accent.edge", "surface.card", 3], ["accent.edge", "surface.sunken", 3],
+    ["accent.edge", "surface.track", 3],
+    ["text.link", "surface.page", 4.5], ["text.link", "surface.card", 4.5], ["text.link", "surface.sunken", 4.5],
     ["accent.contrast", "accent._", 4.5],
     ["accent.subtle-fg", "accent.subtle", 4.5],
     ["focus.ring-color", "surface.page", 3], ["focus.ring-color", "surface.card", 3],
@@ -99,6 +102,19 @@ test("accent, link, focus and status pairs keep their ratios in every mode", () 
       const r = ratio(over(rgb(fg, mode), back), back);
       if (r < min) low.push(`${fg} on ${bg} [${mode}]: ${r.toFixed(2)} < ${min}`);
     }
+  }
+  assert.deepEqual(low, []);
+});
+
+test("DT15: accent.edge keeps 3:1 on the border ground (Glamor's ProgressBar) in light and dark", () => {
+  // With Increase contrast, border.default becomes the control edge (#948A74, #7C725E) and the pair was already
+  // 1.53 and 2.31 with the ember accent (now 1.34 and 1.75); the plan does not design an increased accent.edge, so that
+  // case is reported to the design coordinator and not pinned here.
+  const low = [];
+  for (const mode of ["light", "dark"]) {
+    const back = rgb("border.default", mode);
+    const r = ratio(rgb("accent.edge", mode), back);
+    if (r < 3) low.push(`accent.edge on border.default [${mode}]: ${r.toFixed(2)} < 3`);
   }
   assert.deepEqual(low, []);
 });

@@ -15,22 +15,22 @@ const value = (key, mode = null) => resolve(valueIn(byKey.get(key), mode), mode)
 const number = (key, mode = null) => evaluate(value(key, mode));
 const withStrength = (s) => ({ ...src, tokens: src.tokens.map((t) => (t.path.join(".") === "glass.strength" ? { ...t, value: String(s) } : t)) });
 
-test("DT09: the warm palette, light and dark", () => {
+test("DT09, DT15: the warm palette, light and dark (accent is the owl's copper, one hue in both themes)", () => {
   const expect = {
-    "accent": ["#B8491D", "#F2A36B"],
-    "accent.hover": ["#A1401A", "#F6BB8F"],
+    "accent": ["#CD8F69", "#CD8F69"],
+    "accent.hover": ["#DBA582", "#DBA582"],
     "surface.page": ["#FCFBF9", "#1C1814"],
     "surface.card": ["#FFFFFF", "#26201B"],
     "surface.sunken": ["#F6F4EF", "#2F2822"],
-    "surface.brand": ["#F7E6D6", "#3A2418"],
-    "text.on-brand": ["#1E1A14", "#F7E6D6"],
+    "surface.brand": ["#F4E9D2", "#3A2418"],
+    "text.on-brand": ["#1E1A14", "#F4E9D2"],
     "text.secondary": ["#5A5042", "#CFC6B7"],
-    "text.link": ["#A1401A", "#F2A36B"],
-    "focus.ring-color": ["#A1401A", "#F2A36B"],
+    "text.link": ["#7A4E2B", "#DBA582"],
+    "focus.ring-color": ["#7A4E2B", "#DBA582"],
     "border.default": ["#EDE9E1", "#3A322A"],
     "field.0": ["#FCFBF9", "#1C1814"],
-    "field.1": ["#F7E6D6", "#3A2418"],
-    "field.2": ["#F2DCC4", "#44291B"],
+    "field.1": ["#F4E9D2", "#3A2418"],
+    "field.2": ["#EFCFAC", "#44291B"],
     "field.3": ["#EDE6DA", "#2F2822"],
   };
   for (const [key, [light, dark]] of Object.entries(expect)) {
