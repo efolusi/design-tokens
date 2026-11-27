@@ -56,6 +56,45 @@ test("DT15: accent.edge is brand.600 in light and the fill itself in dark, so a 
   assert.notEqual(value("accent.edge"), value("accent._"), "in light the edge is not the fill");
 });
 
+test("DT16: accent.edge has its own Increase contrast values: sand.800 in light, brand.200 in dark (neither is cocoa)", () => {
+  const t = byKey.get("accent.edge");
+  assert.equal(t.modes.increased, "{sand.800}");
+  assert.equal(t.modes["increased-dark"], "{brand.200}");
+  assert.equal(value("accent.edge", ["increased"]), "#443D32");
+  assert.equal(value("accent.edge", ["increased-dark", "dark"]), "#EFCFAC");
+  for (const v of [t.value, ...Object.values(t.modes)]) assert.doesNotMatch(v, /brand\.9\d0|cocoa/, `${v} is cocoa`);
+});
+
+test("DT16: accent.edge holds 3:1 on page, card, sunken, track and border in all four modes", () => {
+  const lin = (c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const lum = ([r, g, b]) => 0.2126 * lin(r / 255) + 0.7152 * lin(g / 255) + 0.0722 * lin(b / 255);
+  const modes = { light: null, dark: ["dark"], increased: ["increased"], "increased-dark": ["increased-dark", "dark"] };
+  const low = [];
+  for (const [name, mode] of Object.entries(modes)) {
+    const fg = lum(parseColor(value("accent.edge", mode)));
+    for (const ground of ["surface.page", "surface.card", "surface.sunken", "surface.track", "border.default"]) {
+      const bg = lum(parseColor(value(ground, mode)));
+      const r = (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05);
+      if (r < 3) low.push(`accent.edge on ${ground} [${name}]: ${r.toFixed(2)}`);
+    }
+  }
+  assert.deepEqual(low, []);
+});
+
+test("DT16: the gate checks the edge in the two Increase contrast modes too, and fails if one of them weakens", () => {
+  const { rows, failures } = checkContrast(src);
+  assert.deepEqual(failures, []);
+  for (const theme of ["light, increased", "dark, increased"]) {
+    const edge = rows.filter((r) => r.theme === theme && r.what.startsWith("Accent shape or icon"));
+    assert.deepEqual(edge.map((r) => r.against), ["page", "card", "sunken", "track", "border"], theme);
+    assert.ok(edge.every((r) => r.need === 3 && r.pass), theme);
+  }
+  // Without the two Increase contrast values the edge falls back to brand.600 and copper.500: 1.34 and 1.75 on the control edge. The gate must see that.
+  const weak = { ...src, tokens: src.tokens.map((t) => (t.path.join(".") === "accent.edge" ? { ...t, modes: { dark: t.modes.dark } } : t)) };
+  const bad = checkContrast(weak).failures.filter((f) => f.what.startsWith("Accent shape or icon") && f.against === "border");
+  assert.deepEqual(bad.map((f) => f.theme).sort(), ["dark, increased", "light, increased"]);
+});
+
 test("DT15: the ember ramp is removed with no alias, from the source and from every output", () => {
   assert.equal([...byKey.keys()].filter((k) => k.startsWith("ember")).length, 0);
   assert.doesNotMatch(JSON.stringify(src.tokens), /ember/i);
@@ -111,9 +150,8 @@ test("DT15: the old accent-as-text pair is gone and the link carries the text ro
 });
 
 test("DT15: cocoa stays out of the accent tokens that read the brand ramp (no brand.900 or brand.950)", () => {
-  for (const key of ["accent.subtle-fg", "text.link", "text.link-hover", "focus.ring-color", "surface.brand", "accent.subtle"]) {
+  for (const key of ["accent.subtle-fg", "text.link", "text.link-hover", "focus.ring-color", "surface.brand", "accent.subtle", "accent.edge"]) {
     const t = byKey.get(key);
-    const dark = t.modes?.dark ?? "";
-    assert.doesNotMatch(`${t.value} ${dark}`, /brand\.9\d0|cocoa/, `${key} must not use cocoa`);
+    assert.doesNotMatch(`${t.value} ${Object.values(t.modes ?? {}).join(" ")}`, /brand\.9\d0|cocoa/, `${key} must not use cocoa`);
   }
 });

@@ -170,7 +170,7 @@ public enum GlamorTokens {
         public static let accentSubtleBorder = ColorPair(light: RGBA(0.9373, 0.8118, 0.6745, 1.0), dark: RGBA(0.3529, 0.2118, 0.1333, 1.0))
         public static let accentContrast = ColorPair(light: RGBA(0.1176, 0.102, 0.0784, 1.0), dark: RGBA(0.1176, 0.102, 0.0784, 1.0))
         public static let accentSubtleFg = ColorPair(light: RGBA(0.3608, 0.2275, 0.1216, 1.0), dark: RGBA(0.9373, 0.8118, 0.6745, 1.0))
-        public static let accentEdge = ColorPair(light: RGBA(0.6275, 0.4118, 0.2353, 1.0), dark: RGBA(0.8039, 0.5608, 0.4118, 1.0))
+        public static let accentEdge = ColorPair(light: RGBA(0.6275, 0.4118, 0.2353, 1.0), dark: RGBA(0.8039, 0.5608, 0.4118, 1.0), increasedLight: RGBA(0.2667, 0.2392, 0.1961, 1.0), increasedDark: RGBA(0.9373, 0.8118, 0.6745, 1.0))
         public static let accentWarm = ColorPair(light: RGBA(0.7529, 0.5412, 0.3529, 1.0), dark: RGBA(0.7529, 0.5412, 0.3529, 1.0))
         public static let accentSoft = ColorPair(light: RGBA(0.8745, 0.7098, 0.5216, 1.0), dark: RGBA(0.8745, 0.7098, 0.5216, 1.0))
         public static let focusRingColor = ColorPair(light: RGBA(0.4784, 0.3059, 0.1686, 1.0), dark: RGBA(0.8588, 0.6471, 0.5098, 1.0))

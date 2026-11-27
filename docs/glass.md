@@ -12,7 +12,7 @@ The palette, the glass material and the rules that go with them. The owner chose
 | `surface.card` | `#FFFFFF` | `#26201B` | Cards |
 | `surface.brand` | `{brand.100}` | `#3A2418` | The warm band (was a cocoa slab); text on it is `text.on-brand` |
 | `accent` | `{copper.500}` | `{copper.500}` | Primary actions: the fill, one hue in both themes |
-| `accent.edge` | `{brand.600}` | `{copper.500}` | The 1px edge of a copper fill and the colour of a copper icon, line or thin fill on a light surface |
+| `accent.edge` | `{brand.600}` | `{copper.500}` | The 1px edge of a copper fill and the colour of a copper icon, line or thin fill on a light surface; Increase contrast: `{sand.800}` light, `{brand.200}` dark |
 | `text.link`, `focus.ring-color` | `{brand.700}` | `{copper.400}` | Links and focus |
 | `field.0` to `field.3` | paper and three warm glows | dark paper and three warm glows | The field behind the page that glass blurs |
 
@@ -28,7 +28,18 @@ Copper is lighter than the ember it replaced, so the accent works as a fill and 
 
 `accent` as a shape reads 2.12 to 2.72:1 on a light surface, so a component never draws a copper shape without `accent.edge`. In dark the edge is the fill, so it is invisible and moves no layout. Hover is `copper.400` and pressed `copper.600` in both themes. Cocoa stays out: `accent.subtle-fg` and `text.link-hover` use `brand.800`, no token uses `brand.900` or `brand.950`.
 
-With Increase contrast `accent.edge` has no override: on the border ground, which becomes the control edge in that mode, it reads 1.34 (light) and 1.75 (dark). The ember accent was already below 3 there (1.53 and 2.31).
+With Increase contrast (`prefers-contrast: more`) the border ground becomes the control edge (`#948A74` light, `#7C725E` dark), where the copper edge reads only 1.34 and 1.75. So `accent.edge` has its own values in that mode (DT16): `sand.800` `#443D32` in light and `brand.200` `#EFCFAC` in dark. The edge turns neutral brown or tan there, and in dark it is visible against the copper fill, which is the point of the mode. Measured, 3:1 needed:
+
+| Ground | Light | Dark | Light, increased | Dark, increased |
+|---|---|---|---|---|
+| page | 4.43 | 6.49 | 10.36 | 11.92 |
+| card | 4.58 | 5.92 | 10.72 | 10.88 |
+| sunken | 4.17 | 5.34 | 9.75 | 9.80 |
+| track | 3.58 | 4.63 | 8.36 | 8.51 |
+| border | 3.79 | 4.63 | 3.14 | 3.21 |
+
+`brand.800` (2.96 on the light control edge) and `copper.300` (2.57 on the dark one) were tried and fall short; `brand.900` and `brand.950` are cocoa and stay out.
+
 
 Shape: `radius.sm` to `xl` are 10, 16, 22 and 28 px. `weight.display` is 560, `tracking.display` -0.025em, `leading.tight` 1.1. Elevation is `shadow.sm`, `md`, `lg`: soft warm shadows in light, a 1 px `#3A322A` ring plus a black shadow in dark.
 
@@ -75,4 +86,4 @@ Forced colours are the component's job (Meridian): system colours, no blur, and 
 
 ## Contrast gate
 
-`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings and the accent as a shape (`accent.edge` on the page, card, sunken, track and border) 3:1. Backdrops include pure black and pure white, for content that is not a token (photos, video, a product's own art), and the bar is checked for primary, muted and status text. Disabled text is exempt: WCAG 1.4.3 does not apply to inactive controls. It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.
+`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings and the accent as a shape (`accent.edge` on the page, card, sunken, track and border, in light, dark and both Increase contrast modes) 3:1. Backdrops include pure black and pure white, for content that is not a token (photos, video, a product's own art), and the bar is checked for primary, muted and status text. Disabled text is exempt: WCAG 1.4.3 does not apply to inactive controls. It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.

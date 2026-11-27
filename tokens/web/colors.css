@@ -388,6 +388,7 @@
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
     --border-hover: var(--border-control-hover);
+    --accent-edge: var(--sand-800);
     --focus-ring-danger: 0 0 0 2px var(--focus-ring-offset),0 0 0 4px var(--danger-600);
     --state-hover-on-tab: #ECE9E1;
     --state-pressed: #D3CEC4;
@@ -410,6 +411,7 @@
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
     --border-hover: var(--border-control-hover);
+    --accent-edge: var(--brand-200);
     --focus-ring-danger: 0 0 0 2px var(--focus-ring-offset),0 0 0 4px var(--danger-600);
     --state-hover-on-tab: #3A322A;
     --state-pressed: #524A3C;
@@ -432,6 +434,7 @@
     --text-muted: var(--text-secondary);
     --border-default: var(--border-control);
     --border-hover: var(--border-control-hover);
+    --accent-edge: var(--brand-200);
     --focus-ring-danger: 0 0 0 2px var(--focus-ring-offset),0 0 0 4px var(--danger-600);
     --state-hover-on-tab: #3A322A;
     --state-pressed: #524A3C;
