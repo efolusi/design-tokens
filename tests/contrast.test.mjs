@@ -86,8 +86,13 @@ test("accent, link, focus and status pairs keep their ratios in every mode", () 
   const low = [];
   const pairs = [
     // [foreground, background, minimum]
-    ["accent._", "surface.page", 4.5], ["accent._", "surface.card", 4.5],
-    ["text.link", "surface.page", 4.5], ["text.link", "surface.card", 4.5],
+    // DT15: the accent is a shape, not text. A copper fill reads as a shape only through accent.edge (3:1, WCAG 1.4.11);
+    // the accent as text is text.link (4.5:1).
+    ["accent.edge", "surface.page", 3], ["accent.edge", "surface.card", 3], ["accent.edge", "surface.sunken", 3],
+    // DT16: the edge has its own Increase contrast values, so the five grounds hold in all four modes. The border ground
+    // is the control edge with Increase contrast (#948A74, #7C725E).
+    ["accent.edge", "surface.track", 3], ["accent.edge", "border.default", 3],
+    ["text.link", "surface.page", 4.5], ["text.link", "surface.card", 4.5], ["text.link", "surface.sunken", 4.5],
     ["accent.contrast", "accent._", 4.5],
     ["accent.subtle-fg", "accent.subtle", 4.5],
     ["focus.ring-color", "surface.page", 3], ["focus.ring-color", "surface.card", 3],
