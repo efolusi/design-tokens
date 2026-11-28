@@ -86,7 +86,7 @@ test("DT16: the gate checks the edge in the two Increase contrast modes too, and
   assert.deepEqual(failures, []);
   for (const theme of ["light, increased", "dark, increased"]) {
     const edge = rows.filter((r) => r.theme === theme && r.what.startsWith("Accent shape or icon"));
-    assert.deepEqual(edge.map((r) => r.against), ["page", "card", "sunken", "track", "border"], theme);
+    assert.deepEqual(edge.map((r) => r.against), ["page", "card", "elevated", "sunken", "track", "border"], theme);
     assert.ok(edge.every((r) => r.need === 3 && r.pass), theme);
   }
   // Without the two Increase contrast values the edge falls back to brand.600 and copper.500: 1.34 and 1.75 on the control edge. The gate must see that.
@@ -138,14 +138,14 @@ test("DT15: the gate fails when the edge falls back to the copper fill in light 
   const weak = { ...src, tokens: src.tokens.map((t) => (t.path.join(".") === "accent.edge" ? { ...t, value: "{copper.500}" } : t)) };
   const { failures } = checkContrast(weak);
   const edge = failures.filter((f) => f.what.startsWith("Accent shape or icon"));
-  assert.equal(edge.length, 5, "page, card, sunken, track, border all fail in light");
+  assert.equal(edge.length, 6, "page, card, elevated (DT23), sunken, track, border all fail in light");
   assert.ok(edge.every((f) => f.theme === "light" && f.ratio < 3));
 });
 
 test("DT15: the old accent-as-text pair is gone and the link carries the text role at 4.5", () => {
   const { rows } = checkContrast(src);
   const links = rows.filter((r) => r.what === "Link");
-  assert.equal(links.length, 6, "link on page, card, sunken, in light and dark");
+  assert.equal(links.length, 8, "link on page, card, elevated (DT23), sunken, in light and dark");
   for (const r of links) assert.ok(r.need === 4.5 && r.pass, `${r.theme} link on ${r.against}: ${r.ratio}`);
 });
 

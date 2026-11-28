@@ -112,6 +112,7 @@ public enum GlamorTokens {
         public static let chart5 = ColorPair(light: RGBA(0.9098, 0.4824, 0.6431, 1.0), dark: RGBA(0.8353, 0.3176, 0.5059, 1.0))
         public static let surfacePage = ColorPair(light: RGBA(0.9882, 0.9843, 0.9765, 1.0), dark: RGBA(0.1098, 0.0941, 0.0784, 1.0))
         public static let surfaceCard = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.149, 0.1255, 0.1059, 1.0))
+        public static let surfaceElevated = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.1804, 0.1529, 0.1294, 1.0))
         public static let surfacePanel = ColorPair(light: RGBA(1.0, 1.0, 1.0, 1.0), dark: RGBA(0.149, 0.1255, 0.1059, 1.0))
         public static let surfaceCardHover = ColorPair(light: RGBA(0.9647, 0.9569, 0.9373, 1.0), dark: RGBA(0.1843, 0.1569, 0.1333, 1.0))
         public static let surfaceSunken = ColorPair(light: RGBA(0.9647, 0.9569, 0.9373, 1.0), dark: RGBA(0.1843, 0.1569, 0.1333, 1.0))

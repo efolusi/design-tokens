@@ -2,6 +2,21 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
+## Unreleased
+
+Semver level: MINOR. Two tokens are added; nothing is renamed or removed. Planned as v0.10.0, before Meridian 2.6.0.
+
+- **Raised-surface depth for dark** (DT23, Meridian MD134, [docs/glass.md](docs/glass.md#raised-surfaces)). In dark the elevated card was a 1px ring in the border colour on `#26201B` over `#1C1814`, so it read flat (card 1.10:1, ring 1.40:1 against the page). Depth in dark comes from a lighter surface step and a visible edge, so two tokens are added:
+
+  | Token | Light | Dark | Increase contrast, light / dark |
+  |---|---|---|---|
+  | `surface.elevated` (`--surface-elevated`, Swift `surfaceElevated`) | `#FFFFFF` (`{surface.card}`) | `#2E2721` | no own value |
+  | `shadow.elevated` (`--shadow-elevated`, web only) | `0 1px 2px rgba(46,41,34,.04),0 2px 8px rgba(46,41,34,.05)` (the `shadow.sm` value) | `0 0 0 1px #453C31,inset 0 1px 0 rgba(255,244,230,.05),0 8px 24px rgba(0,0,0,.45)` | `0 0 0 1px #948A74,` + the light shadow / `0 0 0 1px #7C725E,` + the dark inset and shadow |
+
+  Measured against the page (WCAG), dark: the card `#2E2721` 1.20:1 (was 1.10), the ring `#453C31` 1.63:1 (was 1.40); light: 1.03:1, which the soft shadow carries. The Increase contrast ring is `border.control`, the edge colour `border.default` already becomes in that mode: 3.30:1 in light and 3.72:1 in dark. The values were checked in a browser, light and dark side by side, before the commit (pictures in the vault note `research/2026-11-28-dt23-elevated-dark.md`).
+- **`npm run contrast` checks them**. Primary, secondary, muted and link text, the focus ring and the form-control edge on `surface.elevated`, `accent.edge` on it in all four modes, the dark step (at least 1.15:1) and the ring against the page (at least 1.5:1 in dark, 3:1 with Increase contrast). New pairs: tests in `tests/elevated.test.mjs`.
+- **What a consumer does**: re-vendor to v0.10.0, then use `var(--surface-elevated)` and `var(--shadow-elevated)` for a raised card, a tile, a notice and a sticker (Glamor: `surfaceElevated`, with its own ring and shadow built from the table). Cards in lists keep `surface.card`. A sunken well inside a raised card must not use `surface.sunken` (1.01:1 against `surface.elevated` in dark); use `surface.card` or a `border.default` edge.
+
 ## v0.9.0 - 2026-11-28
 
 Semver level: MINOR. `dur.long` is removed, which is breaking for any consumer that used it; nothing in Meridian's components or Glamor reads it.

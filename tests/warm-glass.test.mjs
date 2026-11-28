@@ -184,7 +184,7 @@ test("a nested light subtree inside a dark page gets the light values back", () 
 test("DT12: form-control edges keep 3:1 on every surface, the lifted dark sunken included", () => {
   const { rows } = checkContrast(src);
   const edges = rows.filter((r) => r.what === "Form control edge");
-  assert.equal(edges.length, 6);
+  assert.equal(edges.length, 8, "page, card, elevated (DT23), sunken, in light and dark");
   for (const r of edges) assert.ok(r.pass, `${r.theme} border.control on ${r.against}: ${r.ratio}`);
 });
 

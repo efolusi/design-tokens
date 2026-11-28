@@ -16,6 +16,10 @@ export const mix = (top, bottom, alpha) => top.map((c, i) => Math.round(alpha * 
 
 const THEMES = ["light", "dark"];
 const TEXT = 4.5, NON_TEXT = 3.0, GHOST_LIMIT = 1.25;
+// DT23: depth of a raised card. In dark it comes from a lighter surface step and a visible 1px ring, since a black shadow cannot show
+// on a near-black page. Neither is a WCAG text or control pair, so these are the lowest values the design reads as raised at:
+// the step is 1.20 and the ring 1.63 against the page. With Increase contrast the ring is a real edge and needs 3:1.
+const RAISED_STEP_DARK = 1.15, RAISED_RING_DARK = 1.5;
 
 export function checkContrast(src) {
   const resolve = resolver(src.tokens);
@@ -64,14 +68,15 @@ export function checkContrast(src) {
       add("Sheet secondary text on thick glass", secondary, mix(tint, b, thick), TEXT, `thick over ${name}`);
     }
     // Solid pairs the palette change touches.
-    const page = color("surface.page"), card = color("surface.card");
+    const page = color("surface.page"), card = color("surface.card"), elevated = color("surface.elevated");
     add("Prominent button label", color("accent.contrast"), color("accent._"), TEXT, "accent");
     add("Prominent button label, hover", color("accent.contrast"), color("accent.hover"), TEXT, "accent.hover");
     add("Prominent button label, pressed", color("accent.contrast"), color("accent.active"), TEXT, "accent.active");
     add("Band text", color("text.on-brand"), color("surface.brand"), TEXT, "surface.brand");
     add("Band muted text", color("text.on-brand-muted", color("surface.brand")), color("surface.brand"), TEXT, "surface.brand");
     add("Code text", color("text.code"), color("surface.code"), TEXT, "surface.code");
-    for (const [name, bg] of [["page", page], ["card", card], ["sunken", color("surface.sunken")]]) {
+    for (const [name, bg] of [["page", page], ["card", card], ["elevated", elevated], ["sunken", color("surface.sunken")]]) {
+      add("Primary text", ink, bg, TEXT, name);
       add("Secondary text", secondary, bg, TEXT, name);
       add("Muted text", color("text.muted"), bg, TEXT, name);
       add("Link", color("text.link"), bg, TEXT, name);
@@ -85,7 +90,7 @@ export function checkContrast(src) {
     add("Focus ring on an accent tint", ring, color("accent.subtle"), NON_TEXT, "accent.subtle");
     add("Focus ring on the band", ring, color("surface.brand"), NON_TEXT, "surface.brand");
     // Form-control edges (WCAG 1.4.11): Meridian's inputs draw border.control on every surface.
-    for (const [name, bg] of [["page", page], ["card", card], ["sunken", color("surface.sunken")]]) add("Form control edge", color("border.control"), bg, NON_TEXT, name);
+    for (const [name, bg] of [["page", page], ["card", card], ["elevated", elevated], ["sunken", color("surface.sunken")]]) add("Form control edge", color("border.control"), bg, NON_TEXT, name);
     // Legibility rule: text behind a sheet must not read through it.
     for (const [name, bg] of [["card", card], ["field", f0]]) {
       const r = ratio(mix(tint, ink, thick), mix(tint, bg, thick));
@@ -97,13 +102,27 @@ export function checkContrast(src) {
   // is text.link at 4.5. The track and the border are the grounds a progress fill and Glamor's ProgressBar sit on. accent.edge has its
   // own Increase contrast values, and with Increase contrast the border ground is the control edge, so all four modes are checked.
   const EDGE_MODES = [["light", null], ["dark", "dark"], ["light, increased", ["increased"]], ["dark, increased", ["increased-dark", "dark"]]];
-  const EDGE_GROUNDS = [["page", "surface.page"], ["card", "surface.card"], ["sunken", "surface.sunken"], ["track", "surface.track"], ["border", "border.default"]];
+  const EDGE_GROUNDS = [["page", "surface.page"], ["card", "surface.card"], ["elevated", "surface.elevated"], ["sunken", "surface.sunken"], ["track", "surface.track"], ["border", "border.default"]];
   for (const [theme, mode] of EDGE_MODES) {
     const edge = parseColor(raw("accent.edge", mode)).slice(0, 3);
     for (const [name, key] of EDGE_GROUNDS) {
       const r = ratio(edge, parseColor(raw(key, mode)).slice(0, 3));
       rows.push({ theme, what: "Accent shape or icon (accent.edge)", against: name, ratio: Math.round(r * 100) / 100, need: NON_TEXT, pass: r >= NON_TEXT });
     }
+  }
+  // DT23: a raised card reads as raised in dark. The lighter step and the ring are measured against the page; with Increase contrast the
+  // ring (border.control) is a 3:1 edge in both themes. Light has no ring: its depth is the soft shadow, which is not a contrast pair.
+  for (const [theme, mode] of EDGE_MODES) {
+    const page = parseColor(raw("surface.page", mode)).slice(0, 3);
+    if (theme === "dark") {
+      const r = ratio(parseColor(raw("surface.elevated", mode)).slice(0, 3), page);
+      rows.push({ theme, what: "Raised card step (surface.elevated)", against: "page", ratio: Math.round(r * 100) / 100, need: RAISED_STEP_DARK, pass: r >= RAISED_STEP_DARK });
+    }
+    const ring = raw("shadow.elevated", mode).match(/^0 0 0 1px (#[0-9A-Fa-f]{6})/)?.[1];
+    if (!ring) { if (theme !== "light") rows.push({ theme, what: "Raised card edge (shadow.elevated ring)", against: "page", ratio: 0, need: 1, pass: false }); continue; }
+    const need = theme.includes("increased") ? NON_TEXT : RAISED_RING_DARK;
+    const r = ratio(parseColor(ring).slice(0, 3), page);
+    rows.push({ theme, what: "Raised card edge (shadow.elevated ring)", against: "page", ratio: Math.round(r * 100) / 100, need, pass: r >= need });
   }
   const failures = [
     ...rows.filter((r) => !r.pass),
