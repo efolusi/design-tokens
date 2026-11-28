@@ -2,7 +2,7 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
-## Unreleased
+## v0.9.0 - 2026-11-28
 
 Semver level: MINOR. `dur.long` is removed, which is breaking for any consumer that used it; nothing in Meridian's components or Glamor reads it.
 
