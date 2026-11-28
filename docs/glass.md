@@ -10,6 +10,7 @@ The palette, the glass material and the rules that go with them. The owner chose
 | `sand.75`, `sand.150` | `#F6F4EF`, `#EDE6DA` | ramp | New paper stops |
 | `surface.page` | `{sand.25}` | `#1C1814` | The page |
 | `surface.card` | `#FFFFFF` | `#26201B` | Cards |
+| `surface.elevated` | `{surface.card}` | `#2E2721` | A raised card, tile, notice or sticker (DT23); pair with `shadow.elevated` |
 | `surface.brand` | `{brand.100}` | `#3A2418` | The warm band (was a cocoa slab); text on it is `text.on-brand` |
 | `accent` | `{copper.500}` | `{copper.500}` | Primary actions: the fill, one hue in both themes |
 | `accent.edge` | `{brand.600}` | `{copper.500}` | The 1px edge of a copper fill and the colour of a copper icon, line or thin fill on a light surface; Increase contrast: `{sand.800}` light, `{brand.200}` dark |
@@ -41,7 +42,25 @@ With Increase contrast (`prefers-contrast: more`) the border ground becomes the 
 `brand.800` (2.96 on the light control edge) and `copper.300` (2.57 on the dark one) were tried and fall short; `brand.900` and `brand.950` are cocoa and stay out.
 
 
-Shape: `radius.sm` to `xl` are 10, 16, 22 and 28 px. `weight.display` is 560, `tracking.display` -0.025em, `leading.tight` 1.1. Elevation is `shadow.sm`, `md`, `lg`: soft warm shadows in light, a 1 px `#3A322A` ring plus a black shadow in dark.
+Shape: `radius.sm` to `xl` are 10, 16, 22 and 28 px. `weight.display` is 560, `tracking.display` -0.025em, `leading.tight` 1.1. Elevation is `shadow.sm`, `md`, `lg`: soft warm shadows in light, a 1 px `#3A322A` ring plus a black shadow in dark. A raised card, tile or notice uses `surface.elevated` and `shadow.elevated` instead (see "Raised surfaces").
+
+## Raised surfaces
+
+In dark a black shadow cannot show on a near-black page, so `shadow.sm` there is only a 1px ring in `border.default`: the card (`#26201B`) is 1.10:1 against the page (`#1C1814`) and the ring 1.40:1, and a raised card reads flat. Depth in dark comes from a lighter surface step and a visible edge. Light carries depth with a soft shadow (card 1.03:1 against the page), so light needs no new colour.
+
+| Token | Light | Dark | Increase contrast (light, dark) |
+|---|---|---|---|
+| `surface.elevated` | `#FFFFFF` (the card) | `#2E2721`, 1.20:1 against the page | same as the normal values |
+| `shadow.elevated` | `0 1px 2px rgba(46,41,34,.04),0 2px 8px rgba(46,41,34,.05)` (`shadow.sm`) | `0 0 0 1px #453C31,inset 0 1px 0 rgba(255,244,230,.05),0 8px 24px rgba(0,0,0,.45)` | the ring becomes `border.control`: `#948A74` (3.30:1 against the page) and `#7C725E` (3.72:1) |
+
+In dark the ring is `border.strong`, 1.63:1 against the page, 1.36:1 against the card itself. The inset 1px line is a faint top highlight (alpha .05, 1.15:1 against the card body): it lifts the top edge and is not a border. The 8px/24px black shadow darkens the page under the card. Text on `surface.elevated` passes the same pairs as on `surface.card` (primary 12.82:1, secondary 8.69, muted 5.56, link 6.80 in dark), and `npm run contrast` checks them and the ring.
+
+When to use it:
+
+- Use `surface.elevated` with `shadow.elevated` for a raised card, a tile, a notice and a sticker: something that sits on the page and should lift off it.
+- Cards in lists keep `surface.card` with their normal edge: a list of raised cards would flatten the page again.
+- A sunken well inside a raised card must not use `surface.sunken`: in dark it is `#2F2822`, 1.01:1 against `#2E2721`, and disappears. Use `surface.card` (`#26201B`, 1.09:1 against it, reads as an inset) or a `border.default` edge.
+- A box-shadow is web-only: Glamor reads `surface.elevated` and builds the ring and shadow itself, from the table above.
 
 ## One number: `glass.strength`
 
@@ -86,4 +105,4 @@ Forced colours are the component's job (Meridian): system colours, no blur, and 
 
 ## Contrast gate
 
-`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings and the accent as a shape (`accent.edge` on the page, card, sunken, track and border, in light, dark and both Increase contrast modes) 3:1. Backdrops include pure black and pure white, for content that is not a token (photos, video, a product's own art), and the bar is checked for primary, muted and status text. Disabled text is exempt: WCAG 1.4.3 does not apply to inactive controls. It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.
+`npm run contrast` (`scripts/check-contrast.mjs`, a CI job) checks every text and icon pair against the worst backdrop that can sit behind it: each field stop at its strength, the accent, the code block, a card and the band, under chrome, clear and thick glass, in light and dark. Text needs 4.5:1, focus rings and the accent as a shape (`accent.edge` on the page, card, sunken, track and border, in light, dark and both Increase contrast modes) 3:1. Backdrops include pure black and pure white, for content that is not a token (photos, video, a product's own art), and the bar is checked for primary, muted and status text. Disabled text is exempt: WCAG 1.4.3 does not apply to inactive controls. A raised card (DT23) is checked too: text, focus ring, form-control edge and `accent.edge` on `surface.elevated`, the dark step (1.15:1 or more) and the ring against the page (1.5:1 or more in dark, 3:1 with Increase contrast). It also checks the sheet rule: text behind a sheet shows at most 1.25:1 before the blur. It fails the build on any miss. The solid pairs (text on every surface, status colours, both Increase contrast modes) stay in `tests/contrast.test.mjs`, which `npm test` runs.
