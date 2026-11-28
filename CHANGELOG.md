@@ -2,7 +2,7 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
-## Unreleased
+## v0.10.0 - 2026-11-28
 
 Semver level: MINOR. Two tokens are added; nothing is renamed or removed. Planned as v0.10.0, before Meridian 2.6.0.
 

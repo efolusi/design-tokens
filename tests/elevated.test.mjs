@@ -148,16 +148,16 @@ test("generated outputs are fresh (rebuild with npm run build)", () => {
   for (const [file, build] of Object.entries(OUTPUTS)) assert.equal(read(file), build(src), file);
 });
 
-test("docs say when to use it and the CHANGELOG lists it under Unreleased as a MINOR", () => {
+test("docs say when to use it and the CHANGELOG lists it in v0.10.0 as a MINOR", () => {
   const glass = read("docs/glass.md");
   assert.match(glass, /surface\.elevated/);
   assert.match(glass, /shadow\.elevated/);
   assert.match(glass, /cards in lists keep `surface\.card`/i);
   const log = read("CHANGELOG.md");
-  const unreleased = log.slice(log.indexOf("## Unreleased"), log.indexOf("## v0.9.0"));
-  assert.ok(unreleased.length > 0, "an Unreleased section above v0.9.0");
+  const unreleased = log.slice(log.indexOf("## v0.10.0"), log.indexOf("## v0.9.0"));
+  assert.ok(unreleased.length > 0, "a v0.10.0 section above v0.9.0");
   assert.match(unreleased, /Semver level: MINOR\./);
   assert.match(unreleased, /surface\.elevated/);
   assert.match(unreleased, /shadow\.elevated/);
-  assert.equal(JSON.parse(read("package.json")).version, "0.9.0", "no version bump in this change");
+  assert.equal(JSON.parse(read("package.json")).version, "0.10.0", "the package carries the released version");
 });
