@@ -22,7 +22,7 @@ All four are `cubic-bezier` with four numbers. Web uses them as written. SwiftUI
 |---|---|---|---|
 | `ease.standard` | `--ease-standard` | `.65, 0, .35, 1` | A change in place. |
 | `ease.enter` | `--ease-enter` | `.22, 1, .36, 1` | Arriving: fast start, decelerates, no overshoot. |
-| `ease.exit` | `--ease-exit` | `.5, 0, .75, 0` | Leaving: slow start, accelerates. |
+| `ease.exit` | `--ease-exit` | `.22, 1, .36, 1` | Leaving: the same curve as `ease.enter`. An exit uses ease-out too. |
 | `ease.emphasised` | `--ease-emphasised` | `.3, 1.04, .35, 1` | One clear moment: a toast landing, a counter finishing. Overshoots slightly. |
 
 ## Distance

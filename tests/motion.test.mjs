@@ -7,6 +7,7 @@ import { load, OUTPUTS, resolver, valueIn, swiftKind, swiftName, cssName, buildC
 
 // DT03 (#11): the shared motion scale. Glamor's numbers, four curves, distance steps that
 // reference the space scale, the holds, and the reduced-motion rule.
+// DT20 (v0.9.0): ease.exit is ease-out.
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = load();
 const resolve = resolver(src.tokens);
@@ -19,7 +20,7 @@ const DURATIONS = { "dur.fast": 120, "dur.base": 200, "dur.slow": 250, "dur.prog
 const CURVES = {
   "ease.standard": [0.65, 0, 0.35, 1],
   "ease.enter": [0.22, 1, 0.36, 1],
-  "ease.exit": [0.5, 0, 0.75, 0],
+  "ease.exit": [0.22, 1, 0.36, 1],
   "ease.emphasised": [0.3, 1.04, 0.35, 1],
 };
 const SHIFTS = { "shift.sm": 4, "shift.md": 8, "shift.lg": 16 };
@@ -197,4 +198,10 @@ test("docs/motion.md states the three notice rules as rules, not suggestions", (
   assert.match(section, /nothing is announced twice/);
   assert.match(section, /WCAG 2\.2\.1/);
   assert.doesNotMatch(section, /\bshould\b|\bshould not\b|\bconsider\b|\bideally\b/i, "the contract says must, not should");
+});
+
+test("ease.exit is an ease-out: the same curve as ease.enter, and the description says an exit uses ease-out too", () => {
+  assert.equal(token("ease.exit").value, token("ease.enter").value);
+  assert.match(JSON.parse(read("tokens.json")).ease.exit.$description, /an exit uses ease-out too/);
+  assert.match(css, /--ease-exit: cubic-bezier\(\.22,1,\.36,1\);/);
 });

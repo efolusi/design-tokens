@@ -349,7 +349,7 @@ public enum GlamorTokens {
     public enum Curve {
         public static let easeStandard = Bezier(0.65, 0.0, 0.35, 1.0)
         public static let easeEnter = Bezier(0.22, 1.0, 0.36, 1.0)
-        public static let easeExit = Bezier(0.5, 0.0, 0.75, 0.0)
+        public static let easeExit = Bezier(0.22, 1.0, 0.36, 1.0)
         public static let easeEmphasised = Bezier(0.3, 1.04, 0.35, 1.0)
     }
 }

@@ -2,6 +2,12 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
+## Unreleased
+
+Semver level: MINOR.
+
+- **`ease.exit` is an ease-out** (DT20). It is now `cubic-bezier(.22,1,.36,1)`, the same curve as `ease.enter` (was `.5,0,.75,0`, an ease-in): the standard is ease-out for enters, exits and state changes. No component or product reads `--ease-exit` today, so nothing visible moves; Swift `Curve.easeExit` changes the same way.
+
 ## v0.8.0 - 2026-11-27
 
 Semver level: MINOR (v0.8.0). Tokens are removed, which is breaking for any consumer that used them; while this repo is used only inside Efolusi, 0.6.0 and 0.7.0 shipped the same kind of change as a minor. The release also carries DT01 and DT02 below.
