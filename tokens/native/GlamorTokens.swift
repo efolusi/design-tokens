@@ -255,6 +255,7 @@ public enum GlamorTokens {
         public static let shiftSm: Double = 4.0
         public static let shiftMd: Double = 8.0
         public static let shiftLg: Double = 16.0
+        public static let shiftXl: Double = 32.0
         public static let materialBlur: Double = 17.28
         public static let materialBlurThick: Double = 28.0
     }
@@ -308,6 +309,8 @@ public enum GlamorTokens {
         public static let materialSheenDark: Double = 0.033
         public static let motionLift: Double = 1.012
         public static let motionPress: Double = 0.98
+        public static let motionEnterScaleSm: Double = 0.97
+        public static let motionEnterScaleLg: Double = 0.98
         public static let opacityTint: Double = 0.12
         public static let opacityPill: Double = 0.1
         public static let opacityIncreased: Double = 0.16
@@ -336,6 +339,7 @@ public enum GlamorTokens {
         public static let durBase: Double = 0.2
         public static let durSlow: Double = 0.25
         public static let durProgress: Double = 0.25
+        public static let durModal: Double = 0.4
         public static let durLoop: Double = 1.4
         public static let durLoopSlow: Double = 1.6
         public static let holdSpinnerDelay: Double = 0.3
@@ -349,7 +353,7 @@ public enum GlamorTokens {
     public enum Curve {
         public static let easeStandard = Bezier(0.65, 0.0, 0.35, 1.0)
         public static let easeEnter = Bezier(0.22, 1.0, 0.36, 1.0)
-        public static let easeExit = Bezier(0.5, 0.0, 0.75, 0.0)
+        public static let easeExit = Bezier(0.22, 1.0, 0.36, 1.0)
         public static let easeEmphasised = Bezier(0.3, 1.04, 0.35, 1.0)
     }
 }

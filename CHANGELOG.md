@@ -2,6 +2,16 @@
 
 Releases are tags on this repo. Consumers re-vendor to the same tag (see [docs/consumers.md](docs/consumers.md)).
 
+## Unreleased
+
+Semver level: MINOR. `dur.long` is removed, which is breaking for any consumer that used it; nothing in Meridian's components or Glamor reads it.
+
+- **Breaking: `dur.long` (480 ms, web only) is replaced by `dur.modal`** (DT21, [docs/motion.md](docs/motion.md)). `dur.modal` is 400 ms, for a modal, a drawer or a panel, on web and native (Swift `durModal`, 0.4). No alias is kept. Like `dur.long`, it falls to the `dur.fast` fade under reduced motion. Replace every `--dur-long` use.
+- **`ease.exit` is an ease-out** (DT20). It is now `cubic-bezier(.22,1,.36,1)`, the same curve as `ease.enter` (was `.5,0,.75,0`, an ease-in): the standard is ease-out for enters, exits and state changes. No component or product reads `--ease-exit` today, so nothing visible moves; Swift `Curve.easeExit` changes the same way.
+- **Enter scales** (DT21). `motion.enter-scale.sm` 0.97 (tooltip, dropdown) and `motion.enter-scale.lg` 0.98 (modal, panel), CSS `--motion-enter-scale-sm` and `-lg`, Swift `motionEnterScaleSm` and `motionEnterScaleLg`. Both become 1 under reduced motion (no scale; the opacity cross-fade stays).
+- **`shift.xl` is 32 px** (DT21), next to `shift.sm`, `md` and `lg`. It aliases `space.8` and is 0 under reduced motion. CSS `--shift-xl`, Swift `shiftXl`.
+- **The exit pairing and the house values are written down** (DT21, [docs/motion.md](docs/motion.md)): an exit is one step shorter than its enter (fast 120 exits at 120, base 200 at 120, slow 250 at 200, modal 400 at 250); press 0.98 and fast 120 are the house values; ease-out everywhere except loops (`linear`); springs only for things with weight (native); movement, scale and blur only under `no-preference`, an opacity cross-fade under `reduce`.
+
 ## v0.8.0 - 2026-11-27
 
 Semver level: MINOR (v0.8.0). Tokens are removed, which is breaking for any consumer that used them; while this repo is used only inside Efolusi, 0.6.0 and 0.7.0 shipped the same kind of change as a minor. The release also carries DT01 and DT02 below.
